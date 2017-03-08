@@ -18,6 +18,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('tagline')->nullable();
+            $table->string('fb')->nullable();
+            $table->string('github')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('website')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('snapchat')->nullable();
+            $table->string('image')->nullable();
+            $table->text('about')->nullable();
+            $table->boolean('enable_keyboard')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('bottom_js')
+<script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>
+<link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
 <script>
 $(document).ready(function() {
     $('#settingsForm').submit(function(event) {
@@ -8,34 +10,34 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: '{{action('PageController@submitSettings')}}',
-            // data: $(this).serialize()+'&'+$.param({ 'about': editor.getData() }),
             data: $(this).serialize(),
             dataType: 'json',
             success: function(data) {
                 if(data['message'] == 'success') {
                      $("#message").fadeIn().removeClass('alert-danger').addClass("alert alert-success").html("Successfully updated settings.");
+                     $.growl.notice({title: "Success", message: "Successfully updated settings.", size: "large"});
                 } else {
                     string = '';
                     $.each(data, function(key, value){
                         string += value + "<br/>";
                     });
-                    $("#message").fadeIn().removeClass('alert-success').addClass("alert alert-danger").html(string);                    
+                    $("#message").fadeIn().removeClass('alert-success').addClass("alert alert-danger").html(string);
+                    $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                   
                 }
             }
         });
         event.preventDefault();
     });
-    // var editor = CKEDITOR.replace('inputAbout');
 });
 </script>
 @stop
 
 @section('content')
 <div class="col">
+    @if(Session::has('message'))
+        <p class="alert alert-info">{{ Session::get('message') }}</p>
+    @endif  
     <div class="card">
-        @if(Session::has('message'))
-            <p class="alert alert-info">{{ Session::get('message') }}</p>
-        @endif  
         <div class="card-header">Settings</div>
         <div class="card-block">      
             <div id="message"></div>
@@ -109,7 +111,7 @@ $(document).ready(function() {
                 <hr/>
                 <div class="form-group">
                     <label for="inputAbout">About Me:</label>
-                    <textarea class="form-control" id="inputAbout">{{Auth::user()->about}}</textarea>
+                    <textarea class="form-control" id="inputAbout" name="about">{{Auth::user()->about}}</textarea>
                     <p class="help-block">Introduce yourself, list organizations you're involved with, etc.</p>
                 </div>
                 @if(env('APP_PHASE') == 1)
