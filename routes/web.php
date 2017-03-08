@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Public Routes
+Route::get('/', 'PageController@index');
+
+// User Routes
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
+	Route::get('/dashboard', 'PageController@dashboard');
+	Route::get('settings', 'PageController@showSettings');
+	Route::get('settings/picture', 'PageController@showSettingsPicture');
+	Route::post('settings', 'PageController@submitSettings');
+	Route::post('store', 'PageController@tempProfilePicStore');
+	Route::post('crop', 'PageController@cropPicture');
+});
