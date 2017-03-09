@@ -84,4 +84,8 @@ class AdminController extends Controller {
         }
         return response()->json(['message' => 'success']);
     }
+
+    public function disableAccount(User $user) {
+    	return "ok";
+    }
 }

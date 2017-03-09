@@ -48,7 +48,11 @@ $(document).ready(function() {
               <label for="inputEmail">Email address</label>
               <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$user->email}}">
             </div>
+            <hr/>
             <div class="form-group">
+              @if(Auth::user()->id == $user->id)
+                <div class="alert alert-danger"><b>Warning.</b> Removing yourself as an admin will result in losing access to the admin panel.</div>
+              @endif
               <label for="inputRoles">Roles (shift-click for multiple)</label>
               <select multiple class="form-control" id="inputRoles" name="roles[]">
                 @foreach($roles as $role)

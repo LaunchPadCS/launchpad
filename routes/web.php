@@ -32,4 +32,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
 	Route::get('users', 'AdminController@showUsers');
 	Route::get('users/edit/{user}', 'AdminController@editUser');
 	Route::post('users/edit/{user}', 'AdminController@submitEditUser');
+	Route::post('users/disable/{user?}', 'AdminController@disableAccount');
 });
