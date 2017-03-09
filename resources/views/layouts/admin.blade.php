@@ -33,23 +33,20 @@
 			</button>
 		<a class="navbar-brand" href="#">LaunchPad</a>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			@if (Auth::guest())
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-		   		</ul>
-		   	@else
 		   		<ul class="navbar-nav mr-auto">
-		   			<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Dashboard</a></li>
-		   			@role(['admin', 'mentor'])
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Rate</a></li>
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Applications</a></li>
-		   			@endrole
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Applications
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="{{ action('PageController@showSettings') }}">Define Import Schema</a>
+							<a class="dropdown-item" href="{{ action('PageController@showSettingsPicture') }}">Import Applications</a>						
+							<a class="dropdown-item" href="{{ route('logout') }}">Manage Applications</a>
+						</div>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="{{ action('AdminController@showUsers') }}">Manage Users</a></li>
 		   		</ul>
 				<ul class="navbar-nav ml-auto">
-					@role(['admin'])
-						<li class="nav-item"><a class="nav-link" href="{{ action('AdminController@dashboard') }}">Admin</a></li>
-					@endrole
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ Auth::user()->name }}
@@ -65,7 +62,6 @@
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
 						</div>
 					</li>
-				@endif
 			</ul>
 		  </div>
 		</nav>
