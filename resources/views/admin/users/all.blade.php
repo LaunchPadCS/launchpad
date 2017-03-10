@@ -15,23 +15,19 @@ $(document).ready(function() {
 		$("#confirm").data('id', $(this).data('id'));
 	});
 	$("#confirm").click(function(event) {
-		console.log("fire delete");
+		var dataid = $(this).data('id');
         $.ajax({
             type: 'POST',
 			url: '{{action('AdminController@disableAccount')}}' + '/' + $(this).data('id'),
             dataType: 'json',
             success: function(data) {
                 if(data['message'] == 'success') {
-                     $("#message").fadeIn().removeClass('alert-danger').addClass("alert alert-success").html("Successfully updated settings.");
-                     $.growl.notice({title: "Success", message: "Successfully updated settings.", size: "large"});
+                     $.growl.notice({title: "Success", message: "Successfully deleted user.", size: "large"});
+                     $("#user-" + dataid).fadeOut(300, function() { $(this).remove(); });
                 } else {
-                    string = '';
-                    $.each(data, function(key, value){
-                        string += value + "<br/>";
-                    });
-                    $("#message").fadeIn().removeClass('alert-success').addClass("alert alert-danger").html(string);
-                    $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                   
+                    $.growl.error({title: "Oops!", message: "Something went wrong!", duration: 5000, size: "large" });                   
                 }
+                $('#myModal').modal('hide');
             }
         });
 	});
@@ -92,12 +88,17 @@ $(document).ready(function() {
   					<tbody>
   					@if($admins != null)
 						@foreach ($admins as $user)
-							<tr>
+							<tr id="user-{{$user->id}}">
         					<th scope="row">{{$user->id}}</th>
         					<td>{{ $user->name }}</td>
         					<td>{{ $user->email }}</td>
         					<td><a href="{{action('AdminController@editUser', ['user' => $user->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-        					<td><a href="#" class="btn btn-outline-danger btn-sm disable" data-toggle="modal" data-target="#myModal" data-id="{{$user->id}}" data-name="{{$user->name}}"><i class="fa fa-ban" aria-hidden="true"></i> Disable</a></td>
+        					<td>
+        					@if($user->id != Auth::user()->id)
+        					<a href="#" class="btn btn-outline-danger btn-sm disable" data-toggle="modal" data-target="#myModal" data-id="{{$user->id}}" data-name="{{$user->name}}"><i class="fa fa-ban" aria-hidden="true"></i> Disable</a>
+        					@endif
+        					</td>
+        					</tr>
     					@endforeach
     				@endif
     				</tbody>

@@ -86,7 +86,9 @@ class AdminController extends Controller {
     }
 
     public function disableAccount(User $user) {
-    	$user->delete();
-        return ['message' => 'success'];
+        if($user->id != Auth::user()->id) {
+    	   $user->delete();
+           return ['message' => 'success'];
+        }
     }
 }
