@@ -86,6 +86,7 @@ class AdminController extends Controller {
     }
 
     public function disableAccount(User $user) {
-    	return "ok";
+    	$user->delete();
+        return ['message' => 'success'];
     }
 }
