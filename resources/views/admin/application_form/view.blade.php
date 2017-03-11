@@ -52,12 +52,12 @@ var sortable = Sortable.create(listWithHandle, {
 });
 
 $(document).ready(function() {
-	$('.edit').click(function(event) {
+	$('#listWithHandle').on('click', '.edit', function() {
 		$("#inputQuestionText").val($("#question-text-" + $(this).data('id')).text());
 		$("#" + $(this).data('type')).prop('selected', true);
 		$("#qid").val($(this).data('id'));
 	});
-	$('.delete').click(function(event) {
+	$('#listWithHandle').on('click', '.delete', function() {
 		$("#confirm").data('id', $(this).data('id'));
 	});
 	$("#confirm").click(function(event) {
@@ -101,11 +101,76 @@ $(document).ready(function() {
         });
         event.preventDefault();
 	});
+	$('#questionCreateForm').submit(function(event) {
+        $.ajax({
+            type: 'POST',
+            url: '{{action('AdminController@createQuestion')}}',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if(data['message'] == 'success') {
+                     $.growl.notice({title: "Success", message: "Successfully created question.", size: "large"});
+                     $('#addQuestionModal').modal('hide');
+                     $("#inputQuestionTextAdd").val("");
+                     $("#inputQuestionTypeAdd").val("string");
+                     var string = `
+                     <div class="list-group-item" data-id="`+data['question']['order']+`" data-dbid="`+data['question']['id']+`" id="question-`+data['question']['id']+`">
+						<div class="btn-group" role="group">
+  							<button type="button" class="btn btn-outline-primary mover"><i class="fa fa-arrows" aria-hidden="true"></i></button>
+  							<button type="button" class="btn btn-outline-success edit" id="question-edit-`+data['question']['id']+`" data-toggle="modal" data-target="#myModal" data-id="`+data['question']['id']+`" data-type="`+data['question']['type']+`"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+  							<button type="button" class="btn btn-outline-danger delete" data-toggle="modal" data-target="#deleteModal" data-id="`+data['question']['id']+`"><i class="fa fa-ban" aria-hidden="true"></i></button>
+						</div>
+      					&nbsp;<span id="question-text-`+data['question']['id']+`">`+data['question']['text']+`</span>
+    				</div>
+                     `;
+                     $("#listWithHandle").append(string);
+                } else {
+                    string = '';
+                    $.each(data, function(key, value){
+                        string += value + "<br/>";
+                    });
+                    $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                       
+                }
+            }
+        });		
+		event.preventDefault();
+	});
 });
 </script>
 @stop
 
 @section('content')
+<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <form id="questionCreateForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addQuestionModal">Add Question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<div class="form-group">
+			<label for="inputQuestionTextAdd">Question Text</label>
+			<textarea class="form-control" id="inputQuestionTextAdd" rows="3" name="text_create"></textarea>
+		</div>
+		<div class="form-group">
+		  <label for="inputQuestionTypeAdd">Question Type</label>
+		  <select class="form-control" id="inputQuestionTypeAdd" name="type_create">
+		    <option value="string">string (short answer)</option>
+		    <option value="text">text (long answer)</option>
+		  </select>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create Question</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -161,9 +226,9 @@ $(document).ready(function() {
     <div class="card">
         <div class="card-header">Application Form</div>
         <div class="card-block">
-        	<button class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i> Create Question</button>
+        	<button class="btn btn-secondary" data-toggle="modal" data-target="#addQuestionModal"><i class="fa fa-plus" aria-hidden="true"></i> Create Question</button>
         	<hr/>
-        	<div id="listWithHandle" class="list-group">	
+        	<div id="listWithHandle" class="list-group">
         	@foreach($questions as $question)
 				<div class="list-group-item" data-id="{{$question->order}}" data-dbid="{{$question->id}}" id="question-{{$question->id}}">
 					<div class="btn-group" role="group">

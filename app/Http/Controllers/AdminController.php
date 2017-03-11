@@ -108,6 +108,24 @@ class AdminController extends Controller {
         return ['message' => 'success'];
     }
 
+    public function createQuestion(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'text_create' => 'required',
+            'type_create' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $order = Question::count();
+
+        $question = new Question;
+        $question->text = $request->text_create;  
+        $question->type = $request->type_create;  
+        $question->order = $order;
+        $question->save();
+        return ['message' => 'success', 'question' => ['id' => $question->id, 'type' => $question->type, 'order' => $question->order, 'text' => $question->text]];
+    }
+
     public function updateQuestion(Request $request, Question $question) {
         $validator = \Validator::make($request->all(), [
             'text' => 'required',
