@@ -8,6 +8,7 @@ use DB;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
+use App\Models\Question;
 
 class AdminController extends Controller {
     /**
@@ -27,7 +28,7 @@ class AdminController extends Controller {
     public function showUsers() {
 		$admins = Role::where("name", "admin")->first();
 		$mentors = Role::where("name", "mentor")->first();
-		$mentees = Role::where("name", "mentees")->first();
+		$mentees = Role::where("name", "mentee")->first();
 		if($admins != null) {
 			$admins = $admins->users()->get();
 		}
@@ -90,5 +91,25 @@ class AdminController extends Controller {
     	   $user->delete();
            return ['message' => 'success'];
         }
+    }
+
+    public function showApplicationForm() {
+        $questions = Question::orderBy('order')->get();
+        return view('admin.application_form.view', ['questions' => $questions]);
+    }
+
+    public function submitQuestionOrder(Request $request) {
+        $arr = json_decode($request->getContent(),true);
+        foreach($arr as $key => $val) {
+            $question = Question::where('id', $key)->first();
+            $question->order = $val;
+            $question->save();
+        }
+        return ['message' => 'success'];
+    }
+
+    public function deleteQuestion(Question $question) {
+        $question->delete();
+        return ['message' => 'success'];
     }
 }

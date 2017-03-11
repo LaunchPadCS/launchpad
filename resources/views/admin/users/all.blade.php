@@ -16,20 +16,20 @@ $(document).ready(function() {
 	});
 	$("#confirm").click(function(event) {
 		var dataid = $(this).data('id');
-        $.ajax({
-            type: 'POST',
-			url: '{{action('AdminController@disableAccount')}}' + '/' + $(this).data('id'),
-            dataType: 'json',
-            success: function(data) {
-                if(data['message'] == 'success') {
-                     $.growl.notice({title: "Success", message: "Successfully deleted user.", size: "large"});
-                     $("#user-" + dataid).fadeOut(300, function() { $(this).remove(); });
-                } else {
-                    $.growl.error({title: "Oops!", message: "Something went wrong!", duration: 5000, size: "large" });                   
-                }
-                $('#myModal').modal('hide');
+    $.ajax({
+        type: 'POST',
+        url: '{{action('AdminController@disableAccount')}}' + '/' + $(this).data('id'),
+        dataType: 'json',
+        success: function(data) {
+            if(data['message'] == 'success') {
+                 $.growl.notice({title: "Success", message: "Successfully deleted user.", size: "large"});
+                 $("#user-" + dataid).fadeOut(300, function() { $(this).remove(); });
+            } else {
+                $.growl.error({title: "Oops!", message: "Something went wrong!", duration: 5000, size: "large" });                   
             }
-        });
+            $('#myModal').modal('hide');
+        }
+    });
 	});
 });
 </script>
@@ -119,12 +119,13 @@ $(document).ready(function() {
   					<tbody>
   					@if($mentors != null)
 						@foreach ($mentors as $user)
-							<tr>
+							<tr id="user-{{$user->id}}">
         					<th scope="row">{{$user->id}}</th>
         					<td>{{ $user->name }}</td>
         					<td>{{ $user->email }}</td>
         					<td><a href="{{action('AdminController@editUser', ['user' => $user->id])}}" class="btn btn-outline-primary btn-sm">Edit &raquo;</a></td>
         					<td><a href="#" class="btn btn-outline-danger btn-sm disable" data-toggle="modal" data-target="#myModal" data-id="{{$user->id}}" data-name="{{$user->name}}"><i class="fa fa-ban" aria-hidden="true"></i> Disable</a></td>
+                </tr>
     					@endforeach
     				@endif
     				</tbody>
@@ -145,12 +146,13 @@ $(document).ready(function() {
   					<tbody>
   					@if($mentees != null)
 						@foreach ($mentees as $user)
-							<tr>
+							<tr id="user-{{$user->id}}">
         					<th scope="row">{{$user->id}}</th>
         					<td>{{ $user->name }}</td>
         					<td>{{ $user->email }}</td>
         					<td><a href="{{action('AdminController@editUser', ['user' => $user->id])}}" class="btn btn-outline-primary btn-sm">Edit &raquo;</a></td>
         					<td><a href="#" class="btn btn-outline-danger btn-sm disable" data-toggle="modal" data-target="#myModal" data-id="{{$user->id}}" data-name="{{$user->name}}"><i class="fa fa-ban" aria-hidden="true"></i> Disable</a></td>
+                </tr>
     					@endforeach
     				@endif
     				</tbody>

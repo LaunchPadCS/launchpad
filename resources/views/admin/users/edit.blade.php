@@ -14,9 +14,15 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 if(data['message'] == 'success') {
-                     $.growl.notice({title: "Success", message: "Successfully disabled user.", size: "large"});
+                     $("#message").fadeIn().removeClass('alert-danger').addClass("alert alert-success").html("Successfully updated settings.");
+                     $.growl.notice({title: "Success", message: "Successfully updated settings.", size: "large"});
                 } else {
-                    $.growl.error({title: "Oops!", message: "Something went wrong!", duration: 5000, size: "large" });                   
+                    string = '';
+                    $.each(data, function(key, value){
+                        string += value + "<br/>";
+                    });
+                    $("#message").fadeIn().removeClass('alert-success').addClass("alert alert-danger").html(string);
+                    $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                       
                 }
             }
         });

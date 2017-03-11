@@ -39,9 +39,8 @@
 							Applications
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="{{ action('PageController@showSettings') }}">Define Import Schema</a>
-							<a class="dropdown-item" href="{{ action('PageController@showSettingsPicture') }}">Import Applications</a>						
-							<a class="dropdown-item" href="{{ route('logout') }}">Manage Applications</a>
+							<a class="dropdown-item" href="{{ action('AdminController@showApplicationForm') }}">Manage Application Form</a>					
+							<a class="dropdown-item" href="{{ action('PageController@showSettings') }}">Manage Applications</a>
 						</div>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="{{ action('AdminController@showUsers') }}">Manage Users</a></li>

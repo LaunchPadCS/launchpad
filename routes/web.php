@@ -27,10 +27,19 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
 });
 
 // Admin Routes
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function() {
 	Route::get('dashboard', 'AdminController@dashboard');
-	Route::get('users', 'AdminController@showUsers');
-	Route::get('users/edit/{user}', 'AdminController@editUser');
-	Route::post('users/edit/{user}', 'AdminController@submitEditUser');
-	Route::post('users/disable/{user?}', 'AdminController@disableAccount');
+
+	Route::group(['prefix' => 'application'], function() {
+		Route::get('form', 'AdminController@showApplicationForm');
+		Route::post('form/order', 'AdminController@submitQuestionOrder');
+		Route::post('question/delete/{question?}', 'AdminController@deleteQuestion');
+	});
+
+	Route::group(['prefix' => 'users'], function() {
+		Route::get('/', 'AdminController@showUsers');
+		Route::get('edit/{user}', 'AdminController@editUser');
+		Route::post('edit/{user}', 'AdminController@submitEditUser');
+		Route::post('disable/{user?}', 'AdminController@disableAccount');
+	});
 });
