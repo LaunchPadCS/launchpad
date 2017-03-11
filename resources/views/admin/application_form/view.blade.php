@@ -5,6 +5,13 @@
 <script src="{{ asset('js/jquery.binding.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>
 <link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
+<style>
+.mover {
+    cursor: move;
+    cursor: -webkit-grabbing;
+}
+</style>
+
 <script>
 $.ajaxSetup({
     headers: {
@@ -46,9 +53,9 @@ var sortable = Sortable.create(listWithHandle, {
 
 $(document).ready(function() {
 	$('.edit').click(function(event) {
-		$("#inputQuestionText").val($(this).data('question'));
+		$("#inputQuestionText").val($("#question-text-" + $(this).data('id')).text());
 		$("#" + $(this).data('type')).prop('selected', true);
-		$("#save").data('id', $(this).data('id'));
+		$("#qid").val($(this).data('id'));
 	});
 	$('.delete').click(function(event) {
 		$("#confirm").data('id', $(this).data('id'));
@@ -70,6 +77,30 @@ $(document).ready(function() {
 		    }
 		});
 	});
+	$('#questionUpdateForm').submit(function(event) {
+		var question_id = $("#qid").val();
+        $.ajax({
+            type: 'POST',
+            url: '{{action('AdminController@updateQuestion')}}' + '/' + question_id,
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if(data['message'] == 'success') {
+                     $.growl.notice({title: "Success", message: "Successfully updated settings.", size: "large"});
+                     $("#question-text-" + question_id).text($("#inputQuestionText").val());
+                     $("#question-edit-" + question_id).data('type', $("#inputQuestionType").val());
+                     $('#myModal').modal('hide');
+                } else {
+                    string = '';
+                    $.each(data, function(key, value){
+                        string += value + "<br/>";
+                    });
+                    $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                       
+                }
+            }
+        });
+        event.preventDefault();
+	});
 });
 </script>
 @stop
@@ -78,6 +109,8 @@ $(document).ready(function() {
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
+    <form id="questionUpdateForm">
+    	<input type="hidden" name="question-id" id="qid">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -85,24 +118,23 @@ $(document).ready(function() {
         </button>
       </div>
       <div class="modal-body">
-		<form>
-  			<div class="form-group">
-    			<label for="inputQuestionText">Question Text</label>
-    			<textarea class="form-control" id="inputQuestionText" rows="3"></textarea>
-  			</div>
-			<div class="form-group">
-			  <label for="inputQuestionType">Question Type</label>
-			  <select class="form-control" id="inputQuestionType">
-			    <option value="string" id="string">string (short answer)</option>
-			    <option value="text" id="text">text (long answer)</option>
-			  </select>
-			</div>
-  		</form>
+		<div class="form-group">
+			<label for="inputQuestionText">Question Text</label>
+			<textarea class="form-control" id="inputQuestionText" rows="3" name="text"></textarea>
+		</div>
+		<div class="form-group">
+		  <label for="inputQuestionType">Question Type</label>
+		  <select class="form-control" id="inputQuestionType" name="type">
+		    <option value="string" id="string">string (short answer)</option>
+		    <option value="text" id="text">text (long answer)</option>
+		  </select>
+		</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -136,10 +168,10 @@ $(document).ready(function() {
 				<div class="list-group-item" data-id="{{$question->order}}" data-dbid="{{$question->id}}" id="question-{{$question->id}}">
 					<div class="btn-group" role="group">
   						<button type="button" class="btn btn-outline-primary mover"><i class="fa fa-arrows" aria-hidden="true"></i></button>
-  						<button type="button" class="btn btn-outline-success edit" data-toggle="modal" data-target="#myModal" data-id="{{$question->id}}" data-question="{{$question->text}}" data-type="{{$question->type}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+  						<button type="button" class="btn btn-outline-success edit" id="question-edit-{{$question->id}}" data-toggle="modal" data-target="#myModal" data-id="{{$question->id}}" data-type="{{$question->type}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
   						<button type="button" class="btn btn-outline-danger delete" data-toggle="modal" data-target="#deleteModal" data-id="{{$question->id}}"><i class="fa fa-ban" aria-hidden="true"></i></button>
 					</div>
-      				&nbsp;{{$question->text}}
+      				&nbsp;<span id="question-text-{{$question->id}}">{{$question->text}}</span>
     			</div>
         	@endforeach
         	</div>

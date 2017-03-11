@@ -108,6 +108,20 @@ class AdminController extends Controller {
         return ['message' => 'success'];
     }
 
+    public function updateQuestion(Request $request, Question $question) {
+        $validator = \Validator::make($request->all(), [
+            'text' => 'required',
+            'type' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $question->text = $request->text;  
+        $question->type = $request->type;  
+        $question->save();
+        return ['message' => 'success'];
+    }
+
     public function deleteQuestion(Question $question) {
         $question->delete();
         return ['message' => 'success'];
