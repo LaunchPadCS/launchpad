@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Question;
+use App\Models\Applicant;
+use App\Models\FormResponse;
 
 class PageController extends Controller {
     /**
@@ -97,5 +100,48 @@ class PageController extends Controller {
 
         \Session::flash('message', 'Updated profile photo!'); 
         return response()->json(['message' => 'success']);
-    }   
+    }
+
+    public function showApplicationForm() {
+        $questions = Question::orderBy('order')->get();
+        return view('application', ['questions' => $questions]);
+    }
+
+    public function submitApplicationForm(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:applicants,email',
+        ]);
+        $errors = [];
+        $questions = Question::all();
+        foreach($questions as $question) {
+            if(!$request->has($question->id)) {
+                $errors[] = $question->id;
+            }
+        }
+        if ($validator->fails() || !empty($errors)) {
+            $validator_errors = $validator->errors()->all();
+            if(!empty($errors)) {
+                $validator_errors[] = "Please fill in all the application questions.";
+            }
+            return [$validator_errors, 'errors' => $errors];
+        }
+
+        $applicant = new Applicant;
+        $applicant->name = $request->name;
+        $applicant->email = $request->email;
+        $applicant->save();
+
+        foreach($request->all() as $key => $value) {
+            if($key != "_token" && $key != "name" && $key != "email") {
+                $response = new FormResponse;
+                $response->application_id = $applicant->id;
+                $response->question_id = $key;
+                $response->response = $value;
+                $response->save();
+            }
+        }
+
+        return ['message' => 'success'];
+    }
 }

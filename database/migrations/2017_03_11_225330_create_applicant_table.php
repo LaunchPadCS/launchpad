@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResponsesTable extends Migration
+class CreateApplicantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('responses', function (Blueprint $table) {
+        Schema::create('applicants', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('application_id');
-            $table->integer('question_id')->unsigned();
-            $table->foreign('question_id')->references('id')->on('questions')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->text('response');
+            $table->string('name');
+            $table->string('email');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responses');
+        Schema::dropIfExists('applicants');
     }
 }

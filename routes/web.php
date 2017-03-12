@@ -15,6 +15,8 @@ Auth::routes();
 
 // Public Routes
 Route::get('/', 'PageController@index');
+Route::get('application', 'PageController@showApplicationForm');
+Route::post('application', 'PageController@submitApplicationForm');
 
 // User Routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
