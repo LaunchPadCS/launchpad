@@ -42,7 +42,7 @@
 		   		<ul class="navbar-nav mr-auto">
 		   			<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Dashboard</a></li>
 		   			@role(['admin', 'mentor'])
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Rate</a></li>
+		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showRate') }}">Rate</a></li>
 		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Applications</a></li>
 		   			@endrole
 		   		</ul>

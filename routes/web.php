@@ -18,6 +18,8 @@ Route::get('/', 'PageController@index');
 Route::get('application', 'PageController@showApplicationForm');
 Route::post('application', 'PageController@submitApplicationForm');
 
+Route::get('datatables', ['as' => 'datatables.data', 'uses' => 'PageController@getApplications']);
+
 // User Routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
 	Route::get('dashboard', 'PageController@dashboard');
@@ -38,6 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 		Route::post('question/delete/{question?}', 'AdminController@deleteQuestion');
 		Route::post('question/edit/{question?}', 'AdminController@updateQuestion');
 		Route::post('question/create', 'AdminController@createQuestion');
+		Route::post('submitDecision', 'AdminController@submitDecision');
 	});
 
 	Route::group(['prefix' => 'users'], function() {
@@ -46,4 +49,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 		Route::post('edit/{user}', 'AdminController@submitEditUser');
 		Route::post('disable/{user?}', 'AdminController@disableAccount');
 	});
+
+	Route::group(['prefix' => 'interview'], function() {
+		Route::post('form', 'AdminController@submitTimeslot');
+	});
+});
+
+// Mentor Routes
+Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'role:admin|mentor']], function() {
+	Route::get('applications', 'MentorController@showApplications');
+	Route::get('rate/{id?}', 'MentorController@showRate');
+	Route::post('rate/submit', 'MentorController@submitRating');
 });

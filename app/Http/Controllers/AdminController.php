@@ -144,4 +144,12 @@ class AdminController extends Controller {
         $question->delete();
         return ['message' => 'success'];
     }
+
+    public function submitTimeslot() {
+
+    }
+
+    public function submitDecision() {
+        
+    }
 }

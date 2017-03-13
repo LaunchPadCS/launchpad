@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Question;
 use App\Models\Applicant;
 use App\Models\FormResponse;
+use Datatables;
 
 class PageController extends Controller {
     /**
@@ -141,7 +142,14 @@ class PageController extends Controller {
                 $response->save();
             }
         }
-
         return ['message' => 'success'];
+    }
+
+    public function getApplications() {
+        $applications = Applicant::select([
+            'applicants.id',
+            'applicants.name',
+            'applicants.email']);
+        return Datatables::of($applications)->make(true);
     }
 }
