@@ -99,7 +99,7 @@ $('#decisionForm button').click(function() {
 			</h2>
 			<hr/>
             @foreach($application->getResponsesAttribute() as $response)
-            	<b>{{$response->question->text}}</b><br/>
+            	<b>{{$response->text}}</b><br/>
             	{{$response->response}}
             	<hr/>
             @endforeach

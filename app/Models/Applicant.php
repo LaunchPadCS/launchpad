@@ -47,7 +47,13 @@ class Applicant extends Model {
     }
 
     public function getResponsesAttribute() {
-        return FormResponse::where('application_id', $this->id)->get();
+        // Ideally use attributes and with()
+        $r = FormResponse::where('application_id', $this->id)
+            ->join('questions', 'responses.question_id', '=', 'questions.id')
+            ->orderBy('questions.order', 'ASC')
+            ->get();
+        return $r;
+        // return FormResponse::where('application_id', $this->id)->get();
     }
     
     public function getUserRatingAttribute() {
