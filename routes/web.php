@@ -18,7 +18,7 @@ Route::get('/', 'PageController@index');
 Route::get('application', 'PageController@showApplicationForm');
 Route::post('application', 'PageController@submitApplicationForm');
 
-Route::get('datatables', ['as' => 'datatables.data', 'uses' => 'PageController@getApplications']);
+Route::get('datatables', ['as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
 
 // User Routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {

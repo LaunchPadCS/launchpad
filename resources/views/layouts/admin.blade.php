@@ -39,8 +39,7 @@
 							Applications
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="{{ action('AdminController@showApplicationForm') }}">Manage Application Form</a>					
-							<a class="dropdown-item" href="{{ action('MentorController@showApplications') }}">Manage Applications</a>
+							<a class="dropdown-item" href="{{ action('AdminController@showApplicationForm') }}">Manage Application Form</a>
 						</div>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="{{ action('AdminController@showUsers') }}">Manage Users</a></li>

@@ -144,12 +144,4 @@ class PageController extends Controller {
         }
         return ['message' => 'success'];
     }
-
-    public function getApplications() {
-        $applications = Applicant::select([
-            'applicants.id',
-            'applicants.name',
-            'applicants.email']);
-        return Datatables::of($applications)->make(true);
-    }
 }

@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Models\Applicant;
 use App\Models\ApplicantRating;
+use Datatables;
 
 class MentorController extends Controller {
     /**
@@ -69,5 +70,19 @@ class MentorController extends Controller {
         $rating->rating = $request->rating;
         $rating->save();
         return response()->json(['message' => 'success', 'redirect' => action('MentorController@showRate', ['id' => $this->getNextApplicationID()])]);
+    }
+
+    public function getApplications() {
+        $applications = Applicant::select([
+            'applicants.id',
+            'applicants.name',
+            'applicants.email',
+            \DB::raw('count(applicant_ratings.applicant_id) as ratings'),
+            \DB::raw('TRUNCATE(AVG(applicant_ratings.rating),2) as avg'),
+            \DB::raw('applicant_ratings.rating as myrating'),
+        ])->leftJoin('applicant_ratings','applicant_ratings.applicant_id','=','applicants.id')
+        ->groupBy('applicants.id');
+
+        return Datatables::of($applications)->make(true);
     }
 }
