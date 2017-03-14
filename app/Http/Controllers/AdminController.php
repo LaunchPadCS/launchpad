@@ -9,6 +9,8 @@ use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\Question;
+use App\Models\InterviewSlot;
+use Carbon\Carbon;
 
 class AdminController extends Controller {
     /**
@@ -151,5 +153,62 @@ class AdminController extends Controller {
 
     public function submitDecision() {
         
+    }
+
+    public function showCreateInterview() {
+        return view('admin.interviews.create');
+    }
+
+    public function submitCreateInterview(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'start_time' => 'required|date_format:"d/m/Y H:i"',
+            'end_time' => 'required|date_format:"d/m/Y H:i"',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $start = new Carbon($request->start_time);
+        $end = new Carbon($request->end_time);
+
+        $interview = new InterviewSlot;
+        $interview->start_time = $start;
+        $interview->end_time = $end;
+        $interview->save();
+
+        return ['message' => 'success'];
+    }
+
+    public function submitBulkCreateInterview(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'start_day' => 'required|date_format:"d/m/Y"',
+            'end_day' => 'required|date_format:"d/m/Y"',
+            'start_time' => 'required|numeric',
+            'end_time' => 'required|numeric',
+            'offset' => 'required|numeric',
+            'length' => 'required|numeric|min:0',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $currDay = new Carbon($request->start_day);
+        $endDay = new Carbon($request->end_day);
+
+        while($currDay <= $endDay) {
+            $currTime = $currDay->copy();
+            $currTime->addHours($request->start_time);
+
+            $endTime = $currDay->copy();
+            $endTime->addHours($request->end_time);
+         
+            while($currTime <= $endTime) {
+                $interview = new InterviewSlot;
+                $interview->start_time = $currTime;
+                $interview->end_time = $currTime->copy()->addMinutes($request->length);
+                $interview->save();
+                $currTime->addMinutes($request->length)->addMinutes($request->offset);
+            }
+            $currDay->addDays(1);
+        }
+        return response()->json(['message' => 'success']);
     }
 }

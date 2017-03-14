@@ -44,7 +44,7 @@ var sortable = Sortable.create(listWithHandle, {
 	        if(data['message'] == 'success') {
 	             $.growl.notice({title: "Success", message: "Questions reordered.", size: "large"});
 	        } else {
-	            $.growl.error({title: "Oops!", message: string, duration: 5000, size: "large" });                       
+	            $.growl.error({title: "Oops!", message: 'Something went wrong!', duration: 5000, size: "large" });                       
 	        }
 	    }
 	});
