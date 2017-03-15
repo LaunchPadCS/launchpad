@@ -41,15 +41,15 @@
 		   	@else
 		   		<ul class="navbar-nav mr-auto">
 		   			<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Dashboard</a></li>
-		   			@role(['admin', 'mentor'])
+		   			@role('mentor')
 		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showRate') }}">Rate</a></li>
 		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showApplications') }}">Applications</a></li>
 		   			@endrole
+		   			@role('admin')
+		   				@include('layouts.admin_nav')
+		   			@endrole
 		   		</ul>
 				<ul class="navbar-nav ml-auto">
-					@role(['admin'])
-						<li class="nav-item"><a class="nav-link" href="{{ action('AdminController@dashboard') }}">Admin</a></li>
-					@endrole
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ Auth::user()->name }}

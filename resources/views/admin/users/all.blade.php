@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('bottom_js')
 <script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>

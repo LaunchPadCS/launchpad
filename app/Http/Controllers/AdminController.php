@@ -14,15 +14,6 @@ use Carbon\Carbon;
 
 class AdminController extends Controller {
     /**
-     * Show the admin dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard() {
-        return view('admin.home');
-    }
-
-    /**
      * Show manage users page
      *
      * @return \Illuminate\Http\Response

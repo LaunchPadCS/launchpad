@@ -32,8 +32,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
 
 // Admin Routes
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function() {
-	Route::get('dashboard', 'AdminController@dashboard');
-
 	Route::group(['prefix' => 'application'], function() {
 		Route::get('form', 'AdminController@showApplicationForm');
 		Route::post('form/order', 'AdminController@submitQuestionOrder');

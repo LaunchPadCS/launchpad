@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('bottom_js')
 <script src="{{ asset('js/cleave.min.js') }}"></script>
