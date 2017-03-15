@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
 	Route::group(['prefix' => 'interview'], function() {
 		Route::get('create', 'AdminController@showCreateInterview');
+		Route::get('assign', 'AdminController@showAssignInterview');
 		Route::post('createBulk', 'AdminController@submitBulkCreateInterview');
 		Route::post('create', 'AdminController@submitCreateInterview');
 		Route::post('form', 'AdminController@submitTimeslot');

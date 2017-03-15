@@ -16,4 +16,8 @@ class InterviewSlot extends Model
 		$c = new \Carbon\Carbon($this->end_time);
 		return $c->format('g:i A');
 	}
+
+	public function assignments() {
+        return $this->hasMany('App\Models\InterviewAssignment');
+	}
 }

@@ -202,4 +202,10 @@ class AdminController extends Controller {
         }
         return response()->json(['message' => 'success']);
     }
+
+    public function showAssignInterview() {
+        $interviews = InterviewSlot::all();
+        $mentors = Role::where("name", "mentor")->first()->users()->get(['id', 'name']);
+        return view('admin.interviews.assign', ['interviews' => $interviews, 'mentors' => $mentors]);
+    }
 }
