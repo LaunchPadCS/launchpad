@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class InterviewAssignment extends Model {
 	protected $fillable = ['*'];
 	protected $table="interview_assignment";
-
+	public $timestamps = false;
+	
 	public function post() {
         return $this->belongsTo('App\Models\InterviewSlot');
     }

@@ -10,6 +10,7 @@ use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\Question;
 use App\Models\InterviewSlot;
+use App\Models\InterviewAssignment;
 use Carbon\Carbon;
 
 class AdminController extends Controller {
@@ -206,6 +207,22 @@ class AdminController extends Controller {
     public function showAssignInterview() {
         $interviews = InterviewSlot::all();
         $mentors = Role::where("name", "mentor")->first()->users()->get(['id', 'name']);
-        return view('admin.interviews.assign', ['interviews' => $interviews, 'mentors' => $mentors]);
+        $admins = Role::where("name", "admin")->first()->users()->get(['id', 'name']);
+        return view('admin.interviews.assign', ['interviews' => $interviews, 'interviewers' => $mentors->merge($admins)]);
+    }
+
+    public function submitAssignment(Request $request, InterviewSlot $interviewslot) {
+        $interview_assignments = InterviewAssignment::where('interview_slot_id', $interviewslot->id)->delete();
+        foreach($request->mentors as $mentor) {
+            $user = User::where('name', $mentor);
+            if($user->count()) {
+                $user = $user->first();
+                $assignment = new InterviewAssignment;
+                $assignment->user_id = $user->id;
+                $assignment->interview_slot_id = $interviewslot->id;
+                $assignment->save();
+            }
+        }
+        return ['message' => 'success'];
     }
 }

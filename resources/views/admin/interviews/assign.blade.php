@@ -2,25 +2,55 @@
 
 @section('bottom_js')
 <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}" type="text/javascript"></script>
-
 <script src="{{ asset('js/bootstrap3-typeahead.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>
+<link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
+
 <script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
 $('.mentorInput').tagsinput({
   typeahead: {
     source: [
-    @foreach($mentors as $mentor)
-      '{{$mentor->name}}',
+    @foreach($interviewers as $interviewer)
+      '{{$interviewer->name}}',
     @endforeach
     ]
   },
   tagClass: 'label label-primary',
   freeInput: false
 });
+
+function handleAssignmentChange(mentors, id) {
+  console.log(mentors);
+  console.log(id);
+  $.ajax({
+      type: 'POST',
+      url: '{{action('AdminController@submitAssignment')}}' + '/' + id,
+      data: {'mentors': mentors},
+      dataType: 'json',
+      success: function(data) {
+          if(data['message'] == 'success') {
+               $.growl.notice({title: "Success", message: "Successfully updated assignent.", size: "large"});
+          } else {
+              $.growl.error({title: "Oops!", message: "Something went wrong!", duration: 5000, size: "large" });                   
+          }
+      }
+  });
+}
+
 $('.mentorInput').on('itemAdded', function() {
   setTimeout(function() {
       $(">input[type=text]", ".bootstrap-tagsinput").val("");
   }, 0);
+  handleAssignmentChange($(this).tagsinput('items'), $(this).data('id'));
+});
+$('.mentorInput').on('itemRemoved', function() {
+  handleAssignmentChange($(this).tagsinput('items'), $(this).data('id'));
 });
 </script>
 
@@ -180,20 +210,14 @@ a.label:focus {
                 <td></td>
                 <td>Interview &raquo;</td>
                 <td>
-              
-              <form>
-
-                  <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput">
+                  <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput" data-id="{{$interview->id}}">
                     @foreach($interview->assignments as $assignment)
                       <option value="{{$assignment->user->name}}">{{$assignment->user->name}}</option>
                     @endforeach
-                  </select>
-  
-              </form>
-              </td>
+                  </select> 
+                </td>
               </tr>
-				@endforeach
-
+				    @endforeach
         </div>
     </div>
 </div>
