@@ -10,7 +10,7 @@ class InterviewSlot extends Model
 	
 	public function getFormattedStartTimeAttribute() {
 		$c = new \Carbon\Carbon($this->start_time);
-		return $c->format('l, F j \a\t g:i A');
+		return $c->format('F j, g:i A');
 	}
 	public function getFormattedEndTimeAttribute() {
 		$c = new \Carbon\Carbon($this->end_time);

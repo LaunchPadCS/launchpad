@@ -160,36 +160,40 @@ a.label:focus {
     <div class="card">
         <div class="card-header">Assign Interviews</div>
         <div class="card-block">
-			<div id="accordion" role="tablist" aria-multiselectable="true">
-				@foreach($interviews as $interview)
-				  <div class="card">
-				    <div class="card-header" role="tab" id="heading-{{$interview->id}}">
-				      <h5 class="mb-0">
-				        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{$interview->id}}" aria-expanded="true" aria-controls="collapse-{{$interview->id}}">
-				          Interview #{{$interview->id}} ({{$interview->formattedStartTime}})
-				        </a>
-				      </h5>
-				    </div>
-
-				    <div id="collapse-{{$interview->id}}" class="collapse" role="tabpanel" aria-labelledby="heading-{{$interview->id}}">
-				      <div class="card-block">
-             
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Students</th>
+                <th>Interview</th>
+                <th>Mentors</th>
+              </tr>
+            </thead>
+            <tbody>
+				    @foreach($interviews as $interview)
+				      <tr>
+                <td scope="row">{{$interview->id}}</td>
+                <td>{{$interview->formattedStartTime}}</td>
+                <td>{{$interview->formattedEndTime}}</td>
+                <td></td>
+                <td>Interview &raquo;</td>
+                <td>
+              
               <form>
-                <div class="form-group">
-				          <label>Interviewers</label>
+
                   <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput">
                     @foreach($interview->assignments as $assignment)
                       <option value="{{$assignment->user->name}}">{{$assignment->user->name}}</option>
                     @endforeach
                   </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+  
               </form>
-				      </div>
-				    </div>
-				  </div>
+              </td>
+              </tr>
 				@endforeach
-			</div>
+
         </div>
     </div>
 </div>
