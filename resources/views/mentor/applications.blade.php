@@ -33,6 +33,8 @@ $(function() {
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Reviews</th>
+                        <th>My Rating</th>
                     </tr>
                 </thead>
             </table>
