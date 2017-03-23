@@ -1,6 +1,8 @@
 <?php
-use Illuminate\Database\Seeder;
+
 use App\Models\Role;
+use Illuminate\Database\Seeder;
+
 class RolesSeeder extends Seeder
 {
     /**
@@ -10,8 +12,8 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-		Role::firstOrCreate(['name' => 'mentor']);
+        Role::firstOrCreate(['name' => 'mentor']);
         Role::firstOrCreate(['name' => 'admin']);
-    	Role::firstOrCreate(['name' => 'mentee']);
+        Role::firstOrCreate(['name' => 'mentee']);
     }
 }

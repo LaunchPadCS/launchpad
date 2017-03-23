@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateInterviewAssignmentTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateInterviewAssignmentTable extends Migration
      */
     public function up()
     {
-       Schema::create('interview_assignment', function (Blueprint $table) {
+        Schema::create('interview_assignment', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('interview_slot_id')->unsigned()->index();
             $table->foreign('interview_slot_id')->references('id')->on('interview_slot');

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
@@ -13,7 +13,7 @@ class User extends Authenticatable
         SoftDeletes::restore insteadof EntrustUserTrait;
         EntrustUserTrait::restore insteadof SoftDeletes;
     }
-    
+
     use Notifiable;
 
     /**
@@ -34,8 +34,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function assignments() {
+    public function assignments()
+    {
         return $this->hasMany('App\Models\InterviewAssignment');
     }
-    
 }
