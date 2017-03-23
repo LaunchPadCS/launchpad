@@ -2,47 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
-use DB;
 use App\Models\Applicant;
 use App\Models\ApplicantRating;
+use Auth;
 use Datatables;
+use DB;
+use Illuminate\Http\Request;
 
-class MentorController extends Controller {
+class MentorController extends Controller
+{
     /**
-     * Show all applications
+     * Show all applications.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showApplications() {
+    public function showApplications()
+    {
         return view('mentor.applications');
     }
 
-	public function getNextApplicationID() {
+    public function getNextApplicationID()
+    {
         $user = Auth::user();
-        foreach(Applicant::orderBy(DB::raw('RAND()'))->get() as $app) {
-        	$rating = ApplicantRating::where('applicant_id',$app->id)->where('user_id','=',$user->id)->first();
-            if(!$rating) {
-                return($app->id);
-            }      
+        foreach (Applicant::orderBy(DB::raw('RAND()'))->get() as $app) {
+            $rating = ApplicantRating::where('applicant_id', $app->id)->where('user_id', '=', $user->id)->first();
+            if (!$rating) {
+                return $app->id;
+            }
         }
-        return null;
     }
 
-	public function showRate($id  = null) {
-        if(is_null($id)) {
+    public function showRate($id = null)
+    {
+        if (is_null($id)) {
             $id = $this->getNextApplicationID();
             // If user has rated all applicants
-            if(is_null($id)) {
+            if (is_null($id)) {
                 return redirect()->action('PageController@dashboard')->with('message', 'Looks like you\'ve rated everyone. Great job!');
             }
+
             return redirect()->action('MentorController@showRate', ['id' => $id]);
         }
         try {
             $application = Applicant::findOrFail($id);
             $rating = ApplicantRating::where('applicant_id', $id)->where('user_id', Auth::user()->id)->first();
-            if($rating) {
+            if ($rating) {
                 $rating = $rating->toArray();
             }
             $data['id'] = $id;
@@ -52,11 +56,12 @@ class MentorController extends Controller {
             // }
             return view('mentor.rate', compact('application', 'data', 'rating'));
         } catch (\Exception $e) {
-            return redirect('/')->with('message', 'Could not find application.'); 
+            return redirect('/')->with('message', 'Could not find application.');
         }
     }
 
-    public function submitRating(Request $request) {
+    public function submitRating(Request $request)
+    {
         $validator = \Validator::make($request->all(), [
             'app_id' => 'required|exists:applicants,id',
             'rating' => 'required|numeric|max:3|min:1',
@@ -69,10 +74,12 @@ class MentorController extends Controller {
         $rating->user_id = Auth::user()->id;
         $rating->rating = $request->rating;
         $rating->save();
+
         return response()->json(['message' => 'success', 'redirect' => action('MentorController@showRate', ['id' => $this->getNextApplicationID()])]);
     }
 
-    public function getApplications() {
+    public function getApplications()
+    {
         $applications = Applicant::select([
             'applicants.id',
             'applicants.name',
@@ -80,7 +87,7 @@ class MentorController extends Controller {
             \DB::raw('count(applicant_ratings.applicant_id) as ratings'),
             \DB::raw('TRUNCATE(AVG(applicant_ratings.rating),2) as avg'),
             \DB::raw('applicant_ratings.rating as myrating'),
-        ])->leftJoin('applicant_ratings','applicant_ratings.applicant_id','=','applicants.id')
+        ])->leftJoin('applicant_ratings', 'applicant_ratings.applicant_id', '=', 'applicants.id')
         ->groupBy('applicants.id');
 
         return Datatables::of($applications)->make(true);
