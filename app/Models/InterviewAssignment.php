@@ -10,9 +10,9 @@ class InterviewAssignment extends Model
     protected $table = 'interview_assignment';
     public $timestamps = false;
 
-    public function post()
+    public function slot()
     {
-        return $this->belongsTo('App\Models\InterviewSlot');
+        return $this->belongsTo('App\Models\InterviewSlot', 'interview_slot_id', 'id');
     }
 
     public function user()

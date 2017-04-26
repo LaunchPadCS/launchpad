@@ -27,7 +27,8 @@ class PageController extends Controller
      */
     public function dashboard()
     {
-        return view('dashboard.home');
+        $data = \App\Models\User::where('id', Auth::user()->id)->with('assignments.slot')->first();
+        return view('dashboard.home', ['data' => $data]);
     }
 
     public function showSettings()

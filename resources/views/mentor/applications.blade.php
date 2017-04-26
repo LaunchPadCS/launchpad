@@ -16,6 +16,14 @@ $(function() {
             { data: 'reviews', name: 'ratings',searchable: false},
             { data: 'UserRating', name: 'myrating',searchable: false},
         ],
+		"aoColumnDefs": [
+            {
+                "aTargets": [0], // Column to target
+                "mRender": function ( data, type, full ) {
+                    return '<a href="{{action('MentorController@showRate')}}/' + data + '">' + data + '</a>';
+                }
+            },
+        ]
     });
 });
 </script>

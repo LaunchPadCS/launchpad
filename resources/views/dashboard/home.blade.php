@@ -10,7 +10,13 @@
         <div class="card-block">
         	<h3>Welcome Back, <b>{{Auth::user()->name}}</b></h3>
         	<hr/>
-        	Nothing to see here...yet.
+            @if(env('APP_PHASE') == 1)
+                @role(['admin', 'mentor'])
+                    @foreach($data->assignments as $assignment)
+                        {{$assignment->slot->formattedStartTime}} to {{$assignment->slot->formattedEndTime}}
+                    @endforeach
+                @endrole
+            @endif
         </div>
     </div>
 </div>
