@@ -27,6 +27,6 @@ class InterviewSlot extends Model
 
     public function assignments()
     {
-        return $this->hasMany('App\Models\InterviewAssignment', 'intervew_slot_id', 'id');
+        return $this->hasMany('App\Models\InterviewAssignment');
     }
 }
