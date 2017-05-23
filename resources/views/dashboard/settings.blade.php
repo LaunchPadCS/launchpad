@@ -86,7 +86,7 @@ $(document).ready(function() {
                         <input type="text" class="form-control" id="inputFB" value="{{Auth::user()->fb}}" name="fb" placeholder="Facebook Username">
                     </div>
                     @role(['admin', 'mentor'])
-                        <p class="form-text text-muted">Displayed on Ignite homepage. Not required.</p>
+                        <p class="form-text text-muted">Displayed on LaunchPad homepage. Not required.</p>
                     @endrole
                     @role(['mentee'])
                         <p class="form-text text-muted">Shown only to other community members.</p>

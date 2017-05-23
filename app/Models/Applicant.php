@@ -77,4 +77,8 @@ class Applicant extends Model
     {
         return $this->hasMany('App\Models\ApplicantRating');
     }
+
+    public function interview_slot() {
+        return $this->belongsTo('App\Models\InterviewSlot');
+    }
 }

@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Applicant;
 
 class InterviewSlot extends Model
 {
     protected $table = 'interview_slot';
     protected $fillable = ['*'];
     public $timestamps = false;
-    protected $appends = ['formattedStartTime', 'formattedEndTime'];
+    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount'];
 
     public function getFormattedStartTimeAttribute()
     {
@@ -25,8 +26,17 @@ class InterviewSlot extends Model
         return $c->format('g:i A');
     }
 
+    public function getApplicationsCountAttribute()
+    {
+        return Applicant::where('interview_slot_id',$this->id)->count();
+    }
+
     public function assignments()
     {
         return $this->hasMany('App\Models\InterviewAssignment');
+    }
+    public function applicants()
+    {
+        return $this->hasMany('App\Models\Applicant');
     }
 }

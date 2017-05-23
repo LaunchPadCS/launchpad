@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
+use App\Models\Applicant;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -156,8 +157,19 @@ class AdminController extends Controller
         return ['message' => 'success'];
     }
 
-    public function submitTimeslot()
+    public function submitTimeslot(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'id' => 'required|exists:applicants,id',
+            'timeslot' => 'required|exists:interview_slot,id',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $applicant = Applicant::find($request->id);
+        $applicant->interview_slot_id = $request->timeslot;
+        $applicant->save();
+        return response()->json(['message' => 'success']);
     }
 
     public function submitDecision()

@@ -47,10 +47,10 @@ $('.mentorInput').on('itemAdded', function() {
   setTimeout(function() {
       $(">input[type=text]", ".bootstrap-tagsinput").val("");
   }, 0);
-  handleAssignmentChange($(this).tagsinput('items'), $(this).data('id'));
+  handleAssignmentChange($(this).tagsinput('items'), $(this).data('mentorid'));
 });
 $('.mentorInput').on('itemRemoved', function() {
-  handleAssignmentChange($(this).tagsinput('items'), $(this).data('id'));
+  handleAssignmentChange($(this).tagsinput('items'), $(this).data('mentorid'));
 });
 </script>
 
@@ -207,10 +207,17 @@ a.label:focus {
                 <td scope="row">{{$interview->id}}</td>
                 <td>{{$interview->formattedStartTime}}</td>
                 <td>{{$interview->formattedEndTime}}</td>
-                <td></td>
+                <td>
+                  @foreach($interview->applicants as $applicant)
+                    <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>
+                    @if (!$loop->last)
+                      ,
+                    @endif
+                  @endforeach
+                </td>
                 <td>Interview &raquo;</td>
                 <td>
-                  <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput" data-id="{{$interview->id}}">
+                  <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput" data-mentorid="{{$interview->id}}">
                     @foreach($interview->assignments as $assignment)
                       <option value="{{$assignment->user->name}}">{{$assignment->user->name}}</option>
                     @endforeach

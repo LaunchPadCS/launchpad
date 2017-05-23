@@ -12,9 +12,36 @@
         	<hr/>
             @if(env('APP_PHASE') == 1)
                 @role(['admin', 'mentor'])
-                    @foreach($data->assignments as $assignment)
-                        {{$assignment->slot->formattedStartTime}} to {{$assignment->slot->formattedEndTime}}
-                    @endforeach
+                    <h4>Interview Assignments</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Start Time</th>
+                                <th>Applicants</th>
+                                <th>Interview Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($data->assignments as $assignment)
+                            <tr>
+                                <td>
+                                    {{$assignment->slot->formattedStartTime}} to {{$assignment->slot->formattedEndTime}}
+                                </td>
+                                <td>
+                                    @foreach($assignment->slot->applicants as $applicant)
+                                        <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>
+                                        @if (!$loop->last)
+                                          ,
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    Interview &raquo;
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 @endrole
             @endif
         </div>

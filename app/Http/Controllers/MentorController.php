@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\ApplicantRating;
+use App\Models\InterviewSlot;
 use Auth;
 use Datatables;
 use DB;
@@ -50,11 +51,8 @@ class MentorController extends Controller
                 $rating = $rating->toArray();
             }
             $data['id'] = $id;
-            // $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
-            // if(($interviews = Interview::where('app_id', $id)->get()) != null) {
-            // 	$interviews = $interviews->toArray();
-            // }
-            return view('mentor.rate', compact('application', 'data', 'rating'));
+            $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
+            return view('mentor.rate', compact('application', 'data', 'rating', 'slots'));
         } catch (\Exception $e) {
             return redirect('/')->with('message', 'Could not find application.');
         }
@@ -84,10 +82,13 @@ class MentorController extends Controller
             'applicants.id',
             'applicants.name',
             'applicants.email',
+            'applicants.interview_slot_id',
             \DB::raw('count(applicant_ratings.applicant_id) as ratings'),
             \DB::raw('TRUNCATE(AVG(applicant_ratings.rating),2) as avg'),
             \DB::raw('applicant_ratings.rating as myrating'),
+            \DB::raw('interview_slot.start_time as starttime'),
         ])->leftJoin('applicant_ratings', 'applicant_ratings.applicant_id', '=', 'applicants.id')
+        ->leftJoin('interview_slot', 'interview_slot.id', '=', 'applicants.interview_slot_id')
         ->groupBy('applicants.id');
 
         return Datatables::of($applications)->make(true);

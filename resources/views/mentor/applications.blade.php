@@ -3,6 +3,7 @@
 @section('bottom_js')
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('js/tempbs4.min.js') }}"></script>
+<script src="{{ asset('js/moment.js') }}"></script>
 <script>
 $(function() {
     var table = $('#applications-table').DataTable({
@@ -15,12 +16,26 @@ $(function() {
             { data: 'email', name: 'email' },
             { data: 'reviews', name: 'ratings',searchable: false},
             { data: 'UserRating', name: 'myrating',searchable: false},
+            { data: 'starttime', name: 'starttime',searchable: false},
+            @role('admin')
+            { data: 'avg', name: 'avg',searchable: false},
+            @endrole
         ],
 		"aoColumnDefs": [
             {
                 "aTargets": [0], // Column to target
                 "mRender": function ( data, type, full ) {
                     return '<a href="{{action('MentorController@showRate')}}/' + data + '">' + data + '</a>';
+                }
+            },
+            {
+                "aTargets": [5], // Column to target
+                "mRender": function ( data, type, full ) {
+                    console.log(data);
+                    if(data) {
+                        return moment(data).format("MMMM Do, h:mm a");
+                    }
+                    return "&#10006";
                 }
             },
         ]
@@ -43,6 +58,10 @@ $(function() {
                         <th>Email</th>
                         <th>Reviews</th>
                         <th>My Rating</th>
+                        <th>Interview Start</th>
+                        @role('admin')
+                        <th>Average</th>
+                        @endrole
                     </tr>
                 </thead>
             </table>
