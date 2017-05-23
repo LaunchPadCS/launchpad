@@ -2,7 +2,7 @@
 
 @section('bottom_js')
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('js/tempbs4.min.js') }}"></script>
+<script src="{{ asset('js/datatables_bs4_compat.min.js') }}"></script>
 <script src="{{ asset('js/moment.js') }}"></script>
 <script>
 $(function() {
@@ -23,15 +23,14 @@ $(function() {
         ],
 		"aoColumnDefs": [
             {
-                "aTargets": [0], // Column to target
+                "aTargets": [0],
                 "mRender": function ( data, type, full ) {
                     return '<a href="{{action('MentorController@showRate')}}/' + data + '">' + data + '</a>';
                 }
             },
             {
-                "aTargets": [5], // Column to target
+                "aTargets": [5],
                 "mRender": function ( data, type, full ) {
-                    console.log(data);
                     if(data) {
                         return moment(data).format("MMMM Do, h:mm a");
                     }
