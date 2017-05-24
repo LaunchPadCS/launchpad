@@ -80,7 +80,8 @@ class MentorController extends Controller
     {
         $applications = Applicant::select([
             'applicants.id',
-            'applicants.name',
+            'applicants.firstname',
+            'applicants.lastname',
             'applicants.email',
             'applicants.interview_slot_id',
             \DB::raw('count(applicant_ratings.applicant_id) as ratings'),

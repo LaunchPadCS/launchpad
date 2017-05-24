@@ -41,7 +41,7 @@ class Applicant extends Model
         ];
     }
 
-    protected $appends = ['reviews', 'UserRating', 'responses'];
+    protected $appends = ['reviews', 'UserRating', 'responses', 'name'];
 
     /**
      * Determine number of times the application has been reviewed.
@@ -51,6 +51,10 @@ class Applicant extends Model
         return ApplicantRating::where('applicant_id', $this->id)->get()->count();
     }
 
+    public function getNameAttribute()
+    {
+        return $this->firstname . " " . $this->lastname;
+    }
     public function getResponsesAttribute()
     {
         // Ideally use attributes and with()

@@ -40,10 +40,21 @@
 					</div>
 					<form id="applicantForm">
 						{{ csrf_field() }}
-						<div class="form-group" id="inputNameGroup">
-							<label for="inputName">First and Last Name</label>
-							<input type="text" class="form-control" id="inputName" name="name">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group" id="inputFirstNameGroup">
+									<label for="inputFirstName">First Name</label>
+									<input type="text" class="form-control" id="inputFirstName" name="firstname">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group" id="inputLastNameGroup">
+									<label for="inputLastName">Last Name</label>
+									<input type="text" class="form-control" id="inputLastName" name="lastname">
+								</div>
+							</div>
 						</div>
+
 						<div class="form-group" id="inputEmailGroup">
 							<label for="inputEmail">Email</label>
 							<input type="email" class="form-control" id="inputEmail" name="email">
@@ -74,9 +85,11 @@
 		});
 		$(document).ready(function() {
 		    $('#applicantForm').submit(function(event) {
-		    	$("#inputName").removeClass('has-danger');
-		    	$("#inputEmail").removeClass('has-danger');
-		    	$("#inputNameGroup").removeClass('has-danger');
+		    	$("#inputFirstName").removeClass('form-control-danger');
+		    	$("#inputLastName").removeClass('form-control-danger');
+		    	$("#inputEmail").removeClass('form-control-danger');
+		    	$("#inputFirstNameGroup").removeClass('has-danger');
+		    	$("#inputLastNameGroup").removeClass('has-danger');
 		    	$("#inputEmailGroup").removeClass('has-danger');
 		    	@foreach($questions as $question)
 		    		$("#group-{{$question->id}}").removeClass('has-danger');
@@ -89,14 +102,20 @@
 		            dataType: 'json',
 		            success: function(data) {
 		                if(data['message'] == 'success') {
+		                	$("#danger").hide();
 		                     $("#success").show();
 		                     $("#applicantForm").slideUp();
 		                } else {
 		                    string = '';
-		                    if(data[0].includes("name")) {
-		                    	string += "Please fill in your complete name.<br/>";
-		    					$("#inputNameGroup").addClass('has-danger');
-		    					$("#inputName").addClass('form-control-danger');
+		                    if(data[0].includes("firstname")) {
+		                    	string += "Please fill in your first name.<br/>";
+		    					$("#inputFirstNameGroup").addClass('has-danger');
+		    					$("#inputFirstName").addClass('form-control-danger');
+		                    }
+		                    if(data[0].includes("lastname")) {
+		                    	string += "Please fill in your last name.<br/>";
+		    					$("#inputLastNameGroup").addClass('has-danger');
+		    					$("#inputLastName").addClass('form-control-danger');
 		                    }
 		                    if(data[0].includes("email")) {
 		                    	string += "There was an issue with the provided email.<br/>";

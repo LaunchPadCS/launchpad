@@ -15,7 +15,8 @@ class CreateApplicantTable extends Migration
     {
         Schema::create('applicants', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('firstname');
+            $table->string('lastname');
             $table->string('email');
             $table->timestamps();
             $table->softDeletes();

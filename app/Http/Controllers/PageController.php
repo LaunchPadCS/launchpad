@@ -126,7 +126,8 @@ class PageController extends Controller
     public function submitApplicationForm(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'name'  => 'required',
+            'firstname'  => 'required',
+            'lastname'  => 'required',
             'email' => 'required|email|unique:applicants,email',
         ]);
         $errors = [];
@@ -146,12 +147,13 @@ class PageController extends Controller
         }
 
         $applicant = new Applicant();
-        $applicant->name = $request->name;
+        $applicant->firstname = $request->firstname;
+        $applicant->lastname = $request->lastname;
         $applicant->email = $request->email;
         $applicant->save();
 
         foreach ($request->all() as $key => $value) {
-            if ($key != '_token' && $key != 'name' && $key != 'email') {
+            if ($key != '_token' && $key != 'firstname' && $key != 'email' && $key != 'lastname') {
                 $response = new FormResponse();
                 $response->application_id = $applicant->id;
                 $response->question_id = $key;
