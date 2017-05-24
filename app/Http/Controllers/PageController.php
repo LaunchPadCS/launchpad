@@ -120,7 +120,7 @@ class PageController extends Controller
     {
         $questions = Question::orderBy('order')->get();
 
-        return view('application', ['questions' => $questions]);
+        return view('apply', ['questions' => $questions]);
     }
 
     public function submitApplicationForm(Request $request)
@@ -137,7 +137,7 @@ class PageController extends Controller
             }
         }
         if ($validator->fails() || !empty($errors)) {
-            $validator_errors = $validator->errors()->all();
+            $validator_errors = $validator->errors()->keys();
             if (!empty($errors)) {
                 $validator_errors[] = 'Please fill in all the application questions.';
             }

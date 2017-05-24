@@ -15,8 +15,8 @@ Auth::routes();
 
 // Public Routes
 Route::get('/', 'PageController@index');
-Route::get('application', 'PageController@showApplicationForm');
-Route::post('application', 'PageController@submitApplicationForm');
+Route::get('apply', 'PageController@showApplicationForm');
+Route::post('apply', 'PageController@submitApplicationForm');
 
 Route::get('datatables', ['as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
 
