@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\FormResponse;
 use App\Models\Question;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,9 @@ class PageController extends Controller
      */
     public function dashboard()
     {
-        $data = \App\Models\User::where('id', Auth::user()->id)->with('assignments.slot')->first();
+        if(Auth::user()->hasRole(['admin', 'mentor'])) {
+            $data = User::where('id', Auth::user()->id)->with('assignments.slot')->first();
+        }
         return view('dashboard.home', ['data' => $data]);
     }
 

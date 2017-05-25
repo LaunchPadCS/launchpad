@@ -7,6 +7,7 @@ use App\Models\ApplicantRating;
 use App\Models\InterviewSlot;
 use App\Models\InterviewPrompt;
 use App\Models\Interview;
+use App\Models\User;
 use Auth;
 use Datatables;
 use DB;
@@ -23,6 +24,12 @@ class MentorController extends Controller
     public function showApplications()
     {
         return view('mentor.applications');
+    }
+
+    public function showInterviewSchedule() {
+        $interviews = InterviewSlot::orderBy('start_time', 'asc')->get();
+        $mentors = User::get(array('id', 'name'))->toArray();
+        return view('mentor.schedule', ['interviews' => $interviews, 'mentors' => $mentors]);
     }
 
     public function getNextApplicationID()

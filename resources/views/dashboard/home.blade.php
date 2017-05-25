@@ -36,7 +36,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    Interview &raquo;
+                                    <a href="{{action('MentorController@showInterview')}}{{$assignment->slot->applicationsID}}">Interview &raquo;</a>
                                 </td>
                             </tr>
                         @endforeach

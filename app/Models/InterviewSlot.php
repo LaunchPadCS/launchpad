@@ -10,7 +10,7 @@ class InterviewSlot extends Model
     protected $table = 'interview_slot';
     protected $fillable = ['*'];
     public $timestamps = false;
-    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount'];
+    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount', 'applicationsID'];
 
     public function getFormattedStartTimeAttribute()
     {
@@ -35,8 +35,19 @@ class InterviewSlot extends Model
     {
         return $this->hasMany('App\Models\InterviewAssignment');
     }
+
     public function applicants()
     {
         return $this->hasMany('App\Models\Applicant');
+    }
+
+    public function getApplicationsIDAttribute()
+    {
+        $apps = Applicant::where('interview_slot_id',$this->id)->get(array('id'));
+        $string = "/";
+        foreach($apps as $app) {
+            $string .= $app['id'] . "/";
+        }
+        return rtrim($string, '/');
     }
 }
