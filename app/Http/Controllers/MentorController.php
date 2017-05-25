@@ -91,8 +91,11 @@ class MentorController extends Controller
             \DB::raw('TRUNCATE(AVG(applicant_ratings.rating),2) as avg'),
             \DB::raw('applicant_ratings.rating as myrating'),
             \DB::raw('interview_slot.start_time as starttime'),
+            \DB::raw('TRUNCATE(AVG(interview_notes.rating),2) as interview_avg'),
+            \DB::raw('TRUNCATE((AVG(interview_notes.rating)+AVG(applicant_ratings.rating))/2, 3) as total_avg'),
         ])->leftJoin('applicant_ratings', 'applicant_ratings.applicant_id', '=', 'applicants.id')
         ->leftJoin('interview_slot', 'interview_slot.id', '=', 'applicants.interview_slot_id')
+        ->leftJoin('interview_notes', 'interview_notes.applicant_id', '=', 'applicants.id')
         ->groupBy('applicants.id');
 
         return Datatables::of($applications)->make(true);

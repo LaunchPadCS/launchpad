@@ -17,8 +17,10 @@ $(function() {
             { data: 'reviews', name: 'ratings',searchable: false},
             { data: 'UserRating', name: 'myrating',searchable: false},
             { data: 'starttime', name: 'starttime',searchable: false},
+            { data: 'interview_avg', name: 'interview_avg',searchable: false},
             @role('admin')
             { data: 'avg', name: 'avg',searchable: false},
+            { data: 'total_avg', name: 'total_avg',searchable: false},
             @endrole
         ],
 		"aoColumnDefs": [
@@ -32,7 +34,7 @@ $(function() {
                 "aTargets": [5],
                 "mRender": function ( data, type, full ) {
                     if(data) {
-                        return moment(data).format("MMMM Do, h:mm a");
+                        return moment(data).format("M/D, h:mm a");
                     }
                     return "&#10006";
                 }
@@ -58,8 +60,10 @@ $(function() {
                         <th>Reviews</th>
                         <th>My Rating</th>
                         <th>Interview Start</th>
+                        <th>Avg Interview Rating</th>
                         @role('admin')
                         <th>Average</th>
+                        <th>Total Avg</th>
                         @endrole
                     </tr>
                 </thead>
