@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\ApplicantRating;
 use App\Models\InterviewSlot;
+use App\Models\InterviewPrompt;
+use App\Models\Interview;
 use Auth;
 use Datatables;
 use DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MentorController extends Controller
 {
@@ -93,5 +96,62 @@ class MentorController extends Controller
         ->groupBy('applicants.id');
 
         return Datatables::of($applications)->make(true);
+    }
+
+    public function showInterview($id = null)
+    {
+        if($id) {
+            $params = array_unique(explode('/', $id));
+            $prompt = InterviewPrompt::first();
+            try {
+                $applicants = array();
+                $interviews = array();
+                foreach($params as $interviewID) {
+                    $applicant = Applicant::findOrFail($interviewID, ['id', 'firstname', 'lastname', 'email'])->toArray();
+                    $applicants[] = $applicant;
+                    $interview = Interview::where('applicant_id', $interviewID)->where('user_id', Auth::user()->id)->first();
+                    if(!is_null($interview)) {
+                        $interviews[] = $interview->toArray();
+                    } else {
+                        $interviews[] = array('notes' => '', 'applicant_id' => $applicant['id'], 'user_id' => Auth::user()->id, 'decision' => -1);
+                    }
+                }
+                return view('mentor.interview', ['prompt' => $prompt, 'applicants' => $applicants, 'interviews' => $interviews]);
+            } catch (\Exception $e) {
+                return redirect()->action('PageController@dashboard')->with('message', 'Error building interview'); 
+            }
+        }
+    }
+
+    public function updateInterview(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'applicant_id' => 'required|exists:applicants,id',
+            'notes' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $interview = Interview::firstOrNew(['applicant_id' => $request->applicant_id, 'user_id' => Auth::user()->id]);
+        $interview->applicant_id = $request->applicant_id;
+        $interview->user_id = Auth::user()->id;
+        $interview->notes = $request->notes;
+        $interview->save();
+        $updated_at = new Carbon($interview->updated_at);
+        return response()->json(['message' => 'success', 'updated_at' => $updated_at->format('g:i:s A')]);
+    }
+
+    public function updateInterviewRating(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'applicant_id' => 'required|exists:applicants,id',
+            'rating' => 'required|between:1,5',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $interview = Interview::firstOrNew(['applicant_id' => $request->applicant_id, 'user_id' => Auth::user()->id]);
+        $interview->rating = $request->rating;
+        $interview->save();
+        $updated_at = new Carbon($interview->updated_at);
+        return response()->json(['message' => 'success']);        
     }
 }

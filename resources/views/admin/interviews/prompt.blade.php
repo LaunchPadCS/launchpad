@@ -31,7 +31,7 @@ simplemde.codemirror.on("change", function() {
 @section('content')
 <div class="col">
     <div class="card">
-        <div class="card-header">Manage Interivew Prompt</div>
+        <div class="card-header">Manage Interview Prompt</div>
         <div class="card-block">
             <textarea id="editor">{{$prompt->prompt}}</textarea>
             <span id="save_text">Nothing saved yet.</span>

@@ -61,8 +61,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 });
 
 // Mentor Routes
-Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'role:admin|mentor']], function () {
+Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'role:admin|mentor', 'phase:1']], function () {
     Route::get('applications', 'MentorController@showApplications');
     Route::get('rate/{id?}', 'MentorController@showRate');
     Route::post('rate/submit', 'MentorController@submitRating');
+    Route::get('interview/active/{id?}', 'MentorController@showInterview')->where('id', '(.*)');
+    Route::post('interview', 'MentorController@updateInterview');
+    Route::post('interviewRating', 'MentorController@updateInterviewRating');
 });
