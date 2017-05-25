@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InterviewAssignment;
 use App\Models\InterviewSlot;
+use App\Models\InterviewPrompt;
 use App\Models\Question;
 use App\Models\Role;
 use App\Models\RoleUser;
@@ -261,5 +262,17 @@ class AdminController extends Controller
         }
 
         return ['message' => 'success'];
+    }
+
+    public function showManagePrompt()
+    {
+        return view('admin.interviews.prompt', ['prompt' => InterviewPrompt::first()]);
+    }
+
+    public function submitPrompt(Request $request) {
+        $prompt = InterviewPrompt::first();
+        $prompt->prompt = $request->data;
+        $prompt->save();
+        return response()->json(['message' => 'success', 'updated_at' => $prompt->updated_at->format('g:i:s A')]);
     }
 }
