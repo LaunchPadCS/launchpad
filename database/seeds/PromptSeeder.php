@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\InterviewPrompt;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class PromptSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesSeeder::class);
-        $this->call(PromptSeeder::class);
+        InterviewPrompt::firstOrCreate(['prompt' => 'interview prompt text']);
     }
 }
