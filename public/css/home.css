@@ -1,0 +1,275 @@
+/*!
+ * Start Bootstrap - Grayscale v4.0.0-alpha (http://startbootstrap.com/template-overviews/grayscale)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
+ */
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f7f7f7;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin: 0 0 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 25px;
+}
+@media (min-width: 768px) {
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0 0 35px;
+    }
+}
+a {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: #42DCA3;
+}
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: #1d9b6c;
+}
+#mainNav {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: black;
+}
+#mainNav .navbar-toggler {
+    font-size: 14px;
+    padding: 11px;
+    color: white;
+    border: 1px solid white;
+}
+#mainNav .navbar-brand {
+    font-weight: 700;
+}
+#mainNav a {
+    color: white;
+}
+#mainNav .navbar-nav .nav-item {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+#mainNav .navbar-nav .nav-item:hover {
+    color: fade(white, 80%);
+    outline: none;
+    background-color: transparent;
+}
+#mainNav .navbar-nav .nav-item:focus,
+#mainNav .navbar-nav .nav-item:active {
+    outline: none;
+    background-color: transparent;
+}
+@media (min-width: 768px) {
+    #mainNav {
+        padding: 20px 0;
+        -webkit-transition: background .25s ease-in-out, padding .25s ease-in-out;
+        -moz-transition: background .25s ease-in-out, padding .25s ease-in-out;
+        transition: background .25s ease-in-out, padding .25s ease-in-out;
+        letter-spacing: 1px;
+        border-bottom: none;
+        background: transparent;
+    }
+    #mainNav.navbar-shrink {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        background: black;
+    }
+    #mainNav .nav-link.active {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    #mainNav .nav-link.active:hover {
+        color: white;
+    }
+}
+.brand-heading {
+    text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+.masthead {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+    background: url(../img/intro-bg.jpg) no-repeat bottom center scroll;
+    background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.masthead .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+.masthead .intro-body .brand-heading {
+    font-size: 40px;
+}
+.masthead .intro-body .intro-text {
+    font-size: 18px;
+}
+@media (min-width: 768px) {
+    .masthead {
+        height: 100%;
+        padding: 0;
+    }
+    .masthead .intro-body .brand-heading {
+        font-size: 80px;
+    }
+    .masthead .intro-body .intro-text {
+        font-size: 22px;
+    }
+}
+.btn-circle {
+    font-size: 26px;
+    width: 50px;
+    height: 50px;
+    margin-top: 15px;
+    padding: 7px 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+    color: white;
+    border: 2px solid white;
+    border-radius: 100% !important;
+    background: transparent;
+}
+.btn-circle:hover,
+.btn-circle:focus {
+    color: white;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+}
+.content-section {
+    padding-top: 75px;
+}
+footer {
+    padding: 50px 0;
+}
+footer p {
+    font-size: 14px;
+    margin: 0;
+}
+::-moz-selection {
+    background: #fcfcfc;
+    background: rgba(255, 255, 255, 0.2);
+    text-shadow: none;
+}
+::selection {
+    background: #fcfcfc;
+    background: rgba(255, 255, 255, 0.2);
+    text-shadow: none;
+}
+img::selection {
+    background: transparent;
+}
+img::-moz-selection {
+    background: transparent;
+}
+body {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+}
+.logo {
+    padding-bottom: 40px;
+}
+.about_wrap {
+    background: #000;
+    color: #fff;
+    padding: 40px;   
+    position: relative;
+    z-index: 1;
+}
+.about_wrap:after {
+    background: inherit;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    transform: skewY(-2deg);
+    transform-origin: 100%;
+    z-index: -1;
+}
+.goals_wrap {
+    background: rgb(0, 62, 140);
+    color: #cecece;
+    padding: 40px;
+    position: relative;
+}
+.goals_wrap:after {
+    bottom: 0;
+    -webkit-transform: skewY(1.5deg);
+    transform: skewY(2deg);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    background: inherit;
+    content: '';
+    display: block;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    -webkit-backface-visibility: hidden;    
+}
+.goals-box h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.goals-box p {
+    font-size: 14px;
+}
+
+.album {
+  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #f7f7f7;
+}
+
+.card {
+  float: left;
+  width: 33.333%;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 0;
+}
+
+.card > img {
+  margin-bottom: .75rem;
+}
+.social_link {
+    color: #3e3e3e;
+}
+.text-muted {
+  text-transform: none;
+}
