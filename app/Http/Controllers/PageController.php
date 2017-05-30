@@ -68,6 +68,7 @@ class PageController extends Controller
         $user->tagline = $request->tagline;
         $user->fb = $request->fb;
         $user->github = $request->github;
+        $user->linkedin = $request->linkedin;
         $user->instagram = $request->instagram;
         $user->snapchat = $request->snapchat;
         $user->website = $request->website;
