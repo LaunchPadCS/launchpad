@@ -130,10 +130,11 @@
         <div class="container">
         <h2 class="text-center">Mentors</h2>
           <div class="row">
+          @foreach($admins as $admin)
             <div class="card">
-              <img src="http://placehold.it/350x350" alt="Card image cap" class="img-fluid">
+              <img src="{{asset('storage/uploads/' . $admin->image)}}" alt="Card image cap" class="img-fluid">
               <div class="card-text">
-                  <h5 style="margin-top:0px">Cool Mentor <small class="text-muted">Enjoys doing x y and z blah blah blah 140 characters.</small></h5>
+                  <h5 style="margin-top:0px">{{$admin->name}} <small class="text-muted">Enjoys doing x y and z blah blah blah 140 characters.</small></h5>
                   <div class="row">
                       <div class="col-6">
                       <a href="#" class="btn btn-secondary btn-sm">View Profile</a>
@@ -151,6 +152,7 @@
                   </div>
               </div>
             </div>
+          @endforeach
           </div>
         </div>
       </div>
@@ -158,7 +160,7 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; LaunchPad 2017</p>
+            <p>&copy; LaunchPad 2017</p>
         </div>
     </footer>
 

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\FormResponse;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\Role;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,15 @@ class PageController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $admins = Role::where('name', 'admin')->first();
+        $mentors = Role::where('name', 'mentor')->first();
+        if ($admins != null) {
+            $admins = $admins->users()->get();
+        }
+        if ($mentors != null) {
+            $mentors = $mentors->users()->get();
+        }
+        return view('index', ['admins' => $admins, 'mentors' => $mentors]);
     }
 
     /**
