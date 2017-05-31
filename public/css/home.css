@@ -5,7 +5,7 @@
  */
 
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
     position: relative;
     width: 100%;
     height: 100%;
@@ -21,7 +21,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Biryani', Helvetica, Arial, sans-serif;
     font-weight: 700;
     margin: 0 0 35px;
 }
@@ -49,7 +49,7 @@ a:focus {
     color: #1d9b6c;
 }
 #mainNav {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
     margin-bottom: 0;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -230,7 +230,7 @@ body {
 }
 .goals_wrap:after {
     bottom: 0;
-    -webkit-transform: skewY(1.5deg);
+    -webkit-transform: skewY(2deg);
     transform: skewY(2deg);
     -webkit-transform-origin: 0 100%;
     transform-origin: 0 100%;
@@ -245,16 +245,16 @@ body {
     -webkit-backface-visibility: hidden;    
 }
 .goals-box h3 {
-    margin-top: 10px;
-    font-size: 18px;
+    margin-top: 15px;
+    font-size: 20px;
     margin-bottom: 5px;
 }
 .goals-box p {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .album {
-  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  min-height: 50rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
   background-color: #f7f7f7;
@@ -280,9 +280,16 @@ body {
 .footer_link, .footer_link:hover, .footer_link:focus {
     color: #fff;
 }
+.profile-btn {
+    margin-bottom: 10px;
+}
 .profile-btn:focus {
     color: #292b2c;
 }
 h1 {
     text-transform: uppercase;
+}
+.mentor-heading {
+    margin-top: 0px;
+    margin-bottom: 5px;
 }

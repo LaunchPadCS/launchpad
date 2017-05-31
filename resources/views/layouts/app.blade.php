@@ -16,6 +16,10 @@
 	.container {
 		margin-top: 40px;
 	}
+     .dropdown-menu-right {
+            right: 0;
+            left: auto !important;
+          }	
 	</style>
 
 	<!-- Scripts -->
@@ -55,7 +59,7 @@
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ Auth::user()->name }}
 						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" href="{{ action('PageController@showSettings') }}"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
 							<a class="dropdown-item" href="{{ action('PageController@showSettingsPicture') }}"><i class="fa fa-camera" aria-hidden="true"></i> Profile Photo</a>						
 							<a class="dropdown-item" href="{{ route('logout') }}"
