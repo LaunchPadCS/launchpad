@@ -231,7 +231,7 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
         'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
         'Image'        => Intervention\Image\Facades\Image::class,
-        'Markdown' => Indal\Markdown\Facade::class,
+        'Markdown'     => Indal\Markdown\Facade::class,
     ],
 
 ];

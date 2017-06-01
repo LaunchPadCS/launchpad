@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\ApplicantRating;
-use App\Models\InterviewSlot;
-use App\Models\InterviewPrompt;
 use App\Models\Interview;
+use App\Models\InterviewPrompt;
+use App\Models\InterviewSlot;
 use App\Models\User;
 use Auth;
+use Carbon\Carbon;
 use Datatables;
 use DB;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class MentorController extends Controller
 {
@@ -26,9 +26,11 @@ class MentorController extends Controller
         return view('mentor.applications');
     }
 
-    public function showInterviewSchedule() {
+    public function showInterviewSchedule()
+    {
         $interviews = InterviewSlot::orderBy('start_time', 'asc')->get();
-        $mentors = User::get(array('id', 'name'))->toArray();
+        $mentors = User::get(['id', 'name'])->toArray();
+
         return view('mentor.schedule', ['interviews' => $interviews, 'mentors' => $mentors]);
     }
 
@@ -62,6 +64,7 @@ class MentorController extends Controller
             }
             $data['id'] = $id;
             $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
+
             return view('mentor.rate', compact('application', 'data', 'rating', 'slots'));
         } catch (\Exception $e) {
             return redirect('/')->with('message', 'Could not find application.');
@@ -110,33 +113,35 @@ class MentorController extends Controller
 
     public function showInterview($id = null)
     {
-        if($id) {
+        if ($id) {
             $params = array_unique(explode('/', $id));
             $prompt = InterviewPrompt::first();
             try {
-                $applicants = array();
-                $interviews = array();
-                foreach($params as $interviewID) {
+                $applicants = [];
+                $interviews = [];
+                foreach ($params as $interviewID) {
                     $applicant = Applicant::findOrFail($interviewID, ['id', 'firstname', 'lastname', 'email'])->toArray();
                     $applicants[] = $applicant;
                     $interview = Interview::where('applicant_id', $interviewID)->where('user_id', Auth::user()->id)->first();
-                    if(!is_null($interview)) {
+                    if (!is_null($interview)) {
                         $interviews[] = $interview->toArray();
                     } else {
-                        $interviews[] = array('notes' => '', 'applicant_id' => $applicant['id'], 'user_id' => Auth::user()->id, 'decision' => -1);
+                        $interviews[] = ['notes' => '', 'applicant_id' => $applicant['id'], 'user_id' => Auth::user()->id, 'decision' => -1];
                     }
                 }
+
                 return view('mentor.interview', ['prompt' => $prompt, 'applicants' => $applicants, 'interviews' => $interviews]);
             } catch (\Exception $e) {
-                return redirect()->action('PageController@dashboard')->with('message', 'Error building interview'); 
+                return redirect()->action('PageController@dashboard')->with('message', 'Error building interview');
             }
         }
     }
 
-    public function updateInterview(Request $request) {
+    public function updateInterview(Request $request)
+    {
         $validator = \Validator::make($request->all(), [
             'applicant_id' => 'required|exists:applicants,id',
-            'notes' => 'required',
+            'notes'        => 'required',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -147,13 +152,15 @@ class MentorController extends Controller
         $interview->notes = $request->notes;
         $interview->save();
         $updated_at = new Carbon($interview->updated_at);
+
         return response()->json(['message' => 'success', 'updated_at' => $updated_at->format('g:i:s A')]);
     }
 
-    public function updateInterviewRating(Request $request) {
+    public function updateInterviewRating(Request $request)
+    {
         $validator = \Validator::make($request->all(), [
             'applicant_id' => 'required|exists:applicants,id',
-            'rating' => 'required|between:1,5',
+            'rating'       => 'required|between:1,5',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -162,6 +169,7 @@ class MentorController extends Controller
         $interview->rating = $request->rating;
         $interview->save();
         $updated_at = new Carbon($interview->updated_at);
-        return response()->json(['message' => 'success']);        
+
+        return response()->json(['message' => 'success']);
     }
 }
