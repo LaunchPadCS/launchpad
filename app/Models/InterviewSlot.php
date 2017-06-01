@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Applicant;
 
 class InterviewSlot extends Model
 {
@@ -28,7 +27,7 @@ class InterviewSlot extends Model
 
     public function getApplicationsCountAttribute()
     {
-        return Applicant::where('interview_slot_id',$this->id)->count();
+        return Applicant::where('interview_slot_id', $this->id)->count();
     }
 
     public function assignments()
@@ -43,11 +42,12 @@ class InterviewSlot extends Model
 
     public function getApplicationsIDAttribute()
     {
-        $apps = Applicant::where('interview_slot_id',$this->id)->get(array('id'));
-        $string = "/";
-        foreach($apps as $app) {
-            $string .= $app['id'] . "/";
+        $apps = Applicant::where('interview_slot_id', $this->id)->get(['id']);
+        $string = '/';
+        foreach ($apps as $app) {
+            $string .= $app['id'].'/';
         }
+
         return rtrim($string, '/');
     }
 }

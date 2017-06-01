@@ -53,8 +53,9 @@ class Applicant extends Model
 
     public function getNameAttribute()
     {
-        return $this->firstname . " " . $this->lastname;
+        return $this->firstname.' '.$this->lastname;
     }
+
     public function getResponsesAttribute()
     {
         // Ideally use attributes and with()
@@ -82,7 +83,8 @@ class Applicant extends Model
         return $this->hasMany('App\Models\ApplicantRating');
     }
 
-    public function interview_slot() {
+    public function interview_slot()
+    {
         return $this->belongsTo('App\Models\InterviewSlot');
     }
 }

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\FormResponse;
 use App\Models\Question;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -27,6 +27,7 @@ class PageController extends Controller
         if ($mentors != null) {
             $mentors = $mentors->users()->get();
         }
+
         return view('index', ['admins' => $admins, 'mentors' => $mentors]);
     }
 
@@ -37,9 +38,10 @@ class PageController extends Controller
      */
     public function dashboard()
     {
-        if(Auth::user()->hasRole(['admin', 'mentor'])) {
+        if (Auth::user()->hasRole(['admin', 'mentor'])) {
             $data = User::where('id', Auth::user()->id)->with('assignments.slot')->first();
         }
+
         return view('dashboard.home', ['data' => $data]);
     }
 
@@ -140,8 +142,8 @@ class PageController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'firstname'  => 'required',
-            'lastname'  => 'required',
-            'email' => 'required|email|unique:applicants,email',
+            'lastname'   => 'required',
+            'email'      => 'required|email|unique:applicants,email',
         ]);
         $errors = [];
         $questions = Question::all();
