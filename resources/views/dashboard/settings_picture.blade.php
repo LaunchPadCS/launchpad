@@ -8,6 +8,7 @@ $(document).ready(function() {
     var image;
     var cropper;
     $('body').on('click', '#croppedSubmit', function () {
+    	$("#croppedSubmit").attr("disabled", true);
         var data = cropper.getData();
         $.ajax({
             type: 'POST',
