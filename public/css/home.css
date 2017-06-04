@@ -270,6 +270,19 @@ body {
 
 .card > img {
   margin-bottom: .75rem;
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+}
+.card > img:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.card-text h5 {
+    margin-top: 0px;
+    margin-bottom: 5px;
 }
 .social_link {
     color: #3e3e3e;

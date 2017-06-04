@@ -124,6 +124,7 @@ class PageController extends Controller
 
         $img = \Image::make(storage_path('app/public').'/uploads/'.Auth::user()->image);
         $img->crop(intval($request->width), intval($request->height), intval($request->x), intval($request->y));
+        $img->resize(300, 300);
         $img->save(storage_path('app/public').'/uploads/'.Auth::user()->image);
 
         \Session::flash('message', 'Updated profile photo!');

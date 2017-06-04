@@ -181,12 +181,12 @@
           @endforeach
           @foreach($mentors as $mentor)
             <div class="card">
-              <img src="{{asset('storage/uploads/' . $mentor->image)}}" alt="Card image cap" class="img-fluid">
+              <img src="{{asset('storage/uploads/' . $mentor->image)}}" alt="Card image cap">
               <div class="card-text">
-                  <h5 style="margin-top:0px">{{$mentor->name}} <small class="text-muted">{{$mentor->tagline}}</small></h5>
+                  <h5>{{$mentor->name}} <small class="text-muted">{{$mentor->tagline}}</small></h5>
                   <div class="row">
                       <div class="col-6">
-                      <a href="#" class="btn btn-secondary btn-sm">View Profile</a>
+                      <a href="#" class="btn btn-secondary btn-sm profile-btn" data-toggle="modal" data-target="#exampleModal" data-name="{{$mentor->name}}" data-tagline="{{$mentor->tagline}}" data-about="{{$mentor->about}}" data-url="{{asset('storage/uploads/' . $mentor->image)}}">View Profile</a>
                       </div>
                       <div class="col-sm-6 text-right hidden-sm-down">
                         @if($mentor['fb'])
