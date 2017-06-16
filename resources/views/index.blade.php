@@ -183,7 +183,7 @@
             <div class="card">
               <img src="{{asset('storage/uploads/' . $mentor->image)}}" alt="Card image cap">
               <div class="card-text">
-                  <h5>{{$mentor->name}} <small class="text-muted">{{$mentor->tagline}}</small></h5>
+                  <h5 class="mentor-heading">{{$mentor->name}} <small class="text-muted">{{$mentor->tagline}}</small></h5>
                   <div class="row">
                       <div class="col-6">
                       <a href="#" class="btn btn-secondary btn-sm profile-btn" data-toggle="modal" data-target="#exampleModal" data-name="{{$mentor->name}}" data-tagline="{{$mentor->tagline}}" data-about="{{$mentor->about}}" data-url="{{asset('storage/uploads/' . $mentor->image)}}">View Profile</a>

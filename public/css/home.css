@@ -305,4 +305,5 @@ h1 {
 .mentor-heading {
     margin-top: 0px;
     margin-bottom: 5px;
+    word-wrap: break-word;
 }
