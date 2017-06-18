@@ -50,7 +50,7 @@
           <div class="collapse navbar-collapse" id="navbarExample">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a class="nav-link" href="#about">About</a>
+                      <a class="nav-link" href="#mission">Mission</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#goals">Goals</a>
@@ -73,7 +73,7 @@
                       <img src="img/logo.png" class="img-fluid logo">
                       <h1 class="brand-heading">LaunchPad</h1>
                       <p class="intro-text"><a href="{{ action('PageController@showApplicationForm') }}"" class="btn btn-primary btn-lg">APPLY</a></p>
-                      <a href="#about" class="btn btn-circle page-scroll">
+                      <a href="#mission" class="btn btn-circle page-scroll">
                           <i class="fa fa-angle-double-down animated"></i>
                       </a>
                   </div>
@@ -82,12 +82,12 @@
       </div>
   </header>
   <div class="about_wrap">
-    <section id="about" class="container content-section text-center">
+    <section id="mission" class="container content-section text-center">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <h1>About</h1>
+                <h1>MISSION</h1>
                 <div style="text-align: left">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae lobortis velit, iaculis blandit mauris. Aenean facilisis aliquet orci a tincidunt. Nullam non venenatis justo, non vehicula neque. Suspendisse iaculis a massa sit amet rutrum. Vestibulum eu erat elit. Nunc et ipsum egestas, porta orci sed, dapibus neque. Cras elementum finibus nulla. Nunc eleifend, urna ut lobortis blandit, nulla turpis feugiat est, eget ullamcorper mi ex eget odio. Fusce ac orci sit amet tellus venenatis vulputate. Quisque commodo diam turpis, ut fermentum eros viverra quis. Duis efficitur maximus tortor eget dictum. Integer iaculis felis non tempor aliquet. Nulla facilisi.
+                  LaunchPad is a community of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running. We pair each incoming student with a talented upperclassman who will introduce them to the CS community at Purdue and guide them in creating a technical project of their choosing. Throughout the semester, we host events to foster a sense of community and to build technical skills. Our goal is to ensure that every incoming student is equipped with the knowledge and connections they’ll need to get the most out of their time at Purdue.
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
               <div class="goals-box">
                 <i class="fa fa-code-fork fa-4x" aria-hidden="true"></i>
                 <h3>LEARN</h3>
-                <p>Learn useful and marketable skills outside of the classroom, like mobile and web development.</p>
+                <p>Learn useful and marketable skills outside of the classroom, like communication, teamwork, and mobile and web development.</p>
               </div>
             </div>
             <div class="col-md-3">
