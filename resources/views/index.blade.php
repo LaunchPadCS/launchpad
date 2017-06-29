@@ -102,7 +102,7 @@
         <div class="col-md-12">
           <h1>SPONSORS</h1>
           <div class="row">
-            <img src="{{asset('img/bloomberg-logo.png')}}" style="max-height: 80px; margin: 0 auto">
+            <img src="{{asset('img/bloomberg-logo.png')}}" style="max-height: 80px; margin: 0 auto" class="img-fluid">
           </div>
         </div>
       </div>
