@@ -222,18 +222,14 @@ body {
     transform-origin: 100%;
     z-index: -1;
 }
-.goals_wrap {
-    background: rgb(0, 62, 140);
-    color: #f5f5f5;
-    padding: 40px;
+.sponsors_wrap {
+    z-index: -1;
+    background: rgb(224, 224, 224);
+    color: #464646;
+    padding: 10px;
     position: relative;
 }
-.goals_wrap:after {
-    bottom: 0;
-    -webkit-transform: skewY(2deg);
-    transform: skewY(2deg);
-    -webkit-transform-origin: 0 100%;
-    transform-origin: 0 100%;
+.sponsors_wrap:after {
     background: inherit;
     content: '';
     display: block;
@@ -242,7 +238,39 @@ body {
     position: absolute;
     right: 0;
     z-index: -1;
-    -webkit-backface-visibility: hidden;    
+    -webkit-backface-visibility: hidden;  
+}
+
+.sponsors_wrap:after {
+    bottom: 0;
+    -webkit-transform: skewY(2deg);
+    transform: skewY(2deg);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.goals_wrap {
+    z-index: -2;
+    background: rgb(0, 62, 140);
+    color: #f5f5f5;
+    padding: 40px;
+    position: relative;
+}
+.goals_wrap:before {
+    bottom: 0;
+    -webkit-transform: skewY(-2deg);
+    transform: skewY(-2deg);
+    -webkit-transform-origin: 100%;
+    transform-origin: 100%;
+    background: inherit;
+    content: '';
+    display: block;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    -webkit-backface-visibility: hidden;
 }
 .goals-box h3 {
     margin-top: 15px;

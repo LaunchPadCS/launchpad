@@ -53,6 +53,9 @@
                       <a class="nav-link" href="#mission">Mission</a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="#sponsors">Sponsors</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="#goals">Goals</a>
                   </li>
                   <li class="nav-item">
@@ -91,6 +94,18 @@
                 </div>
             </div>
         </div>
+    </section>
+  </div>
+  <div class="sponsors_wrap">
+    <section id="sponsors" class="container content-section text-center">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>SPONSORS</h1>
+          <div class="row">
+            <img src="{{asset('img/bloomberg-logo.png')}}" style="max-height: 80px; margin: 0 auto">
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 
