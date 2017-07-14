@@ -121,14 +121,14 @@ class PageController extends Controller
         if ($validator->fails()) {
             return $validator->errors()->all();
         }
-        $userImage = explode(".", Auth::user()->image);
-        $imgname = $userImage[0] . '_p.' . $userImage[1];
+        $userImage = explode('.', Auth::user()->image);
+        $imgname = $userImage[0].'_p.'.$userImage[1];
 
         $img = \Image::make(storage_path('app/public').'/uploads/'.Auth::user()->image);
         $img->crop(intval($request->width), intval($request->height), intval($request->x), intval($request->y));
         $img->resize(300, 300);
         $img->save(storage_path('app/public').'/uploads/'.$imgname);
-        
+
         $user = Auth::user();
         $user->image = $imgname;
         $user->save();
