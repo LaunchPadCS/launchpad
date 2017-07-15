@@ -79,8 +79,9 @@ class RegisterController extends Controller
         } elseif (env('APP_PHASE') == 2) {
             $user->attachRole(Role::where('name', 'mentee')->first());
         }
-        $user->image = "default.png";
+        $user->image = 'default.png';
         $user->save();
+
         return $user;
     }
 }
