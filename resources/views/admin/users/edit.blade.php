@@ -99,10 +99,10 @@ $(document).ready(function() {
               </div>
             </div>
             <div class="form-group">
-              <label for="inputInstagram">Instgram Username</label>
+              <label for="inputInstagram">Instagram Username</label>
               <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-instagram" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="inputInstagram" value="{{$user->instagram}}" name="instagram" placeholder="Instgram Username">
+                  <input type="text" class="form-control" id="inputInstagram" value="{{$user->instagram}}" name="instagram" placeholder="Instagram Username">
               </div>
             </div>
             <div class="form-group">
