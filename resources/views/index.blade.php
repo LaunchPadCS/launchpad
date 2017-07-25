@@ -98,12 +98,17 @@
     </section>
   </div>
   <div class="sponsors_wrap">
-    <section id="sponsors" class="container content-section text-center">
+    <section id="sponsors" class="container content-section-less-pad text-center">
       <div class="row">
         <div class="col-md-12">
           <h1>SPONSORS</h1>
           <div class="row">
-            <img src="{{asset('img/bloomberg-logo.png')}}" style="max-height: 80px; margin: 0 auto" class="img-fluid">
+            <div class="col-md-6">
+              <img src="{{asset('img/bloomberg-logo.png')}}" class="s-logo img-fluid">
+            </div>
+            <div class="col-md-6">
+              <img src="{{asset('img/techpoint.png')}}" class="s-logo img-fluid">
+            </div>
           </div>
         </div>
       </div>

@@ -171,6 +171,9 @@ a:focus {
 .content-section {
     padding-top: 75px;
 }
+.content-section-less-pad {
+    padding-top: 45px;
+}
 footer {
     background: #1b1b1b;
     color: #fff;
@@ -216,7 +219,7 @@ body {
     z-index: -1;
     background: rgb(224, 224, 224);
     color: #464646;
-    padding: 10px;
+    padding: 70px;
     position: relative;
 }
 .sponsors_wrap:after {
@@ -325,3 +328,9 @@ h1 {
     margin-bottom: 5px;
     word-wrap: break-word;
 }
+.s-logo {
+    margin: 0 auto;
+    height: auto;
+    max-height: 40px;
+}
+
