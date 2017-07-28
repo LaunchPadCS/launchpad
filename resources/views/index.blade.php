@@ -104,10 +104,13 @@
           <h1>SPONSORS</h1>
           <div class="row">
             <div class="col-md-6">
-              <img src="{{asset('img/bloomberg-logo.png')}}" class="s-logo img-fluid">
+              <a href="https://www.bloomberg.com/" target="_blank"><img src="{{asset('img/bloomberg-logo.png')}}" class="s-logo img-fluid" style="max-height: 60px"></a>
             </div>
             <div class="col-md-6">
-              <img src="{{asset('img/techpoint.png')}}" class="s-logo img-fluid">
+              <a href="http://techpoint.org/techpoint-x/" target="_blank"><img src="{{asset('img/techpoint.png')}}" class="s-logo img-fluid"></a>
+            </div>
+            <div class="col-md-12" style="margin-top:50px">
+              <a href="https://mimirhq.com/" target="_blank"><img src="{{asset('img/mimir.svg')}}" style="max-height:100px;"></a>
             </div>
           </div>
         </div>
