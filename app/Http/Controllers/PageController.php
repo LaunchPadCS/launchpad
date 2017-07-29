@@ -147,6 +147,10 @@ class PageController extends Controller
 
     public function submitApplicationForm(Request $request)
     {
+        if(env("APPLICATIONS_OPEN") == false) {
+            return;
+        } 
+        
         $validator = \Validator::make($request->all(), [
             'firstname'  => 'required',
             'lastname'   => 'required',

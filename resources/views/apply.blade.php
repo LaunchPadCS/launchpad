@@ -33,6 +33,10 @@
 			<div class="card">
 				<h3 class="card-header">Apply to LaunchPad</h3>
 				<div class="card-block">
+					@if (env('APPLICATIONS_OPEN') == false)
+						<div class="alert alert-danger"><B>Hold up!</b> Applications are not open. You can take a look at the questions below to get an idea of what we are looking for. Come back when applications open!
+						</div>
+					@endif
 					<div class="alert alert-danger" role="alert" id="danger" style="display:none;"></div>
 					<div class="alert alert-success" role="alert" id="success" style="display:none;">
 						<h4 class="alert-heading">Nice!</h4>
@@ -70,8 +74,11 @@
 							@endif
 							</div>
 						@endforeach
-						<hr/>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						
+						@if(env("APPLICATIONS_OPEN") == true)
+							<hr/>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						@endif
 					</form>
 				</div>
 			</div>
@@ -79,11 +86,13 @@
 	</div>
 </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.20/autosize.min.js"></script>
     <script src="{{asset('js/particles.min.js')}}"></script>
     <script>
     	particlesJS.load('particlesjs', 'particlesjs-config.json', function() {
 		});
 		$(document).ready(function() {
+			autosize($('textarea'));
 		    $('#applicantForm').submit(function(event) {
 		    	$("#inputFirstName").removeClass('form-control-danger');
 		    	$("#inputLastName").removeClass('form-control-danger');
