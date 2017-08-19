@@ -103,8 +103,11 @@
         <div class="col-md-12">
           <h1>SPONSORS</h1>
           <div class="row">
-          <div class="col-md-12">
-              <a href="https://www.google.com/" target="_blank"><img src="{{asset('img/google.svg')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
+          	<div class="col-md-6">
+              <a href="https://careers.google.com/students/" target="_blank"><img src="{{asset('img/google.svg')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
+            </div>
+          	<div class="col-md-6">
+              <a href="https://www.capitalonecareers.com/search-jobs" target="_blank"><img src="{{asset('img/capitalone.png')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
             </div>
             <br/><br/>
             <div class="col-md-6" style="margin-top: 40px;">
@@ -114,7 +117,7 @@
               <a href="http://techpoint.org/techpoint-x/" target="_blank"><img src="{{asset('img/techpoint.png')}}" class="s-logo img-fluid"></a>
             </div>
             <div class="col-md-12" style="margin-top:50px">
-              <a href="https://mimirhq.com/" target="_blank"><img src="{{asset('img/mimir.svg')}}" style="max-height:100px;"></a>
+              <a href="https://mimirhq.com/" target="_blank"><img src="{{asset('img/mimir.svg')}}" style="max-height:90px;"></a>
             </div>
           </div>
         </div>
