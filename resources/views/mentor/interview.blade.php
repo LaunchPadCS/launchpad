@@ -10,7 +10,7 @@
 </style>
 <script>
 @for($i = 0; $i < count($applicants); $i++)
-var editor{{$i}} = new SimpleMDE({ element: $("#editor{{$i}}")[0] });
+var editor{{$i}} = new SimpleMDE({ element: $("#editor{{$i}}")[0], spellChecker: false });
 var timeoutId{{$i}};
 editor{{$i}}.codemirror.on('change', function() {
     clearTimeout(timeoutId{{$i}});
@@ -21,7 +21,6 @@ editor{{$i}}.codemirror.on('change', function() {
 });
 @endfor
 function saveToDB(applicant_id, data) {
-    $("#save_text").html('Saving...');
     $.ajax({
         type: 'POST',
         url: '{{action('MentorController@updateInterview')}}',
@@ -29,7 +28,7 @@ function saveToDB(applicant_id, data) {
         dataType: 'json',
         success: function(data) {
             if(data['message'] == 'success') {
-                 $("#save_text").html('<abbr title="' + data['updated_at'] +'">Saved.</abbr>');
+                 $("#save_text").html('Saved at ' + data['updated_at']);
             }
         }
     });
