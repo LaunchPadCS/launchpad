@@ -56,6 +56,7 @@ class MentorController extends Controller
 
             return redirect()->action('MentorController@showRate', ['id' => $id]);
         }
+
         try {
             $application = Applicant::findOrFail($id);
             $rating = ApplicantRating::where('applicant_id', $id)->where('user_id', Auth::user()->id)->first();
@@ -116,6 +117,7 @@ class MentorController extends Controller
         if ($id) {
             $params = array_unique(explode('/', $id));
             $prompt = InterviewPrompt::first();
+
             try {
                 $applicants = [];
                 $interviews = [];
