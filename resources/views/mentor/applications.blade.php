@@ -5,6 +5,7 @@
 <script src="{{ asset('js/datatables_bs4_compat.min.js') }}"></script>
 <script src="{{ asset('js/moment.js') }}"></script>
 <script>
+$("#container").toggleClass('container container-fluid');
 $(function() {
     var table = $('#applications-table').DataTable({
         processing: true,
@@ -12,7 +13,8 @@ $(function() {
         ajax: '{!! route('datatables.data') !!}',
         columns: [
             { data: 'id', name: 'id', searchable: false},
-            { data: 'name', name: 'name' },
+            { data: 'firstname', name: 'firstname' },
+            { data: 'lastname', name: 'lastname' },
             { data: 'email', name: 'email' },
             { data: 'reviews', name: 'ratings',searchable: false},
             { data: 'UserRating', name: 'myrating',searchable: false},
@@ -31,7 +33,7 @@ $(function() {
                 }
             },
             {
-                "aTargets": [5],
+                "aTargets": [6],
                 "mRender": function ( data, type, full ) {
                     if(data) {
                         return moment(data).format("M/D, h:mm a");
@@ -44,6 +46,11 @@ $(function() {
 });
 </script>
 <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<style>
+.container-fluid {
+    margin-top: 40px;
+}
+</style>
 @stop
 
 @section('content')
@@ -55,7 +62,8 @@ $(function() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
                         <th>Reviews</th>
                         <th>My Rating</th>
