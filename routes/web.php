@@ -15,6 +15,10 @@ Auth::routes();
 
 // Public Routes
 Route::get('/', 'PageController@index');
+Route::get('resources', function() {
+	return redirect('https://www.gitbook.com/@launchpadcs');
+});
+
 Route::get('apply', 'PageController@showApplicationForm');
 Route::post('apply', 'PageController@submitApplicationForm');
 
