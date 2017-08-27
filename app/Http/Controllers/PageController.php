@@ -40,9 +40,15 @@ class PageController extends Controller
     {
         if (Auth::user()->hasRole(['admin', 'mentor'])) {
             $data = User::where('id', Auth::user()->id)->with('assignments.slot')->first();
+            $ratings = User::with(['roles' => function($q){
+                $q->where('name', 'mentor');
+                $q->orWhere('name', 'admin');
+            }])->get()->sortByDesc(function($users) {
+                return $users->ratingCount;
+            });
         }
 
-        return view('dashboard.home', ['data' => $data]);
+        return view('dashboard.home', ['data' => $data, 'ratings' => $ratings]);
     }
 
     public function showSettings()

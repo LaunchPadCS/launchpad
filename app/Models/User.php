@@ -25,6 +25,8 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $appends = ['ratingCount', 'averageRatingValue'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -37,5 +39,20 @@ class User extends Authenticatable
     public function assignments()
     {
         return $this->hasMany('App\Models\InterviewAssignment');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\ApplicantRating');
+    }
+
+    public function getRatingCountAttribute()
+    {
+        return ApplicantRating::where('user_id', $this->id)->count();
+    }
+
+    public function getAverageRatingValueAttribute()
+    {
+        return ApplicantRating::where('user_id', $this->id)->avg('rating');
     }
 }
