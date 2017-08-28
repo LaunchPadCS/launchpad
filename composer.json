@@ -14,7 +14,8 @@
         "laravel/tinker": "~1.0",
         "vinkla/hashids": "^3.2",
         "yajra/laravel-datatables-oracle": "^7.2",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

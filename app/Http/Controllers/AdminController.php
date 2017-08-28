@@ -282,4 +282,26 @@ class AdminController extends Controller
 
         return response()->json(['message' => 'success', 'updated_at' => $prompt->updated_at->format('g:i:s A')]);
     }
+
+    public function exportHashids() {
+        $applicants = Applicant::all();
+        \Excel::create('LaunchPad Export', function($excel) use($applicants) {
+        
+            // Set the title
+            $excel->setTitle('LaunchPad Applicants and Hashids');
+        
+            // Chain the setters
+            $excel->setCreator('LaunchPad')
+                  ->setCompany('LaunchPad');
+
+            $excel->sheet('list', function($sheet) use($applicants) {
+                foreach($applicants as $applicant) {
+                    $sheet->appendRow(array(
+                        $applicant->firstname, $applicant->lastname, $applicant->email, $applicant->hashid
+                    ));
+                }
+            });
+
+        })->download('xls');
+    }
 }

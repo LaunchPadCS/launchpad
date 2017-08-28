@@ -181,7 +181,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Indal\Markdown\MarkdownServiceProvider::class,
-        Vinkla\Hashids\HashidsServiceProvider::class
+        Vinkla\Hashids\HashidsServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -233,7 +234,8 @@ return [
         'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
         'Image'        => Intervention\Image\Facades\Image::class,
         'Markdown'     => Indal\Markdown\Facade::class,
-        'Hashids'      => Vinkla\Hashids\Facades\Hashids::class
+        'Hashids'      => Vinkla\Hashids\Facades\Hashids::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

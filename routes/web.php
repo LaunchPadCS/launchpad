@@ -64,6 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('createBulk', 'AdminController@submitBulkCreateInterview');
         Route::post('create', 'AdminController@submitCreateInterview');
         Route::post('form', 'AdminController@submitTimeslot');
+        Route::get('export', 'AdminController@exportHashids');
     });
 });
 
