@@ -13,7 +13,6 @@ $(function() {
         ajax: '{!! route('datatables.data') !!}',
         columns: [
             { data: 'id', name: 'id', searchable: false},
-            { data: 'hashid', name: 'hashid', searchable: false},
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'email', name: 'email' },
@@ -22,6 +21,7 @@ $(function() {
             { data: 'starttime', name: 'starttime',searchable: false},
             { data: 'interview_avg', name: 'interview_avg',searchable: false},
             @role('admin')
+            { data: 'hashid', name: 'hashid', searchable: false},
             { data: 'avg', name: 'avg',searchable: false},
             { data: 'total_avg', name: 'total_avg',searchable: false},
             @endrole
@@ -34,7 +34,7 @@ $(function() {
                 }
             },
             {
-                "aTargets": [7],
+                "aTargets": [6],
                 "mRender": function ( data, type, full ) {
                     if(data) {
                         return moment(data).format("M/D, h:mm a");
@@ -63,7 +63,6 @@ $(function() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>hashid</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
@@ -72,6 +71,7 @@ $(function() {
                         <th>Interview Start</th>
                         <th>Avg Interview Rating</th>
                         @role('admin')
+                        <th>hashid</th>
                         <th>Average</th>
                         <th>Total Avg</th>
                         @endrole
