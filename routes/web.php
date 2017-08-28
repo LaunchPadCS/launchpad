@@ -22,7 +22,10 @@ Route::get('resources', function() {
 Route::get('apply', 'PageController@showApplicationForm');
 Route::post('apply', 'PageController@submitApplicationForm');
 
-Route::get('datatables', ['as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
+Route::get('interview/{hashid?}', 'PageController@showInterviewSelectionForm');
+Route::get('interview', 'PageController@submitInterviewSelectionForm');
+
+Route::get('datatables', ['middleware' => ['auth', 'role:admin|mentor'], 'as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
 
 // User Routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {

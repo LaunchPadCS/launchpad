@@ -186,8 +186,9 @@ class AdminController extends Controller
     public function submitCreateInterview(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'start_time' => 'required|date_format:"d/m/Y H:i"',
-            'end_time'   => 'required|date_format:"d/m/Y H:i"',
+            'start_time' => 'required|date_format:"m/d/Y H:i"',
+            'end_time'   => 'required|date_format:"m/d/Y H:i"',
+            'location'   => 'required'
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -198,6 +199,7 @@ class AdminController extends Controller
         $interview = new InterviewSlot();
         $interview->start_time = $start;
         $interview->end_time = $end;
+        $interview->location = $request->location;
         $interview->save();
 
         return ['message' => 'success'];
@@ -206,12 +208,13 @@ class AdminController extends Controller
     public function submitBulkCreateInterview(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'start_day'  => 'required|date_format:"d/m/Y"',
-            'end_day'    => 'required|date_format:"d/m/Y"',
+            'start_day'  => 'required|date_format:"m/d/Y"',
+            'end_day'    => 'required|date_format:"m/d/Y"',
             'start_time' => 'required|numeric',
             'end_time'   => 'required|numeric',
             'offset'     => 'required|numeric',
             'length'     => 'required|numeric|min:0',
+            'location'   => 'required'
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -230,6 +233,7 @@ class AdminController extends Controller
                 $interview = new InterviewSlot();
                 $interview->start_time = $currTime;
                 $interview->end_time = $currTime->copy()->addMinutes($request->length);
+                $interview->location = $request->location;
                 $interview->save();
                 $currTime->addMinutes($request->length)->addMinutes($request->offset);
             }

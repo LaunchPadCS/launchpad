@@ -5,6 +5,7 @@ namespace App\Models;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Vinkla\Hashids\Facades\Hashids;
 
 class Applicant extends Model
 {
@@ -41,7 +42,7 @@ class Applicant extends Model
         ];
     }
 
-    protected $appends = ['reviews', 'UserRating', 'responses', 'name'];
+    protected $appends = ['reviews', 'UserRating', 'responses', 'name', 'hashid'];
 
     /**
      * Determine number of times the application has been reviewed.
@@ -76,6 +77,10 @@ class Applicant extends Model
         }
 
         return 'Not rated';
+    }
+
+    public function getHashidAttribute() {
+        return Hashids::encode($this->id);
     }
 
     public function ratings()
