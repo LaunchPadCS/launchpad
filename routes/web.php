@@ -23,7 +23,7 @@ Route::get('apply', 'PageController@showApplicationForm');
 Route::post('apply', 'PageController@submitApplicationForm');
 
 Route::get('interview/{hashid?}', 'PageController@showInterviewSelectionForm');
-Route::get('interview', 'PageController@submitInterviewSelectionForm');
+Route::post('interview', 'PageController@submitInterviewSelectionForm');
 
 Route::get('datatables', ['middleware' => ['auth', 'role:admin|mentor'], 'as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
 

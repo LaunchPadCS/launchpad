@@ -36,17 +36,29 @@
 				</div>
 				<div class="card-block">
 					<h4 class="card-title">Welcome back, {{$applicant->firstname}}!</h4>
-					<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it. If none of these times work for you, please get in touch with <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a></p>
-					<form>
-						<select>
-						@foreach($slots as $interview)
-						
-								<option>{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</option>
-						
-				    	@endforeach
-				    	</select>
-					</form>
-					<a href="#" class="btn btn-primary">Submit</a>
+					@if($applicant->interview_slot_id == 0)
+						<p class="card-text">Please select your interview timeslot. Once you 	have selected a time slot, you will not be able to change it. If none 	of these times work for you, please get in touch with <a href="	mailto:team@launchpadcs.org">team@launchpadcs.org</a></p>
+						<div class="alert alert-success" id="success" style="display:none;"></div>
+						<form id="slotForm">
+							<div class="alert alert-danger" id="alert" style="display:none;"></div>
+							{{ csrf_field() }}
+							<input value="{{$applicant->hashid}}" name="id" type="hidden">
+							<div class="form-group">
+   							<label for="inputSlot">Select a slot</label>
+							<select class="form-control" id="inputSlot" name="slot">
+								<option disabled selected>Please select a slot</option>
+								@foreach($slots as $interview)
+									@if($interview->applicationsCount < 2)
+									<option value="{{$interview->id}}">{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</option>
+									@endif
+				    			@endforeach
+				    		</select>
+				    		</div>
+				    		<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					@else
+						Your selected time slot is {{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}, in {{$selected->location}}. If you need to change your interview time, please email <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -54,9 +66,29 @@
 
 	<!-- Scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="{{ asset('js/tether.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	@yield('bottom_js')
+	<script>
+		$(document).ready(function() {
+			$('#slotForm').submit(function(event) {
+				event.preventDefault();
+				$.ajax({
+				    type: 'POST',
+				    url: '{{action('PageController@submitInterviewSelectionForm')}}',
+				    data: $(this).serialize(),
+				    dataType: 'json',
+				    success: function(data) {
+				        if(data['message'] == 'success') {
+				        	$("#alert").hide();
+				            $("#slotForm").slideUp();
+				            $("#success").html(data['content']);
+				        	$("#success").show();
+				        } else {
+				        	$("#alert").html("Please select a valid interview slot.");
+				        	$("#alert").show();
+				        }
+				    }
+				});
+			});
+		});
+	</script>
 </body>
 </html>

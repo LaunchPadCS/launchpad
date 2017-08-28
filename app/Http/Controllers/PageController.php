@@ -210,13 +210,28 @@ class PageController extends Controller
             }
             $applicant = Applicant::find($id[0]);
             $interviewSlots = InterviewSlot::all();
-            return view('interview', ['applicant' => $applicant, 'slots' => $interviewSlots]); 
+            $selectedSlot = InterviewSlot::where('id', $applicant->interview_slot_id)->first();
+            return view('interview', ['applicant' => $applicant, 'slots' => $interviewSlots, 'selected' => $selectedSlot]); 
         }
-
     }
 
     public function submitInterviewSelectionForm(Request $request)
     {
-
+        if(empty($request->id) || empty($request->slot)) {
+            return ['message' => 'error'];
+        } else {
+            $id = Hashids::decode($request->id);
+            if(empty($id)) {
+                return ['message' => 'error'];
+            }
+            $interview = InterviewSlot::where('id', $request->slot);
+            if($interview->count()) {
+                $applicant = Applicant::find($id[0]);
+                $applicant->interview_slot_id = $request->slot;
+                $applicant->save();
+                $interview = $interview->first();
+                return ['message' => 'success', 'content' => "Your selected interview slot is on " . $interview->formattedStartTime . " - " . $interview->formattedEndTime . " in " . $interview->location];
+            }
+        }
     }
 }
