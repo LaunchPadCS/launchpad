@@ -35,9 +35,9 @@
 					Interview Slot Selection
 				</div>
 				<div class="card-block">
-					<h4 class="card-title">Welcome back, {{$applicant->firstname}}!</h4>
 					@if($applicant->interview_slot_id == 0)
-						<p class="card-text">Please select your interview timeslot. Once you 	have selected a time slot, you will not be able to change it. If none 	of these times work for you, please get in touch with <a href="	mailto:team@launchpadcs.org">team@launchpadcs.org</a></p>
+						<h4 class="card-title">Welcome back, {{$applicant->firstname}}!</h4>
+						<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it. If none of these times work for you, please get in touch with <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a></p>
 						<div class="alert alert-success" id="success" style="display:none;"></div>
 						<form id="slotForm">
 							<div class="alert alert-danger" id="alert" style="display:none;"></div>
@@ -57,7 +57,10 @@
 				    		<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 					@else
-						Your selected time slot is {{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}, in {{$selected->location}}. If you need to change your interview time, please email <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+						<div class="alert alert-success">
+						<h4 class="alert-heading">Welcome back, {{$applicant->firstname}}!</h4>
+						Your selected time slot is <b>{{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+						</div>
 					@endif
 				</div>
 			</div>
