@@ -13,6 +13,7 @@ $(function() {
         ajax: '{!! route('datatables.data') !!}',
         columns: [
             { data: 'id', name: 'id', searchable: false},
+            { data: 'hashid', name: 'hashid', searchable: false},
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { data: 'email', name: 'email' },
@@ -33,7 +34,7 @@ $(function() {
                 }
             },
             {
-                "aTargets": [6],
+                "aTargets": [7],
                 "mRender": function ( data, type, full ) {
                     if(data) {
                         return moment(data).format("M/D, h:mm a");
@@ -62,6 +63,7 @@ $(function() {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>hashid</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>

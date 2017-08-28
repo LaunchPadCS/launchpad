@@ -7,8 +7,13 @@ use App\Models\FormResponse;
 use App\Models\Question;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\InterviewSlot;
 use Auth;
 use Illuminate\Http\Request;
+use Vinkla\Hashids\Facades\Hashids;
+use App\Mail\InterviewSlotSelected;
+use Illuminate\Support\Facades\Mail;
+
 
 class PageController extends Controller
 {
@@ -195,5 +200,45 @@ class PageController extends Controller
         }
 
         return ['message' => 'success'];
+    }
+
+    public function showInterviewSelectionForm(Request $request)
+    {
+        if($request->hashid == null) {
+            return "invalid";
+        } else {
+            $id = Hashids::decode($request->hashid);
+            if(empty($id)) {
+                return "invalid";
+            }
+            $applicant = Applicant::find($id[0]);
+            $interviewSlots = InterviewSlot::all();
+            $selectedSlot = InterviewSlot::where('id', $applicant->interview_slot_id)->first();
+            return view('interview', ['applicant' => $applicant, 'slots' => $interviewSlots, 'selected' => $selectedSlot]); 
+        }
+    }
+
+    public function submitInterviewSelectionForm(Request $request)
+    {
+        if(empty($request->id) || empty($request->slot)) {
+            return ['message' => 'error'];
+        } else {
+            $id = Hashids::decode($request->id);
+            if(empty($id)) {
+                return ['message' => 'error'];
+            }
+            $interview = InterviewSlot::where('id', $request->slot);
+            if($interview->count()) {
+                $applicant = Applicant::find($id[0]);
+                $applicant->interview_slot_id = $request->slot;
+                $applicant->save();
+                $interview = $interview->first();
+
+                Mail::to($applicant->email)
+                    ->queue(new InterviewSlotSelected($applicant, $interview));
+
+                return ['message' => 'success', 'content' => "Your selected interview slot is on " . $interview->formattedStartTime . " - " . $interview->formattedEndTime . " in " . $interview->location];
+            }
+        }
     }
 }

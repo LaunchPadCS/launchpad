@@ -75,12 +75,16 @@ $(document).ready(function() {
           <form id="individualInterviewForm">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="inputStart">Start (DD/MM/YYYY HH:ii)</label>
+              <label for="inputStart">Start (MM/DD/YYYY HH:ii)</label>
               <input type="text" class="form-control time-input" id="inputStart" placeholder="09/05/2017 10:15" name="start_time">
             </div>
             <div class="form-group">
-              <label for="inputEnd">End (DD/MM/YYYY HH:ii)</label>
+              <label for="inputEnd">End (MM/DD/YYYY HH:ii)</label>
               <input type="text" class="form-control time-input" id="inputEnd" placeholder="09/05/2017 18:05" name="end_time">
+            </div>
+            <div class="form-group">
+              <label for="inputLocation">Location</label>
+              <input type="text" class="form-control" id="inputLocation" name="location">
             </div>
             <button type="submit" class="btn btn-primary">Submit &raquo;</button>
           </form>
@@ -89,25 +93,25 @@ $(document).ready(function() {
             <form id="bulkInterviewForm">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="inputStartDay">Start Date (DD/MM/YYYY)</label>
+                    <label for="inputStartDay">Start Date (MM/DD/YYYY)</label>
                     <input type="text" class="form-control day-input" id="inputStartDay" placeholder="09/05/2017" name="start_day">
                 </div>
                 <div class="form-group">
-                    <label for="inputEndDay">End Date (DD/MM/YYYY)</label>
+                    <label for="inputEndDay">End Date (MM/DD/YYYY)</label>
                     <input type="text" class="form-control day-input" id="inputEndDay" placeholder="09/09/2017" name="end_day">
                 </div>
                 <hr/>
                 <div class="form-group">
                     <label for="inputStartTime">Start Time</label>
                     <input type="text" class="form-control" id="inputStartTime" placeholder="10" name="start_time">
-                    <p id="passwordHelpBlock" class="form-text text-muted">
+                    <p class="form-text text-muted">
                       This describes the hour at which an interview should <b>begin</b> every day. For example, 10 corresponds to 10am.
                     </p>
                 </div>
                 <div class="form-group">
                     <label for="inputEndTime">End Time (every day, in hours)</label>
                     <input type="text" class="form-control" id="inputEndTime" placeholder="18" name="end_time">
-                    <p id="passwordHelpBlock" class="form-text text-muted">
+                    <p class="form-text text-muted">
                       This describes the latest hour an interview can begin every day. For example, 18 means that the last interview can begin no later than 6pm.
                     </p>
                 </div>
@@ -119,13 +123,21 @@ $(document).ready(function() {
                 <div class="form-group">
                     <label for="inputOffset">Length of Offset (minutes)</label>
                     <input type="text" class="form-control" id="inputOffset" placeholder="5" name="offset">
-                    <p id="passwordHelpBlock" class="form-text text-muted">
+                    <p class="form-text text-muted">
                       This field describes the time in between interviews. For example, with a value of 5, there will be 5 minutes in between interviews.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="inputLocation">Location</label>
+                    <input type="text" class="form-control" id="inputLocation" name="location">
+                    <p class="form-text text-muted">
+                        This location will be applied to all interviews created
                     </p>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit &raquo;</button>
             </form>
         </div>
     </div>
+    <br/>
 </div>
 @endsection
