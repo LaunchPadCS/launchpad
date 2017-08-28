@@ -11,6 +11,9 @@ use App\Models\InterviewSlot;
 use Auth;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
+use App\Mail\InterviewSlotSelected;
+use Illuminate\Support\Facades\Mail;
+
 
 class PageController extends Controller
 {
@@ -230,6 +233,10 @@ class PageController extends Controller
                 $applicant->interview_slot_id = $request->slot;
                 $applicant->save();
                 $interview = $interview->first();
+
+                Mail::to($applicant->email)
+                    ->queue(new InterviewSlotSelected($applicant, $interview));
+
                 return ['message' => 'success', 'content' => "Your selected interview slot is on " . $interview->formattedStartTime . " - " . $interview->formattedEndTime . " in " . $interview->location];
             }
         }
