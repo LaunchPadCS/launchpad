@@ -297,7 +297,7 @@ class AdminController extends Controller
             $excel->sheet('list', function($sheet) use($applicants) {
                 foreach($applicants as $applicant) {
                     $sheet->appendRow(array(
-                        $applicant->firstname, $applicant->lastname, $applicant->email, $applicant->hashid
+                        $applicant->firstname, $applicant->lastname, $applicant->email, "https://launchpadcs.org/interview/" . $applicant->hashid
                     ));
                 }
             });
