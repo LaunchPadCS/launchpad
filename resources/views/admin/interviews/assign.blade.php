@@ -7,6 +7,7 @@
 <link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
 
 <script>
+$("#container").toggleClass('container container-fluid');
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -55,6 +56,9 @@ $('.mentorInput').on('itemRemoved', function() {
 </script>
 
 <style>
+.container-fluid {
+    margin-top: 40px;
+}
 /*
  * bootstrap-tagsinput v0.8.0
  * 
@@ -215,7 +219,7 @@ a.label:focus {
                     @endif
                   @endforeach
                 </td>
-                <td>Interview &raquo;</td>
+                <td> <a href="{{action('MentorController@showInterview')}}{{$interview->applicationsID}}">Interview &raquo;</a></td>
                 <td>
                   <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput" data-mentorid="{{$interview->id}}">
                     @foreach($interview->assignments as $assignment)

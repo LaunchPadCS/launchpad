@@ -137,6 +137,7 @@ class MentorController extends Controller
                 return redirect()->action('PageController@dashboard')->with('message', 'Error building interview');
             }
         }
+        return redirect()->action('PageController@dashboard')->with('message', 'Error building interview');
     }
 
     public function updateInterview(Request $request)
