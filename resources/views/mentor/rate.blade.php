@@ -149,5 +149,29 @@ $('#decisionForm button').click(function() {
         </div>
     </div>
     @endrole
+    @if($interviews)
+        <br/>
+        <div class="card">
+            <div class="card-header">Interview Notes</div>
+            <div class="card-block">
+                <div id="accordion" role="tablist">
+                @foreach($interviews as $interview)
+                <div class="card">
+                    <div class="card-header" role="tab" id="heading-{{$interview->id}}">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-{{$interview->id}}" aria-expanded="{{ $loop->first == true ? 'true' : 'false'}}" aria-controls="collapse-{{$interview->id}}">
+                                {{$interview->author}} - {{$interview->rating}}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-{{$interview->id}}" class="collapse {{ $loop->first == true? 'show' : ''}}" role="tabpanel" aria-labelledby="heading-{{$interview->id}}" data-parent="#accordion">
+                        <div class="card-block">{{$interview->notes}}</div>
+                    </div>
+                </div>
+                @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection

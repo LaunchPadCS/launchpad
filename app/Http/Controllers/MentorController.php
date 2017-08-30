@@ -65,8 +65,8 @@ class MentorController extends Controller
             }
             $data['id'] = $id;
             $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
-
-            return view('mentor.rate', compact('application', 'data', 'rating', 'slots'));
+            $interviews = Interview::where('applicant_id', $id)->get();
+            return view('mentor.rate', compact('application', 'data', 'rating', 'slots', 'interviews'));
         } catch (\Exception $e) {
             return redirect('/')->with('message', 'Could not find application.');
         }
@@ -128,7 +128,7 @@ class MentorController extends Controller
                     if (!is_null($interview)) {
                         $interviews[] = $interview->toArray();
                     } else {
-                        $interviews[] = ['notes' => '', 'applicant_id' => $applicant['id'], 'user_id' => Auth::user()->id, 'decision' => -1];
+                        $interviews[] = ['notes' => '', 'applicant_id' => $applicant['id'], 'user_id' => Auth::user()->id, 'rating' => 0];
                     }
                 }
 
@@ -169,6 +169,8 @@ class MentorController extends Controller
             return $validator->errors()->all();
         }
         $interview = Interview::firstOrNew(['applicant_id' => $request->applicant_id, 'user_id' => Auth::user()->id]);
+        $interview->applicant_id = $request->applicant_id;
+        $interview->user_id = Auth::user()->id;
         $interview->rating = $request->rating;
         $interview->save();
         $updated_at = new Carbon($interview->updated_at);
