@@ -245,7 +245,7 @@ class AdminController extends Controller
 
     public function showAssignInterview()
     {
-        $interviews = InterviewSlot::all();
+        $interviews = InterviewSlot::all()->sortBy("start_time");
         $mentors = Role::where('name', 'mentor')->first()->users()->get(['id', 'name']);
         $admins = Role::where('name', 'admin')->first()->users()->get(['id', 'name']);
 
