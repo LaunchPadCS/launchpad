@@ -56,21 +56,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($data->assignments as $assignment)
+                        @foreach($data['assignments'] as $assignment)
                             <tr>
                                 <td>
-                                    {{$assignment->slot->formattedStartTime}} to {{$assignment->slot->formattedEndTime}}
+                                    {{$assignment['slot']['formattedStartTime']}} to {{$assignment['slot']['formattedEndTime']}}
                                 </td>
                                 <td>
-                                    @foreach($assignment->slot->applicants as $applicant)
-                                        <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>
+                                    @foreach($assignment['slot']['applicants'] as $applicant)
+                                        <a href="{{action('MentorController@showRate')}}/{{$applicant['id']}}">{{$applicant['name']}}</a>
                                         @if (!$loop->last)
                                           ,
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{action('MentorController@showInterview')}}{{$assignment->slot->applicationsID}}">Interview &raquo;</a>
+                                    <a href="{{action('MentorController@showInterview')}}{{$assignment['slot']['applicationsID']}}">Interview &raquo;</a>
                                 </td>
                             </tr>
                         @endforeach

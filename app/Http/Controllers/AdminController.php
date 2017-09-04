@@ -284,7 +284,7 @@ class AdminController extends Controller
     }
 
     public function exportHashids() {
-        $applicants = Applicant::all();
+        $applicants = Applicant::where('interview_slot_id', 0)->get();
         \Excel::create('LaunchPad Export', function($excel) use($applicants) {
         
             // Set the title

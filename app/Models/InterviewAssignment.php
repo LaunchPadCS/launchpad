@@ -12,7 +12,7 @@ class InterviewAssignment extends Model
 
     public function slot()
     {
-        return $this->belongsTo('App\Models\InterviewSlot', 'interview_slot_id', 'id');
+        return $this->belongsTo('App\Models\InterviewSlot', 'interview_slot_id', 'id')->orderBy('start_time');
     }
 
     public function user()

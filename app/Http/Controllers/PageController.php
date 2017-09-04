@@ -44,7 +44,12 @@ class PageController extends Controller
     public function dashboard()
     {
         if (Auth::user()->hasRole(['admin', 'mentor'])) {
-            $data = User::where('id', Auth::user()->id)->with('assignments.slot')->first();
+            $data = Auth::user()->with('assignments.slot.applicants')->first()->toArray();
+            usort($data['assignments'], function($a, $b) {
+                return $a['slot']['start_time'] > $b['slot']['start_time'];
+            });
+
+
             $ratings = User::with(['roles' => function($q){
                 $q->where('name', 'mentor');
                 $q->orWhere('name', 'admin');

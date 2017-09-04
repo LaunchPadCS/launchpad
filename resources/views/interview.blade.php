@@ -37,7 +37,13 @@
 				<div class="card-block">
 					@if($applicant->interview_slot_id == 0)
 						<h4 class="card-title">Welcome back, {{$applicant->firstname}}!</h4>
-						<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it. If none of these times work for you, please get in touch with <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a></p>
+						<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it here. If none of these times work for you, please get in touch with <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>.</p>
+						<p>
+							This interview is for us to get to know you better, and for you to ask us any questions you may have about the program. Please do not dress up, as this is a casual, group interview. Also, please come prepared with a project idea in mind.
+						</p>
+						<p>
+							All interviews will be held at <a href="https://goo.gl/maps/Lt3JwHK6Xw62">the Anvil.</a>
+						</p>
 						<div class="alert alert-success" id="success" style="display:none;"></div>
 						<form id="slotForm">
 							<div class="alert alert-danger" id="alert" style="display:none;"></div>
@@ -60,6 +66,13 @@
 						<div class="alert alert-success">
 						<h4 class="alert-heading">Welcome back, {{$applicant->firstname}}!</h4>
 						Your selected time slot is <b>{{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+						<hr/>
+						<p>
+							This interview is for us to get to know you better, and for you to ask us any questions you may have about the program. Please do not dress up, as this is a casual, group interview. Also, please come prepared with a project idea in mind.
+						</p>
+						<p>
+							All interviews will be held at <a href="https://goo.gl/maps/Lt3JwHK6Xw62">the Anvil.</a>
+						</p>
 						</div>
 					@endif
 				</div>

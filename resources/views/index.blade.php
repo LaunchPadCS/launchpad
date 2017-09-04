@@ -76,7 +76,12 @@
                   <div class="col-md-8 offset-md-2">
                       <img src="img/logo.png" class="img-fluid logo">
                       <h1 class="brand-heading">LaunchPad</h1>
-                      <p class="intro-text"><a href="{{ action('PageController@showApplicationForm') }}"" class="btn btn-primary btn-lg">APPLY</a></p>
+                      @if (env('APPLICATIONS_OPEN') == false)
+                      <p class="intro-text"><a href="#" class="btn btn-primary btn-lg">Applications Closed</a></p>
+                      <p>If you applied, check your email for your interview selection email!</p>
+                      @else
+                      <p class="intro-text"><a href="{{ action('PageController@showApplicationForm') }}" class="btn btn-primary btn-lg">APPLY</a></p>
+                      @endif
                       <a href="#mission" class="btn btn-circle page-scroll">
                           <i class="fa fa-angle-double-down animated"></i>
                       </a>
