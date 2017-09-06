@@ -201,8 +201,8 @@ a.label:focus {
             <thead>
               <tr>
                 <th class="hidden-xs hidden-sm hidden-md">#</th>
-                <th>Start</th>
-                <th>End</th>
+                <th>Day</th>
+                <th>Duration</th>
                 <th>Students</th>
                 <th>Interview</th>
                 <th>Mentors</th>
@@ -212,8 +212,8 @@ a.label:focus {
 				    @foreach($interviews as $interview)
 				      <tr {{ $interview->pastDate ? 'class=table-dark' :''}}>
                 <td scope="row" class="hidden-xs hidden-sm hidden-md">{{$interview->id}}</td>
-                <td>{{$interview->formattedStartTime}}</td>
-                <td>{{$interview->formattedEndTime}}</td>
+                <td>{{$interview->formattedDay}}</td>
+                <td>{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</td>
                 <td>
                   @foreach($interview->applicants as $applicant)
                     <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>{{ !$loop->last ? ',' : ''}}

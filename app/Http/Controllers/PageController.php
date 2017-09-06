@@ -241,7 +241,7 @@ class PageController extends Controller
                 Mail::to($applicant->email)
                     ->queue(new InterviewSlotSelected($applicant, $interview));
 
-                return ['message' => 'success', 'content' => 'Your selected interview slot is on '.$interview->formattedStartTime.' - '.$interview->formattedEndTime.' in '.$interview->location];
+                return ['message' => 'success', 'content' => 'Your selected interview slot is on '.$interview->formattedDay . ' from ' . $interview->formattedStartTime.' to '.$interview->formattedEndTime.' in '.$interview->location];
             }
         }
     }

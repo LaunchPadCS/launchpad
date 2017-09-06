@@ -23,8 +23,8 @@ $("#container").toggleClass('container container-fluid');
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Start</th>
-                        <th>End</th>
+                        <th>Day</th>
+                        <th>Duration</th>
                         <th>Students</th>
                         <th style="min-width:100px;">Interview</th>
                         <th>Mentors</th>
@@ -33,8 +33,8 @@ $("#container").toggleClass('container container-fluid');
                 <tbody>
                 @foreach($interviews as $interview)
                     <tr {{ $interview->pastDate ? 'class=table-dark' :''}}>
-                        <td>{{$interview->formattedStartTime}}</td>
-                        <td>{{$interview->formattedEndTime}}</td>
+                        <td>{{$interview->formattedDay}}</td>
+                        <td>{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</td>
                         <td>
                             @foreach($interview->applicants as $applicant)
                                 <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>{{ !$loop->last ? ',' : ''}}

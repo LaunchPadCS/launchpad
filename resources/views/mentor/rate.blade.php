@@ -137,9 +137,9 @@ $('#decisionForm button').click(function() {
                         @endif
                         @foreach($slots as $slot)
                             @if($slot['id'] == $application['interview_slot_id'])
-                                <option value="{{$slot['id']}}" selected>{{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
+                                <option value="{{$slot['id']}}" selected>{{$slot->formattedDay}} @ {{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
                             @else
-                                <option value="{{$slot['id']}}">{{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
+                                <option value="{{$slot['id']}}">{{$slot->formattedDay}} @ {{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
                             @endif
                         @endforeach
                     </select>
