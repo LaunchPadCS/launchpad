@@ -9,7 +9,7 @@ class InterviewSlot extends Model
     protected $table = 'interview_slot';
     protected $fillable = ['*'];
     public $timestamps = false;
-    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount', 'applicationsID'];
+    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount', 'applicationsID', 'pastDate'];
 
     public function getFormattedStartTimeAttribute()
     {
@@ -49,5 +49,12 @@ class InterviewSlot extends Model
         }
 
         return rtrim($string, '/');
+    }
+
+    public function getPastDateAttribute() {
+        if(\Carbon\Carbon::now() > $this->start_time) {
+            return true;
+        }
+        return false;
     }
 }

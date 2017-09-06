@@ -1,14 +1,28 @@
 @extends('layouts.app')
 
+@section('bottom_js')
+<script>
+$("#container").toggleClass('container container-fluid');
+</script>
+
+<style>
+.table-dark {
+  background-color: #c6c8ca;
+}
+.container-fluid {
+    margin-top: 40px;
+}
+</style>
+@endsection
+
 @section('content')
 <div class="col-12">
     <div class="card">
         <div class="card-header">Full Interview Schedule</div>
         <div class="card-block">
-            <table class="table table-bordered">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th class="hidden-xs hidden-sm hidden-md">ID</th>
                         <th>Start</th>
                         <th>End</th>
                         <th>Students</th>
@@ -18,29 +32,22 @@
                 </thead>
                 <tbody>
                 @foreach($interviews as $interview)
-                    <tr>   
-                        <td class="hidden-xs hidden-sm hidden-md">#{{$interview->id}}</td>
+                    <tr {{ $interview->pastDate ? 'class=table-dark' :''}}>
                         <td>{{$interview->formattedStartTime}}</td>
                         <td>{{$interview->formattedEndTime}}</td>
                         <td>
                             @foreach($interview->applicants as $applicant)
-                                <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>
-                                @if (!$loop->last)
-                                    ,
-                                @endif
+                                <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>{{ !$loop->last ? ',' : ''}}
                             @endforeach
                         </td>
                         @if($interview->applicationsID == '')
                         <td>-</td>
                         @else
-                        <td><a href="{{action('MentorController@showInterview')}}{{$interview->applicationsID}}">Interview &raquo;</a></td>
+                        <td><a href="{{action('MentorController@showInterview')}}{{$interview->applicationsID}}">Interview</a></td>
                         @endif
                         <td>
                             @foreach($interview->assignments as $assignment)
-                              {{$assignment->user->name}}
-                              @if (!$loop->last)
-                                  ,
-                              @endif
+                              {{$assignment->user->name}}{{ !$loop->last ? ',' : ''}}
                             @endforeach
                         </td>
                     </tr>
