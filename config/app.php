@@ -235,7 +235,7 @@ return [
         'Image'        => Intervention\Image\Facades\Image::class,
         'Markdown'     => Indal\Markdown\Facade::class,
         'Hashids'      => Vinkla\Hashids\Facades\Hashids::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

@@ -66,6 +66,7 @@ class MentorController extends Controller
             $data['id'] = $id;
             $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
             $interviews = Interview::where('applicant_id', $id)->get();
+
             return view('mentor.rate', compact('application', 'data', 'rating', 'slots', 'interviews'));
         } catch (\Exception $e) {
             return redirect('/')->with('message', 'Could not find application.');
@@ -137,6 +138,7 @@ class MentorController extends Controller
                 return redirect()->action('PageController@dashboard')->with('message', 'Error building interview');
             }
         }
+
         return redirect()->action('PageController@dashboard')->with('message', 'Error building interview');
     }
 

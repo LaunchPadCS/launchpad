@@ -51,10 +51,12 @@ class InterviewSlot extends Model
         return rtrim($string, '/');
     }
 
-    public function getPastDateAttribute() {
-        if(\Carbon\Carbon::now() > $this->start_time) {
+    public function getPastDateAttribute()
+    {
+        if (\Carbon\Carbon::now() > $this->start_time) {
             return true;
         }
+
         return false;
     }
 }
