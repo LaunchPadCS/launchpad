@@ -165,7 +165,7 @@ $('#decisionForm button').click(function() {
                         </h5>
                     </div>
                     <div id="collapse-{{$interview->id}}" class="collapse {{ $loop->first == true? 'show' : ''}}" role="tabpanel" aria-labelledby="heading-{{$interview->id}}" data-parent="#accordion">
-                        <div class="card-block">{{$interview->notes}}</div>
+                        <div class="card-block">@markdown($interview->notes)</div>
                     </div>
                 </div>
                 @endforeach
