@@ -217,7 +217,7 @@ class PageController extends Controller
                 return "invalid";
             }
             $applicant = Applicant::find($id[0]);
-            $interviewSlots = InterviewSlot::all()->sortBy("start_time");
+            $interviewSlots = InterviewSlot::where('start_time', '>', \Carbon\Carbon::now())->get()->sortBy("start_time");
             $selectedSlot = InterviewSlot::where('id', $applicant->interview_slot_id)->first();
             return view('interview', ['applicant' => $applicant, 'slots' => $interviewSlots, 'selected' => $selectedSlot]); 
         }
