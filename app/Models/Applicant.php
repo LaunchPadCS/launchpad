@@ -79,7 +79,8 @@ class Applicant extends Model
         return 'Not rated';
     }
 
-    public function getHashidAttribute() {
+    public function getHashidAttribute()
+    {
         return Hashids::encode($this->id);
     }
 

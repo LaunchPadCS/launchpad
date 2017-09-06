@@ -2,17 +2,16 @@
 
 namespace App\Mail;
 
+use App\Models\Applicant;
+use App\Models\InterviewSlot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\InterviewSlot;
-use App\Models\Applicant;
 
 class InterviewSlotSelected extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     protected $applicant;
     protected $interview;
 

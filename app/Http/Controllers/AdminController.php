@@ -188,7 +188,7 @@ class AdminController extends Controller
         $validator = \Validator::make($request->all(), [
             'start_time' => 'required|date_format:"m/d/Y H:i"',
             'end_time'   => 'required|date_format:"m/d/Y H:i"',
-            'location'   => 'required'
+            'location'   => 'required',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -214,7 +214,7 @@ class AdminController extends Controller
             'end_time'   => 'required|numeric',
             'offset'     => 'required|numeric',
             'length'     => 'required|numeric|min:0',
-            'location'   => 'required'
+            'location'   => 'required',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -245,7 +245,7 @@ class AdminController extends Controller
 
     public function showAssignInterview()
     {
-        $interviews = InterviewSlot::all()->sortBy("start_time");
+        $interviews = InterviewSlot::all()->sortBy('start_time');
         $mentors = Role::where('name', 'mentor')->first()->users()->get(['id', 'name']);
         $admins = Role::where('name', 'admin')->first()->users()->get(['id', 'name']);
 
@@ -283,25 +283,25 @@ class AdminController extends Controller
         return response()->json(['message' => 'success', 'updated_at' => $prompt->updated_at->format('g:i:s A')]);
     }
 
-    public function exportHashids() {
+    public function exportHashids()
+    {
         $applicants = Applicant::where('interview_slot_id', 0)->get();
-        \Excel::create('LaunchPad Export', function($excel) use($applicants) {
-        
+        \Excel::create('LaunchPad Export', function ($excel) use ($applicants) {
+
             // Set the title
             $excel->setTitle('LaunchPad Applicants and Hashids');
-        
+
             // Chain the setters
             $excel->setCreator('LaunchPad')
                   ->setCompany('LaunchPad');
 
-            $excel->sheet('list', function($sheet) use($applicants) {
-                foreach($applicants as $applicant) {
-                    $sheet->appendRow(array(
-                        $applicant->firstname, $applicant->lastname, $applicant->email, "https://launchpadcs.org/interview/" . $applicant->hashid
-                    ));
+            $excel->sheet('list', function ($sheet) use ($applicants) {
+                foreach ($applicants as $applicant) {
+                    $sheet->appendRow([
+                        $applicant->firstname, $applicant->lastname, $applicant->email, 'https://launchpadcs.org/interview/'.$applicant->hashid,
+                    ]);
                 }
             });
-
         })->download('xls');
     }
 }
