@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('bottom_js')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>
 <link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
 <script>
+var simplemde = new SimpleMDE({ element: $("#inputAbout")[0] });
 $(document).ready(function() {
     $('#settingsForm').submit(function(event) {
         $("#message").fadeOut().removeClass("alert alert-success");

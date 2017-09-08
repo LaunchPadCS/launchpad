@@ -6,7 +6,7 @@
 <script src="{{ asset('js/jquery.growl.js') }}" type="text/javascript"></script>
 <link href="{{ asset('css/jquery.growl.css') }}" rel="stylesheet" type="text/css" />
 <script>
-var simplemde = new SimpleMDE({ element: $("#edtior")[0] });
+var simplemde = new SimpleMDE({ element: $("#editor")[0] });
 var timeout;
 simplemde.codemirror.on("change", function() {
     clearTimeout(timeout);
