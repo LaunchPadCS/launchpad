@@ -174,8 +174,22 @@ class AdminController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-    public function submitDecision()
+    public function submitDecision(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'app_id' => 'required|exists:applicants,id',
+            'decision' => 'required|numeric|max:1|min:-1',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+
+        $application = Applicant::findOrFail($request->app_id);
+        $application->decision = $request->decision;
+        $application->save();
+
+        return response()->json(['message' => 'success']);
     }
 
     public function showCreateInterview()
@@ -299,6 +313,36 @@ class AdminController extends Controller
                 foreach ($applicants as $applicant) {
                     $sheet->appendRow([
                         $applicant->firstname, $applicant->lastname, $applicant->email, 'https://launchpadcs.org/interview/'.$applicant->hashid,
+                    ]);
+                }
+            });
+        })->download('xls');
+    }
+
+    public function exportDecisionList(Request $request) {
+        if($request->decision != 0 && $request->decision != 1) {
+            return "invalid decision";
+        }
+        if($request->decision) {
+            $string = "Accepted";
+        } else {
+            $string = "Denied";
+        }
+
+        $applicants = Applicant::where('decision', $request->decision)->get();
+        \Excel::create('LaunchPad '. $string .' Export', function ($excel) use ($applicants, $string) {
+
+            // Set the title
+            $excel->setTitle('LaunchPad '. $string .'Applicants');
+
+            // Chain the setters
+            $excel->setCreator('LaunchPad')
+                  ->setCompany('LaunchPad');
+
+            $excel->sheet($string, function ($sheet) use ($applicants) {
+                foreach ($applicants as $applicant) {
+                    $sheet->appendRow([
+                        $applicant->firstname, $applicant->lastname, $applicant->email, 'https://launchpadcs.org/invite/'.$applicant->hashid,
                     ]);
                 }
             });

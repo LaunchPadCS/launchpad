@@ -49,6 +49,7 @@
 
             @else(env('APP_PHASE') == 2)
                 <div class="alert alert-info">There's nothing to see here yet!</div>
+                If you haven't already, use the settings page (upper right hand corner) to fill in your information, and upload a profile photo.
             @endif
         </div>
     </div>

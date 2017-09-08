@@ -23,7 +23,9 @@ class MentorController extends Controller
      */
     public function showApplications()
     {
-        return view('mentor.applications');
+        $accepted = Applicant::where('decision', 1)->count();
+        $denied = Applicant::where('decision', 0)->count();
+        return view('mentor.applications', ['accepted' => $accepted, 'denied' => $denied]);
     }
 
     public function showInterviewSchedule()

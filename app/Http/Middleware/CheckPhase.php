@@ -17,7 +17,7 @@ class CheckPhase
      */
     public function handle($request, Closure $next, $phase)
     {
-        if (env('APP_PHASE') == $phase || Auth::user()->hasRole('admin')) {
+        if (env('APP_PHASE') == $phase || (Auth::user() && Auth::user()->hasRole('admin'))) {
             return $next($request);
         }
 

@@ -13,6 +13,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
@@ -260,5 +261,45 @@ class PageController extends Controller
         shuffle($mentors);
         shuffle($mentees);
         return view('community.community', compact('mentors', 'mentees')); 
+    }
+
+    public function showInviteForm(Request $request) {
+        if ($request->hashid == null) {
+            return 'invalid - 1';
+        } else {
+            $id = Hashids::decode($request->hashid);
+            if (empty($id)) {
+                return 'invalid - 2';
+            }
+            $applicant = Applicant::find($id[0]);
+            if($applicant->decision != 1) {
+                return "invalid - 3";
+            }
+            if(User::where('email', $applicant->email)->count() > 0) {
+                return "link expired";
+            }
+            return view('invite', ['applicant' => $applicant]);
+        }       
+    }
+
+    public function submitInviteForm(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required|max:255',
+            'email'    => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        $user->image = 'default.png';
+        $user->attachRole(Role::where('name', 'mentee')->first());
+        $user->save();
+        Auth::login($user, true);
+        return ['message' => 'success', 'user' => $user];
     }
 }

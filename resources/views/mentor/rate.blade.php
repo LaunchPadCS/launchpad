@@ -70,7 +70,6 @@ $('#decisionForm button').click(function() {
             if(data['message'] == "success") {
                 // Visual feedback that request was successful
                 $("#reject").removeClass("active").html("Reject");
-                $("#standby").removeClass("active").html("Standby");
                 $("#accept").removeClass("active").html("Accept");
                 $(button).append(' <i class="fa fa-check" aria-hidden="true"></i>').addClass("active");
             }
@@ -145,6 +144,20 @@ $('#decisionForm button').click(function() {
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="card">
+        <div class="card-header">Applicant Decision</div>
+        <div class="card-block">
+            <form id="decisionForm">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" value="{{$application['id']}}" />
+                <div class="form-group text-center">
+                    <button id="reject" type="button" value="0" class="btn btn-danger btn-lg {{ ($application['decision'] == 0) ? ' active' : '' }}">Reject{!! ($application['decision'] == 0) ? ' <i class="fa fa-check" aria-hidden="true"></i>' : '' !!}</button>
+                    <button id="accept" type="button" value="1" class="btn btn-success btn-lg {{ ($application['decision'] == 1) ? ' active' : '' }}">Accept{!! ($application['decision'] == 1) ? ' <i class="fa fa-check" aria-hidden="true"></i>' : '' !!}</button>
+                </div>
             </form>
         </div>
     </div>

@@ -59,6 +59,11 @@ $(function() {
     <div class="card">
         <div class="card-header">Applications</div>
         <div class="card-block">
+            @role('admin')
+                <a href="{{ action('AdminController@exportDecisionList', ['decision' => 1]) }}" class="btn btn-success">Download Accepted List ({{$accepted}})</a>
+                <a href="{{ action('AdminController@exportDecisionList', ['decision' => 0]) }}" class="btn btn-danger">Download Denied List ({{$denied}})</a>
+                <hr/>
+            @endrole
             <table id="applications-table" class="table table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>

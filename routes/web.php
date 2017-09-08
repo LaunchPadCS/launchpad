@@ -19,6 +19,11 @@ Route::get('resources', function () {
     return redirect('https://www.gitbook.com/@launchpadcs');
 });
 
+
+Route::get('invite/{hashid?}', 'PageController@showInviteForm');
+Route::post('invite', 'PageController@submitInviteForm');
+
+
 Route::group(['middleware' => ['phase:1']], function () {
     Route::get('apply', 'PageController@showApplicationForm');
     Route::post('apply', 'PageController@submitApplicationForm');
@@ -68,6 +73,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('form', 'AdminController@submitTimeslot');
         Route::get('export', 'AdminController@exportHashids');
     });
+
+    Route::get('exportList', 'AdminController@exportDecisionList');
 });
 
 // Mentor Routes
