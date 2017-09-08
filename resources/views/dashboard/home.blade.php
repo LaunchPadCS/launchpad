@@ -77,6 +77,9 @@
                         </tbody>
                     </table>
                 @endrole
+
+            @else(env('APP_PHASE') == 2)
+                <div class="alert alert-info">There's nothing to see here yet!</div>
             @endif
         </div>
     </div>

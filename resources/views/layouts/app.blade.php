@@ -32,7 +32,7 @@
 <body>
 	<div id="app">
 		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="        navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		<a class="navbar-brand" href="#">LaunchPad</a>
@@ -45,11 +45,13 @@
 		   	@else
 		   		<ul class="navbar-nav mr-auto">
 		   			<li class="nav-item"><a class="nav-link" href="{{ action('PageController@dashboard') }}">Dashboard</a></li>
-		   			@role('mentor')
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showRate') }}">Rate</a></li>
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showApplications') }}">Applications</a></li>   			
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showInterviewSchedule') }}">Interview Schedule</a></li>
-		   			@endrole
+		   			@if(env('APP_PHASE') == 1)
+		   				@role('mentor')
+		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showRate') }}">Rate</a></li>
+		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showApplications') }}">Applications</a></li>
+		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showInterviewSchedule') }}">Interview Schedule</a></li>
+		   				@endrole
+		   			@endif
 		   			@role('admin')
 		   				@include('layouts.admin_nav')
 		   			@endrole

@@ -19,13 +19,15 @@ Route::get('resources', function() {
 	return redirect('https://www.gitbook.com/@launchpadcs');
 });
 
-Route::get('apply', 'PageController@showApplicationForm');
-Route::post('apply', 'PageController@submitApplicationForm');
+Route::group(['prefix' => 'mentor', 'middleware' => ['phase:1']], function () {
+    Route::get('apply', 'PageController@showApplicationForm');
+    Route::post('apply', 'PageController@submitApplicationForm');
+    
+    Route::get('interview/{hashid?}', 'PageController@showInterviewSelectionForm');
+    Route::post('interview', 'PageController@submitInterviewSelectionForm');
+});
 
-Route::get('interview/{hashid?}', 'PageController@showInterviewSelectionForm');
-Route::post('interview', 'PageController@submitInterviewSelectionForm');
-
-Route::get('datatables', ['middleware' => ['auth', 'role:admin|mentor'], 'as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
+Route::get('datatables', ['middleware' => ['auth', 'role:admin|mentor', 'phase:1'], 'as' => 'datatables.data', 'uses' => 'MentorController@getApplications']);
 
 // User Routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
@@ -78,3 +80,6 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'role:admin|mentor'
     Route::post('interview', 'MentorController@updateInterview');
     Route::post('interviewRating', 'MentorController@updateInterviewRating');
 });
+
+// Misc Routes
+Route::get('community', 'PageController@showCommunity')->middleware('auth', 'phase:2');

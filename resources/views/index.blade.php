@@ -77,7 +77,7 @@
                       <img src="img/logo.png" class="img-fluid logo">
                       <h1 class="brand-heading">LaunchPad</h1>
                       @if (env('APPLICATIONS_OPEN') == false)
-                      <p class="intro-text"><a href="#" class="btn btn-primary btn-lg">Applications Closed</a></p>
+                      <p class="intro-text"><button class="btn btn-primary btn-lg" disabled>Applications Closed</button></p>
                       <p>If you applied, check your email for your interview selection email!</p>
                       @else
                       <p class="intro-text"><a href="{{ action('PageController@showApplicationForm') }}" class="btn btn-primary btn-lg">APPLY</a></p>

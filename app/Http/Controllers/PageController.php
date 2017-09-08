@@ -43,7 +43,7 @@ class PageController extends Controller
      */
     public function dashboard()
     {
-        if (Auth::user()->hasRole(['admin', 'mentor'])) {
+        if (env('APP_PHASE') == 1 && Auth::user()->hasRole(['admin', 'mentor'])) {
             $data = Auth::user()->with('assignments.slot.applicants')->first()->toArray();
             usort($data['assignments'], function($a, $b) {
                 return $a['slot']['start_time'] > $b['slot']['start_time'];
@@ -56,9 +56,9 @@ class PageController extends Controller
             }])->get()->sortByDesc(function($users) {
                 return $users->ratingCount;
             });
+            return view('dashboard.home', ['data' => $data, 'ratings' => $ratings]);
         }
-
-        return view('dashboard.home', ['data' => $data, 'ratings' => $ratings]);
+        return view('dashboard.home');
     }
 
     public function showSettings()
@@ -245,5 +245,21 @@ class PageController extends Controller
                 return ['message' => 'success', 'content' => "Your selected interview slot is on " . $interview->formattedStartTime . " - " . $interview->formattedEndTime . " in " . $interview->location];
             }
         }
+    }
+
+    public function showCommunity() {
+        $mentors = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'mentor')->orWhere('name', 'admin');
+            }
+        )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
+        $mentees = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'mentee');
+            }
+        )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
+        shuffle($mentors);
+        shuffle($mentees);
+        return view('community.community', compact('mentors', 'mentees')); 
     }
 }
