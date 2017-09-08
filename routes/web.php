@@ -15,8 +15,8 @@ Auth::routes();
 
 // Public Routes
 Route::get('/', 'PageController@index');
-Route::get('resources', function() {
-	return redirect('https://www.gitbook.com/@launchpadcs');
+Route::get('resources', function () {
+    return redirect('https://www.gitbook.com/@launchpadcs');
 });
 
 Route::group(['prefix' => 'mentor', 'middleware' => ['phase:1']], function () {

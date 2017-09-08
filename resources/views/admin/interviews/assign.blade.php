@@ -186,6 +186,9 @@ a.label:focus {
 .label-danger[href]:focus {
   background-color: #c9302c;
 }
+.table-dark {
+  background-color: #c6c8ca;
+}
 </style>
 @endsection
 
@@ -197,9 +200,9 @@ a.label:focus {
           <table class="table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Start</th>
-                <th>End</th>
+                <th class="hidden-xs hidden-sm hidden-md">#</th>
+                <th>Day</th>
+                <th>Duration</th>
                 <th>Students</th>
                 <th>Interview</th>
                 <th>Mentors</th>
@@ -207,19 +210,16 @@ a.label:focus {
             </thead>
             <tbody>
 				    @foreach($interviews as $interview)
-				      <tr>
-                <td scope="row">{{$interview->id}}</td>
-                <td>{{$interview->formattedStartTime}}</td>
-                <td>{{$interview->formattedEndTime}}</td>
+				      <tr {{ $interview->pastDate ? 'class=table-dark' :''}}>
+                <td scope="row" class="hidden-xs hidden-sm hidden-md">{{$interview->id}}</td>
+                <td>{{$interview->formattedDay}}</td>
+                <td>{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</td>
                 <td>
                   @foreach($interview->applicants as $applicant)
-                    <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>
-                    @if (!$loop->last)
-                      ,
-                    @endif
+                    <a href="{{action('MentorController@showRate')}}/{{$applicant->id}}">{{$applicant->name}}</a>{{ !$loop->last ? ',' : ''}}
                   @endforeach
                 </td>
-                <td> <a href="{{action('MentorController@showInterview')}}{{$interview->applicationsID}}">Interview &raquo;</a></td>
+                <td> <a href="{{action('MentorController@showInterview')}}{{$interview->applicationsID}}">Interview</a></td>
                 <td>
                   <select multiple data-role="tagsinput" name="interview-{{$interview->id}}" class="mentorInput" data-mentorid="{{$interview->id}}">
                     @foreach($interview->assignments as $assignment)

@@ -137,9 +137,9 @@ $('#decisionForm button').click(function() {
                         @endif
                         @foreach($slots as $slot)
                             @if($slot['id'] == $application['interview_slot_id'])
-                                <option value="{{$slot['id']}}" selected>{{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
+                                <option value="{{$slot['id']}}" selected>{{$slot->formattedDay}} @ {{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
                             @else
-                                <option value="{{$slot['id']}}">{{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
+                                <option value="{{$slot['id']}}">{{$slot->formattedDay}} @ {{$slot->formattedStartTime}} - ({{$slot->applicationsCount}})</option>
                             @endif
                         @endforeach
                     </select>
@@ -165,7 +165,7 @@ $('#decisionForm button').click(function() {
                         </h5>
                     </div>
                     <div id="collapse-{{$interview->id}}" class="collapse {{ $loop->first == true? 'show' : ''}}" role="tabpanel" aria-labelledby="heading-{{$interview->id}}" data-parent="#accordion">
-                        <div class="card-block">{{$interview->notes}}</div>
+                        <div class="card-block">@markdown($interview->notes)</div>
                     </div>
                 </div>
                 @endforeach

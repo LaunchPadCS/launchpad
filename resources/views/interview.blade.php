@@ -55,7 +55,7 @@
 								<option disabled selected>Please select a slot</option>
 								@foreach($slots as $interview)
 									@if($interview->applicationsCount < 3)
-									<option value="{{$interview->id}}">{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</option>
+									<option value="{{$interview->id}}">{{$interview->formattedDay}} from {{$interview->formattedStartTime}} to {{$interview->formattedEndTime}}</option>
 									@endif
 				    			@endforeach
 				    		</select>
@@ -65,7 +65,7 @@
 					@else
 						<div class="alert alert-success">
 						<h4 class="alert-heading">Welcome back, {{$applicant->firstname}}!</h4>
-						Your selected time slot is <b>{{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+						Your selected time slot is on <b>{{$selected->formattedDay}} from {{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
 						<hr/>
 						<p>
 							This interview is for us to get to know you better, and for you to ask us any questions you may have about the program. Please do not dress up, as this is a casual, group interview. Also, please come prepared with a project idea in mind.

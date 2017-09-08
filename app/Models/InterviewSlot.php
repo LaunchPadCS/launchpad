@@ -9,13 +9,20 @@ class InterviewSlot extends Model
     protected $table = 'interview_slot';
     protected $fillable = ['*'];
     public $timestamps = false;
-    protected $appends = ['formattedStartTime', 'formattedEndTime', 'applicationsCount', 'applicationsID'];
+    protected $appends = ['formattedDay', 'formattedStartTime', 'formattedEndTime', 'applicationsCount', 'applicationsID', 'pastDate'];
 
+    public function getFormattedDayAttribute()
+    {
+        $c = new \Carbon\Carbon($this->start_time);
+
+        return $c->format('F j');
+    }
+    
     public function getFormattedStartTimeAttribute()
     {
         $c = new \Carbon\Carbon($this->start_time);
 
-        return $c->format('F j, g:i A');
+        return $c->format('g:i A');
     }
 
     public function getFormattedEndTimeAttribute()
@@ -49,5 +56,14 @@ class InterviewSlot extends Model
         }
 
         return rtrim($string, '/');
+    }
+
+    public function getPastDateAttribute()
+    {
+        if (\Carbon\Carbon::now() > $this->start_time) {
+            return true;
+        }
+
+        return false;
     }
 }
