@@ -19,7 +19,7 @@ Route::get('resources', function () {
     return redirect('https://www.gitbook.com/@launchpadcs');
 });
 
-Route::group(['prefix' => 'mentor', 'middleware' => ['phase:1']], function () {
+Route::group(['middleware' => ['phase:1']], function () {
     Route::get('apply', 'PageController@showApplicationForm');
     Route::post('apply', 'PageController@submitApplicationForm');
     
