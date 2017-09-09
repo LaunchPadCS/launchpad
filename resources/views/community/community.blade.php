@@ -11,6 +11,9 @@
             padding: 10px;
             margin: 5px;
         }
+        .caption {
+            margin-top: 10px;
+        }
     </style>
     <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>
@@ -87,6 +90,9 @@
         <div class="card-block">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
+                    <a href="#team" aria-controls="team" role="tab" data-toggle="tab" class="nav-link">Team</a>
+                </li>
+                <li class="nav-item">
                     <a href="#mentors" aria-controls="mentors" role="tab" data-toggle="tab" class="nav-link active" id="mentors-tab" aria-expanded="true">Mentors</a>
                 </li>
                 <li class="nav-item">
@@ -94,6 +100,40 @@
                 </li>
             </ul>
                     <div class="tab-content">
+                        <div class="tab-pane fade show" id="team" role="tabpanel" aria-labelledby="team-tab">
+                            <br/>
+                            <div class="row masonry-container">
+                                @for($i = 0; $i < count($team); $i++)
+                                    <div class="col-sm-6 col-md-6 item">
+                                        <div class="profile-holder">
+                                            @if($team[$i]['image'])
+                                                <img src="{{asset('storage/uploads/' . $team[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
+                                            @else
+                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
+                                            @endif
+                                            <div class="caption">
+                                                <h3>{{$team[$i]['name']}}</h3>
+                                                <p>{{$team[$i]['tagline']}}<p>
+                                                <p><a href="#" class="btn btn-primary readMore" role="button" data-name="{{$team[$i]['name']}}" data-url="{{asset('storage/uploads/' . $team[$i]['image'])}}" data-description="{{$team[$i]['about']}}" data-fb="{{$team[$i]['fb'] or ''}}" data-instagram="{{$team[$i]['instagram'] or ''}}" data-snapchat="{{$team[$i]['snapchat'] or ''}}" data-toggle="modal" data-target="#infoModal">Read More</a></p>
+                                                @if($team[$i]['fb'] || $team[$i]['instagram'] || $team[$i]['snapchat'])<hr/>@endif
+                                                @if($team[$i]['fb'])
+                                                    <a href="https://facebook.com/{{$team[$i]['fb']}}"><i class="fa fa-facebook-official" aria-hidden="true"></i> {{$team[$i]['fb']}}</a>
+                                                @endif
+                                                @if($team[$i]['instagram'])
+                                                    @if($team[$i]['fb'])<br/>@endif
+                                                    <a href="https://instagram.com/{{$team[$i]['instagram']}}"><i class="fa fa-instagram" aria-hidden="true"></i> {{$team[$i]['instagram']}}</a>
+                                                @endif
+                                                @if($team[$i]['snapchat'])
+                                                    @if($team[$i]['fb'] || $team[$i]['instagram'])<br/>@endif
+                                                    <i class="fa fa-snapchat" aria-hidden="true"></i> {{$team[$i]['snapchat']}}
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade show active" id="mentors" role="tabpanel" aria-labelledby="mentors-tab">
                             <br/>
                             <div class="row masonry-container">
@@ -101,9 +141,9 @@
                                     <div class="col-sm-6 col-md-4 item">
                                         <div class="profile-holder">
                                             @if($mentors[$i]['image'])
-                                                <img src="{{asset('storage/uploads/' . $mentors[$i]['image'])}}" class="rounded">
+                                                <img src="{{asset('storage/uploads/' . $mentors[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
                                             @else
-                                                <img src="{{asset('storage/uploads/default.png')}}">
+                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
                                             @endif
                                             <div class="caption">
                                                 <h3>{{$mentors[$i]['name']}}</h3>
@@ -133,26 +173,28 @@
                             <div class="row masonry-container">
                                 @for($i = 0; $i < count($mentees); $i++)
                                     <div class="col-sm-6 col-md-4 item">
-                                        <div class="thumbnail">
+                                        <div class="profile-holder">
                                             @if($mentees[$i]['image'])
-                                                <img src="{{asset('storage/uploads/' . $mentees[$i]['image'])}}">
+                                                <img src="{{asset('storage/uploads/' . $mentees[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
                                             @else
-                                                <img src="{{asset('SPA_assets/images/no-img.png')}}">
+                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
                                             @endif
                                             <div class="caption">
                                                 <h3>{{$mentees[$i]['name']}}</h3>
                                                 <p>{{$mentees[$i]['tagline']}}<p>
-                                                <p><a href="#" class="btn btn-primary readMore" role="button" data-name="{{$mentees[$i]['name']}}" data-url="{{asset('storage/' . $mentees[$i]['image'])}}" data-description="{{$mentees[$i]['about']}}" data-fb="{{$mentees[$i]['fb'] or ''}}" data-instagram="{{$mentees[$i]['instagram'] or ''}}" data-snapchat="{{$mentees[$i]['snapchat'] or ''}}" data-toggle="modal" data-target="#infoModal">Read More</a></p>
-                                                <hr/>
-                                                 @if($mentees[$i]['fb'])
-                                                <i class="fa fa-facebook-official" aria-hidden="true"></i> {{$mentees[$i]['fb']}}
-                                               @endif
-                                               @if($mentees[$i]['instagram'])
-                                               &nbsp;|&nbsp;&nbsp;<i class="fa fa-instagram" aria-hidden="true"></i> {{$mentees[$i]['instagram']}}
-                                               @endif
+                                                <p><a href="#" class="btn btn-primary readMore" role="button" data-name="{{$mentees[$i]['name']}}" data-url="{{asset('storage/uploads/' . $mentees[$i]['image'])}}" data-description="{{$mentees[$i]['about']}}" data-fb="{{$mentees[$i]['fb'] or ''}}" data-instagram="{{$mentees[$i]['instagram'] or ''}}" data-snapchat="{{$mentees[$i]['snapchat'] or ''}}" data-toggle="modal" data-target="#infoModal">Read More</a></p>
+                                                @if($mentees[$i]['fb'] || $mentees[$i]['instagram'] || $mentees[$i]['snapchat'])<hr/>@endif
+                                                @if($mentees[$i]['fb'])
+                                                    <a href="https://facebook.com/{{$mentees[$i]['fb']}}"><i class="fa fa-facebook-official" aria-hidden="true"></i> {{$mentees[$i]['fb']}}</a>
+                                                @endif
+                                                @if($mentees[$i]['instagram'])
+                                                    @if($mentees[$i]['fb'])<br/>@endif
+                                                    <a href="https://instagram.com/{{$mentees[$i]['instagram']}}"><i class="fa fa-instagram" aria-hidden="true"></i> {{$mentees[$i]['instagram']}}</a>
+                                                @endif
                                                 @if($mentees[$i]['snapchat'])
-                                                &nbsp;|&nbsp;&nbsp;<i class="fa fa-snapchat" aria-hidden="true"></i> {{$mentees[$i]['snapchat']}}
-                                               @endif
+                                                    @if($mentees[$i]['fb'] || $mentees[$i]['instagram'])<br/>@endif
+                                                    <i class="fa fa-snapchat" aria-hidden="true"></i> {{$mentees[$i]['snapchat']}}
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

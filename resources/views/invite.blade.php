@@ -43,6 +43,7 @@
 					<div class="alert alert-danger" id="alert" style="display:none;"></div>
 					<form id="userForm">
 						{{ csrf_field() }}
+						<input type="hidden" name="app_id" value="{{$applicant->id}}">
 						<div class="form-group">
 							<label for="inputName">Name</label>
     						<input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="First and last name" name="name">

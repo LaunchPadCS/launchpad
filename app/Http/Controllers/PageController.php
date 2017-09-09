@@ -248,9 +248,14 @@ class PageController extends Controller
     }
 
     public function showCommunity() {
+        $team = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'admin');
+            }
+        )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         $mentors = User::whereHas(
             'roles', function($q){
-                $q->where('name', 'mentor')->orWhere('name', 'admin');
+                $q->where('name', 'mentor');
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         $mentees = User::whereHas(
@@ -260,7 +265,8 @@ class PageController extends Controller
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         shuffle($mentors);
         shuffle($mentees);
-        return view('community.community', compact('mentors', 'mentees')); 
+        shuffle($team);
+        return view('community.community', compact('mentors', 'mentees', 'team')); 
     }
 
     public function showInviteForm(Request $request) {
@@ -272,11 +278,12 @@ class PageController extends Controller
                 return 'invalid - 2';
             }
             $applicant = Applicant::find($id[0]);
+            if($applicant->decision == 2) {
+                return "link expired - account already created";
+            }
+
             if($applicant->decision != 1) {
                 return "invalid - 3";
-            }
-            if(User::where('email', $applicant->email)->count() > 0) {
-                return "link expired";
             }
             return view('invite', ['applicant' => $applicant]);
         }       
@@ -284,6 +291,7 @@ class PageController extends Controller
 
     public function submitInviteForm(Request $request) {
         $validator = Validator::make($request->all(), [
+            'app_id'   => 'required|exists:applicants,id',
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
@@ -291,6 +299,11 @@ class PageController extends Controller
         if ($validator->fails()) {
             return $validator->errors()->all();
         }
+
+        $applicant = Applicant::find($request->app_id);
+        $applicant->decision = 2;
+        $applicant->save();
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
