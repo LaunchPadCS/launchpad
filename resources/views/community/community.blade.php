@@ -107,9 +107,9 @@
                                     <div class="col-sm-6 col-md-6 item">
                                         <div class="profile-holder">
                                             @if($team[$i]['image'])
-                                                <img src="{{asset('storage/uploads/' . $team[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/' . $team[$i]['image'])}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @else
-                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/default.png')}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @endif
                                             <div class="caption">
                                                 <h3>{{$team[$i]['name']}}</h3>
@@ -141,9 +141,9 @@
                                     <div class="col-sm-6 col-md-4 item">
                                         <div class="profile-holder">
                                             @if($mentors[$i]['image'])
-                                                <img src="{{asset('storage/uploads/' . $mentors[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/' . $mentors[$i]['image'])}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @else
-                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/default.png')}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @endif
                                             <div class="caption">
                                                 <h3>{{$mentors[$i]['name']}}</h3>
@@ -175,9 +175,9 @@
                                     <div class="col-sm-6 col-md-4 item">
                                         <div class="profile-holder">
                                             @if($mentees[$i]['image'])
-                                                <img src="{{asset('storage/uploads/' . $mentees[$i]['image'])}}" class="rounded" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/' . $mentees[$i]['image'])}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @else
-                                                <img src="{{asset('storage/uploads/default.png')}}" style="display: block;margin: 0 auto;">
+                                                <img src="{{asset('storage/uploads/default.png')}}" class="img-fluid rounded" style="display: block;margin: 0 auto;">
                                             @endif
                                             <div class="caption">
                                                 <h3>{{$mentees[$i]['name']}}</h3>
