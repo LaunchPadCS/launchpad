@@ -295,6 +295,7 @@ class PageController extends Controller
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
+            'code_of_conduct' => 'required'
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();

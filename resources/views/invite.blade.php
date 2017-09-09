@@ -58,6 +58,13 @@
   							<label for="inputPassword">Password</label>
     						<input type="password" class="form-control" id="inputPassword" name="password">
     					</div>
+    					<div class="form-check">
+    						<label class="form-check-label">
+    							<input class="form-check-input" type="checkbox" value="1" name="code_of_conduct">
+    								I agree to the <a href="https://docs.google.com/document/d/1YAqI178wMXuAba6AsdJJ83Hes6oEzvyWVqTzb0oEYKk/edit?usp=sharing" target="_blank">LaunchPad Code of Conduct</a>
+  							</label>
+    					</div>
+    					<hr/>
     					<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>
