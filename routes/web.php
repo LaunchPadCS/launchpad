@@ -42,6 +42,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     Route::post('settings', 'PageController@submitSettings');
     Route::post('store', 'PageController@tempProfilePicStore');
     Route::post('crop', 'PageController@cropPicture');
+
+    Route::group(['prefix' => 'export', 'middleware' => ['phase:2']], function () {
+        Route::get('{group}', 'FileController@exportSheet');
+    });
 });
 
 // Admin Routes
@@ -71,10 +75,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('createBulk', 'AdminController@submitBulkCreateInterview');
         Route::post('create', 'AdminController@submitCreateInterview');
         Route::post('form', 'AdminController@submitTimeslot');
-        Route::get('export', 'AdminController@exportHashids');
+        Route::get('export', 'FileController@exportHashids');
     });
 
-    Route::get('exportList', 'AdminController@exportDecisionList');
+    Route::get('exportList', 'FileController@exportDecisionList');
 });
 
 // Mentor Routes
