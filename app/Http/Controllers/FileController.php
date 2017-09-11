@@ -70,7 +70,21 @@ class FileController extends Controller
                 $q->where('name', $request->group);
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat']);
-    	$pdf = \PDF::loadView('pdfs.sheet', compact('data'));
+        $client = new \GuzzleHttp\Client();
+        foreach($data as $user){
+        	if($user->snapchat) {
+        		if(!file_exists(storage_path('app/public').'/snap/'.$user->snapchat)) {
+        			$resource = fopen(storage_path('app/public').'/snap/'.$user->snapchat, 'w+');
+        			$client->request('GET', 'https://feelinsonice.appspot.com/web/deeplink/snapcode?username='.$user->snapchat.'&size=500&type=PNG', ['sink' => $resource]);
+        		}
+        	}
+        }
+        if(\Cache::store('file')->has($request->group)) {
+        	return response()->file(storage_path('app/public') . '/pdfs/' . $request->group .'.pdf');
+        } else {
+    		$pdf = \PDF::loadView('pdfs.sheet', compact('data'))->save(storage_path('app/public') . '/pdfs/' . $request->group .'.pdf');
+    		\Cache::store('file')->put($request->group, 1, 120);
+    	}
 		return $pdf->stream();
     }
 }

@@ -15,15 +15,6 @@ h1, h2{
   font-weight:200;
 }
 
-/* Material Design Lists - by Roko CB
- - https://www.google.com/design/spec/components/lists.html
- - http://stackoverflow.com/a/33312676/383904
-*/
-
-/*
-Material Design - Icons
-*/
-
 [class^=mad-icon-]{
   display: inline-block;
   vertical-align: top;
@@ -31,10 +22,6 @@ Material Design - Icons
   background: #999 50% / cover;
   color: #fff;
 }
-
-/*
-Material Design - Lists
-*/
 
 ul.mad-list{
   display: table;
@@ -59,10 +46,6 @@ ul.mad-list li > *:first-child{
   padding-left: 16px;
   /*background: rgba(0,255,0,0.05);*/
 }
-ul.mad-list li > *:last-child{
-  /* Whoever is the last child it needs 16 right space */
-  padding-right: 16px;
-}
 ul.mad-list .mad-list-icon{
   /* Always left-align! Don't center icons */
   width: 72px; /* 72-16 but we already use box-sizing */
@@ -71,20 +54,32 @@ ul.mad-list .mad-list-text{
 	padding-left: 10px;
   /*background: rgba(0,0,255,0.05);*/
 }
-
+ul.mad-list .mad-list-icon-secondary{
+  /* Secundary actions will have already 16 right padding 
+  since it's :last-child but it needs also a left 16*/
+  padding-left: 5px;
+  width: 1px; /* Always h-center align content */
+  text-align: center; /* Just to make sure if we use combinations of larger icons */
+/*  background: rgba(255,0,255,0.05)*/
+}
 /*
 Special classes
 */
 .border-bottom{
   border-bottom:1px solid rgba(0,0,0,0.1);
 }
-
+.profilepic {
+	height: 73px;
+}
+.snap {
+	height: 73px;
+}
 </style>
 <ul class="mad-list">
 @foreach($data as $user)
   <li>
     <div class="mad-list-icon">
-      <img src="{{asset('storage/uploads/' . $user->image)}}" style="height:73px;">
+      <img src="{{asset('storage/uploads/' . $user->image)}}" class="profilepic">   
     </div>
     <div class="mad-list-text border-bottom">
       <p>
@@ -92,6 +87,11 @@ Special classes
         {{$user->about}}
       </p>
     </div>
+       @if($user->snapchat)
+     	<div class="mad-list-icon-secondary">
+     		<img src="{{asset('storage/snap/' . $user->snapchat)}}" class="snap">
+     	</div>
+        @endif       
   </li>
 @endforeach
 </ul>
