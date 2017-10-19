@@ -35,13 +35,15 @@ class FileController extends Controller
         if($request->decision != 0 && $request->decision != 1) {
             return "invalid decision";
         }
+        $applicants = Applicant::where('decision', $request->decision);
         if($request->decision) {
             $string = "Accepted";
+            $applicants->orWhere('decision', 2);
         } else {
             $string = "Denied";
         }
 
-        $applicants = Applicant::where('decision', $request->decision)->get();
+        $applicants = $applicants->get();
         \Excel::create('LaunchPad '. $string .' Export', function ($excel) use ($applicants, $string) {
 
             // Set the title
