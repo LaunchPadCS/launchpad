@@ -8,7 +8,7 @@
 $('.day-input').toArray().forEach(function(field) {
   new Cleave(field, {
     date: true,
-    datePattern: ['d', 'm', 'Y']
+    datePattern: ['m', 'd', 'Y']
   });
 });
 
