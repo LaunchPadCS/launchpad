@@ -19,15 +19,13 @@ Route::get('resources', function () {
     return redirect('https://www.gitbook.com/@launchpadcs');
 });
 
-
 Route::get('invite/{hashid?}', 'PageController@showInviteForm');
 Route::post('invite', 'PageController@submitInviteForm');
-
 
 Route::group(['middleware' => ['phase:1']], function () {
     Route::get('apply', 'PageController@showApplicationForm');
     Route::post('apply', 'PageController@submitApplicationForm');
-    
+
     Route::get('interview/{hashid?}', 'PageController@showInterviewSelectionForm');
     Route::post('interview', 'PageController@submitInterviewSelectionForm');
 });

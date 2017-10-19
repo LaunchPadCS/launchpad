@@ -177,7 +177,7 @@ class AdminController extends Controller
     public function submitDecision(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'app_id' => 'required|exists:applicants,id',
+            'app_id'   => 'required|exists:applicants,id',
             'decision' => 'required|numeric|max:1|min:-1',
         ]);
 
@@ -235,11 +235,11 @@ class AdminController extends Controller
         }
         $currDay = new Carbon($request->start_day);
         $endDay = new Carbon($request->end_day);
-        if($currDay->year < 1 || $endDay->year < 1) {
+        if ($currDay->year < 1 || $endDay->year < 1) {
             return response()->json(['Start or end date is not valid.']);
         }
-        if($currDay->diffInDays($endDay) > 10) {
-            return response()->json(['Difference between start and end day is too large (currently ' . $currDay->diffInDays($endDay) . ')']);
+        if ($currDay->diffInDays($endDay) > 10) {
+            return response()->json(['Difference between start and end day is too large (currently '.$currDay->diffInDays($endDay).')']);
         }
         while ($currDay <= $endDay) {
             $currTime = $currDay->copy();
