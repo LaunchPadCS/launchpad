@@ -162,7 +162,7 @@ $('#decisionForm button').click(function() {
         </div>
     </div>
     @endrole
-    @if($interviews)
+    @if(!$interviews->isEmpty())
         <br/>
         <div class="card">
             <div class="card-header">Interview Notes</div>
@@ -185,6 +185,9 @@ $('#decisionForm button').click(function() {
                 </div>
             </div>
         </div>
+    @else
+        <br/>
+        <div class="alert alert-warning">No interview data found</div>
     @endif
 </div>
 @endsection
