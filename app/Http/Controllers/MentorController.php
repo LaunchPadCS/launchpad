@@ -25,6 +25,7 @@ class MentorController extends Controller
     {
         $accepted = Applicant::where('decision', 1)->orWhere('decision', 2)->count();
         $denied = Applicant::where('decision', 0)->count();
+
         return view('mentor.applications', ['accepted' => $accepted, 'denied' => $denied]);
     }
 

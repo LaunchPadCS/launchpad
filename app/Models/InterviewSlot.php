@@ -17,7 +17,7 @@ class InterviewSlot extends Model
 
         return $c->format('F j');
     }
-    
+
     public function getFormattedStartTimeAttribute()
     {
         $c = new \Carbon\Carbon($this->start_time);

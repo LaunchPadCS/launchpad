@@ -12,8 +12,8 @@ use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Validator;
+use Vinkla\Hashids\Facades\Hashids;
 
 class PageController extends Controller
 {
@@ -55,8 +55,10 @@ class PageController extends Controller
             }])->get()->sortByDesc(function ($users) {
                 return $users->ratingCount;
             });
+
             return view('dashboard.home', ['data' => $data, 'ratings' => $ratings]);
         }
+
         return view('dashboard.home');
     }
 
@@ -242,34 +244,37 @@ class PageController extends Controller
                 Mail::to($applicant->email)
                     ->queue(new InterviewSlotSelected($applicant, $interview));
 
-                return ['message' => 'success', 'content' => 'Your selected interview slot is on '.$interview->formattedDay . ' from ' . $interview->formattedStartTime.' to '.$interview->formattedEndTime.' in '.$interview->location];
+                return ['message' => 'success', 'content' => 'Your selected interview slot is on '.$interview->formattedDay.' from '.$interview->formattedStartTime.' to '.$interview->formattedEndTime.' in '.$interview->location];
             }
         }
     }
 
-    public function showCommunity() {
+    public function showCommunity()
+    {
         $team = User::whereHas(
-            'roles', function($q){
+            'roles', function ($q) {
                 $q->where('name', 'admin');
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         $mentors = User::whereHas(
-            'roles', function($q){
+            'roles', function ($q) {
                 $q->where('name', 'mentor');
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         $mentees = User::whereHas(
-            'roles', function($q){
+            'roles', function ($q) {
                 $q->where('name', 'mentee');
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat'])->toArray();
         shuffle($mentors);
         shuffle($mentees);
         shuffle($team);
-        return view('community.community', compact('mentors', 'mentees', 'team')); 
+
+        return view('community.community', compact('mentors', 'mentees', 'team'));
     }
 
-    public function showInviteForm(Request $request) {
+    public function showInviteForm(Request $request)
+    {
         if ($request->hashid == null) {
             return 'invalid - 1';
         } else {
@@ -278,24 +283,26 @@ class PageController extends Controller
                 return 'invalid - 2';
             }
             $applicant = Applicant::find($id[0]);
-            if($applicant->decision == 2) {
-                return "link expired - account already created";
+            if ($applicant->decision == 2) {
+                return 'link expired - account already created';
             }
 
-            if($applicant->decision != 1) {
-                return "invalid - 3";
+            if ($applicant->decision != 1) {
+                return 'invalid - 3';
             }
+
             return view('invite', ['applicant' => $applicant]);
-        }       
+        }
     }
 
-    public function submitInviteForm(Request $request) {
+    public function submitInviteForm(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-            'app_id'   => 'required|exists:applicants,id',
-            'name'     => 'required|max:255',
-            'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6',
-            'code_of_conduct' => 'required'
+            'app_id'          => 'required|exists:applicants,id',
+            'name'            => 'required|max:255',
+            'email'           => 'required|email|max:255|unique:users',
+            'password'        => 'required|min:6',
+            'code_of_conduct' => 'required',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
@@ -305,7 +312,7 @@ class PageController extends Controller
         $applicant->decision = 2;
         $applicant->save();
 
-        $user = new User;
+        $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -314,6 +321,7 @@ class PageController extends Controller
         $user->attachRole(Role::where('name', 'mentee')->first());
         $user->save();
         Auth::login($user, true);
+
         return ['message' => 'success', 'user' => $user];
     }
 }
