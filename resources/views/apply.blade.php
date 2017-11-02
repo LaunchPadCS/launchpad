@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>LaunchPad</title>
+	<title>{{ env('APP_NAME') }}</title>
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 	<style>
 		body {
@@ -31,7 +31,7 @@
 	<div class="row">
 		<div class="col">
 			<div class="card">
-				<h3 class="card-header">Apply to LaunchPad</h3>
+				<h3 class="card-header">Apply to {{ env('APP_NAME') }}</h3>
 				<div class="card-block">
 					@if (env('APPLICATIONS_OPEN') == false)
 						<div class="alert alert-danger"><B>Hold up!</b> Applications are not open. You can take a look at the questions below to get an idea of what we are looking for. Come back when applications open!

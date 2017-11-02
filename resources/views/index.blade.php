@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="LaunchPad is a community at Purdue University, of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running. Our goal is to ensure that every incoming student is equipped with the knowledge and connections they’ll need to get the most out of their time at Purdue.">
-    <meta property="og:description" content="LaunchPad is a community of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running by providing guidance, knowledge, and connections." />
-    <meta name="author" content="LaunchPad Purdue">
-    <title>LaunchPad</title>
+    <meta name="description" content="{{ env('APP_NAME') }} is a community at Purdue University, of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running. Our goal is to ensure that every incoming student is equipped with the knowledge and connections they’ll need to get the most out of their time at Purdue.">
+    <meta property="og:description" content="{{ env('APP_NAME') }} is a community of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running by providing guidance, knowledge, and connections." />
+    <meta name="author" content="{{ env('APP_NAME') }} Purdue">
+    <title>{{ env('APP_NAME') }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{asset('css/home.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Biryani|Lato" rel="stylesheet">
@@ -47,7 +47,7 @@
           Menu <i class="fa fa-bars"></i>
       </button>
       <div class="container">
-          <a class="navbar-brand" href="#page-top">LaunchPad</a>
+          <a class="navbar-brand" href="#page-top">{{ env('APP_NAME') }}</a>
           <div class="collapse navbar-collapse" id="navbarExample">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
@@ -75,7 +75,7 @@
               <div class="row">
                   <div class="col-md-8 offset-md-2">
                       <img src="img/logo.png" class="img-fluid logo">
-                      <h1 class="brand-heading">LaunchPad</h1>
+                      <h1 class="brand-heading">{{ env('APP_NAME') }}</h1>
                       @if (env('APPLICATIONS_OPEN') == false)
                       <p class="intro-text"><button class="btn btn-primary btn-lg" disabled>Applications Closed</button></p>
                       <p>If you applied, check your email for your interview selection email!</p>
@@ -96,7 +96,7 @@
             <div class="col-md-10 offset-md-1">
                 <h1>MISSION</h1>
                 <div style="text-align: left">
-                  LaunchPad is a community of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running. We pair each incoming student with a talented upperclassman who will introduce them to the CS community at Purdue and guide them in creating a technical project of their choosing. Throughout the semester, we host events to foster a sense of community and to build technical skills. Our goal is to ensure that every incoming student is equipped with the knowledge and connections they’ll need to get the most out of their time at Purdue.
+                  {{ env('APP_NAME') }} is a community of students dedicated to learning, building, and growing together. We provide a one-on-one, semester-long mentorship program to help freshmen students hit the ground running. We pair each incoming student with a talented upperclassman who will introduce them to the CS community at Purdue and guide them in creating a technical project of their choosing. Throughout the semester, we host events to foster a sense of community and to build technical skills. Our goal is to ensure that every incoming student is equipped with the knowledge and connections they’ll need to get the most out of their time at Purdue.
                 </div>
             </div>
         </div>

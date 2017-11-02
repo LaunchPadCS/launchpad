@@ -62,7 +62,7 @@ $(".ratingBtn").click(function(event){
 	<h4>{{$applicants[$i]['name']}} <small><a href="{{action('MentorController@showRate', ['id' => $applicants[$i]['id']])}}">(Application)</a></small></h4>
 	<form>
 		<textarea name="notes" id="editor{{$i}}" rows="10" cols="80">{{$interviews[$i]['notes']}}</textarea>
-		<button class="btn {{ $interviews[$i]['rating'] == 1? 'active btn-primary' : 'btn-secondary' }} btn-sm ratingBtn app-{{$applicants[$i]['id']}}" data-toggle="tooltip" data-placement="top" title="A bad fit for LaunchPad" data-id="{{$applicants[$i]['id']}}">1 <i class="fa fa-thumbs-o-down" aria-hidden="true" class="ratingBtn"></i></button>
+		<button class="btn {{ $interviews[$i]['rating'] == 1? 'active btn-primary' : 'btn-secondary' }} btn-sm ratingBtn app-{{$applicants[$i]['id']}}" data-toggle="tooltip" data-placement="top" title="A bad fit for {{ env('APP_NAME') }}" data-id="{{$applicants[$i]['id']}}">1 <i class="fa fa-thumbs-o-down" aria-hidden="true" class="ratingBtn"></i></button>
 		<button class="btn {{ $interviews[$i]['rating'] == 2? 'active btn-primary' : 'btn-secondary' }} btn-sm ratingBtn app-{{$applicants[$i]['id']}}" data-id="{{$applicants[$i]['id']}}">2</button>
 		<button class="btn {{ $interviews[$i]['rating'] == 3? 'active btn-primary' : 'btn-secondary' }} btn-sm ratingBtn app-{{$applicants[$i]['id']}}" data-id="{{$applicants[$i]['id']}}">3</button>
 		<button class="btn {{ $interviews[$i]['rating'] == 4? 'active btn-primary' : 'btn-secondary' }} btn-sm ratingBtn app-{{$applicants[$i]['id']}}" data-id="{{$applicants[$i]['id']}}">4</button>

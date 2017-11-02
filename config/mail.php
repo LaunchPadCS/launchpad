@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@launchpadcs.org'),
-        'name'    => env('MAIL_FROM_NAME', 'LaunchPad'),
+        'address' => env('MAIL_FROM_ADDRESS', env('TEAM_EMAIL')),
+        'name'    => env('MAIL_FROM_NAME', env('APP_NAME')),
     ],
 
     /*

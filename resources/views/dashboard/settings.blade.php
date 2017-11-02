@@ -89,7 +89,7 @@ $(document).ready(function() {
                         <input type="text" class="form-control" id="inputFB" value="{{Auth::user()->fb}}" name="fb" placeholder="Facebook Username">
                     </div>
                     @role(['admin', 'mentor'])
-                        <p class="form-text text-muted">Displayed on LaunchPad homepage. Recommended so others can learn about you, but not required.</p>
+                        <p class="form-text text-muted">Displayed on {{ env('APP_NAME') }} homepage. Recommended so others can learn about you, but not required.</p>
                     @endrole
                     @role(['mentee'])
                         <p class="form-text text-muted">Shown only to other community members. Recommended so others can add you, but not required.</p>

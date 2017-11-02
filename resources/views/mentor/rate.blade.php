@@ -113,8 +113,8 @@ $('#decisionForm button').click(function() {
         <div class="card-header">Rating Guide</div>
         <div class="card-block">
 			<i class="fa fa-thumbs-o-down" aria-hidden="true"></i> - Does not display passion, interest. <i>(No)</i><br/>
-			<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> - May be good for LaunchPad, need more info. <i>(Maybe)</i><br/>
-			<i class="fa fa-heart-o" aria-hidden="true"></i> - Passionate student, a great fit for LaunchPad. <i>(Yes)</i>
+			<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> - May be good for {{ env('APP_NAME') }}, need more info. <i>(Maybe)</i><br/>
+			<i class="fa fa-heart-o" aria-hidden="true"></i> - Passionate student, a great fit for {{ env('APP_NAME') }}. <i>(Yes)</i>
 			<br/><br/>
 			Most students will fall in the <b>2 (<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>)</b> range, only a few applicants will be a <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> or <i class="fa fa-heart-o" aria-hidden="true"></i>.
 			<hr/>

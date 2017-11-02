@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>LaunchPad</title>
+	<title>{{ env('APP_NAME') }}</title>
 
 	<!-- Styles -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -26,7 +26,7 @@
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="        navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		<a class="navbar-brand" href="{{ action('PageController@index') }}">LaunchPad</a>
+		<a class="navbar-brand" href="{{ action('PageController@index') }}">{{ env('APP_NAME') }}</a>
 		</nav>
 		<div class="container">
 			<br/>
@@ -37,7 +37,7 @@
 				<div class="card-block">
 					@if($applicant->interview_slot_id == 0)
 						<h4 class="card-title">Welcome back, {{$applicant->firstname}}!</h4>
-						<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it here. If none of these times work for you, please get in touch with <a href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>.</p>
+						<p class="card-text">Please select your interview timeslot. Once you have selected a time slot, you will not be able to change it here. If none of these times work for you, please get in touch with <a href="mailto:{{ env('TEAM_EMAIL') }}">{{ env('TEAM_EMAIL') }}</a>.</p>
 						<p>
 							This interview is for us to get to know you better, and for you to ask us any questions you may have about the program. Please do not dress up, as this is a casual, group interview. Also, please come prepared with a project idea in mind.
 						</p>
@@ -65,7 +65,7 @@
 					@else
 						<div class="alert alert-success">
 						<h4 class="alert-heading">Welcome back, {{$applicant->firstname}}!</h4>
-						Your selected time slot is on <b>{{$selected->formattedDay}} from {{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:team@launchpadcs.org">team@launchpadcs.org</a>
+						Your selected time slot is on <b>{{$selected->formattedDay}} from {{$selected->formattedStartTime}} to {{$selected->formattedEndTime}}</b>, in <b>{{$selected->location}}.</b> If you need to change your interview time, please email <a class="alert-link" href="mailto:{{ env('TEAM_EMAIL') }}">{{ env('TEAM_EMAIL') }}</a>
 						<hr/>
 						<p>
 							This interview is for us to get to know you better, and for you to ask us any questions you may have about the program. Please do not dress up, as this is a casual, group interview. Also, please come prepared with a project idea in mind.
