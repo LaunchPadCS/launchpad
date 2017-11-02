@@ -89,7 +89,7 @@
 
 <div class="col">
     <div class="card">
-        <div class="card-header">LaunchPad Community</div>
+        <div class="card-header">{{ env('APP_NAME') }} Community</div>
         <div class="card-block">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">

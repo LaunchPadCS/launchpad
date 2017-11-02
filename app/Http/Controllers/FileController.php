@@ -11,19 +11,19 @@ class FileController extends Controller
     public function exportHashids()
     {
         $applicants = Applicant::where('interview_slot_id', 0)->get();
-        \Excel::create('LaunchPad Export', function ($excel) use ($applicants) {
+        \Excel::create(env('APP_NAME').'Export', function ($excel) use ($applicants) {
 
             // Set the title
-            $excel->setTitle('LaunchPad Applicants and Hashids');
+            $excel->setTitle(env('APP_NAME').' Applicants and Hashids');
 
             // Chain the setters
-            $excel->setCreator('LaunchPad')
-                  ->setCompany('LaunchPad');
+            $excel->setCreator(env('APP_NAME'))
+                  ->setCompany(env('APP_NAME'));
 
             $excel->sheet('list', function ($sheet) use ($applicants) {
                 foreach ($applicants as $applicant) {
                     $sheet->appendRow([
-                        $applicant->firstname, $applicant->lastname, $applicant->email, 'https://launchpadcs.org/interview/'.$applicant->hashid,
+                        $applicant->firstname, $applicant->lastname, $applicant->email, env('APP_URL').'/interview/'.$applicant->hashid,
                     ]);
                 }
             });
@@ -44,19 +44,19 @@ class FileController extends Controller
         }
 
         $applicants = $applicants->get();
-        \Excel::create('LaunchPad '.$string.' Export', function ($excel) use ($applicants, $string) {
+        \Excel::create(env('APP_NAME').' '.$string.' Export', function ($excel) use ($applicants, $string) {
 
             // Set the title
-            $excel->setTitle('LaunchPad '.$string.'Applicants');
+            $excel->setTitle(env('APP_NAME').' '.$string.'Applicants');
 
             // Chain the setters
-            $excel->setCreator('LaunchPad')
-                  ->setCompany('LaunchPad');
+            $excel->setCreator(env('APP_NAME'))
+                  ->setCompany(env('APP_NAME'));
 
             $excel->sheet($string, function ($sheet) use ($applicants) {
                 foreach ($applicants as $applicant) {
                     $sheet->appendRow([
-                        $applicant->firstname, $applicant->lastname, $applicant->email, 'https://launchpadcs.org/invite/'.$applicant->hashid,
+                        $applicant->firstname, $applicant->lastname, $applicant->email, env('APP_URL').'/invite/'.$applicant->hashid,
                     ]);
                 }
             });

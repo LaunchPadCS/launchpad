@@ -34,11 +34,11 @@ class Applicant extends Model
 
         return
         [
-            'count'=> $count,
-            'min'  => $min,
-            'max'  => $max,
+            'count' => $count,
+            'min'   => $min,
+            'max'   => $max,
             // "ratings"=>$ratings,
-            'average'=> $avg,
+            'average' => $avg,
         ];
     }
 

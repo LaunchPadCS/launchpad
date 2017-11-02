@@ -33,7 +33,7 @@ class InterviewSlotSelected extends Mailable
      */
     public function build()
     {
-        return $this->from('team@launchpadcs.org')
+        return $this->from(env('TEAM_EMAIL'))
                 ->view('emails.interviewslot')
                 ->with([
                     'applicant' => $this->applicant,

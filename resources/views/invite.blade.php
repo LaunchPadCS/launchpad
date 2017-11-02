@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>LaunchPad</title>
+	<title>{{ env('APP_NAME') }}</title>
 
 	<!-- Styles -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -26,7 +26,7 @@
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="        navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		<a class="navbar-brand" href="{{ action('PageController@index') }}">LaunchPad</a>
+		<a class="navbar-brand" href="{{ action('PageController@index') }}">{{ env('APP_NAME') }}</a>
 		</nav>
 		<div class="container">
 			<br/>
@@ -36,7 +36,7 @@
 				</div>
 				<div class="card-block">
 					<h3>Congratulations {{$applicant->firstname}}! 🎉🎉</h3>
-					<p>Welcome to the LaunchPad family. We're happy you're here.</p>
+					<p>Welcome to the {{ env('APP_NAME') }} family. We're happy you're here.</p>
 					<hr/>
 					<p>Please create your user account below. Once you're signed up and logged in, add information about yourself, and upload a profile photo. You can then explore our community and view all the other mentors and mentees.</p>
 					<div class="alert alert-success" id="success" style="display:none;"></div>
@@ -61,7 +61,7 @@
     					<div class="form-check">
     						<label class="form-check-label">
     							<input class="form-check-input" type="checkbox" value="1" name="code_of_conduct">
-    								I agree to the <a href="https://docs.google.com/document/d/1YAqI178wMXuAba6AsdJJ83Hes6oEzvyWVqTzb0oEYKk/edit?usp=sharing" target="_blank">LaunchPad Code of Conduct</a>
+    								I agree to the <a href="https://docs.google.com/document/d/1YAqI178wMXuAba6AsdJJ83Hes6oEzvyWVqTzb0oEYKk/edit?usp=sharing" target="_blank">{{ env('APP_NAME') }} Code of Conduct</a>
   							</label>
     					</div>
     					<hr/>
