@@ -6,7 +6,7 @@ LaunchPad is an open source Content Management System built with Laravel, and is
 - User management
 - Dynamic form builder for user applications
 - Applicant management (viewing applications, sorting, filtering)
-- Simple interview platform
+- Simple interview platform with scheduling
 - Community profiles
 
 ## Setup
