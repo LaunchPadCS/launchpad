@@ -169,9 +169,9 @@ class PageController extends Controller
         }
 
         $validator = \Validator::make($request->all(), [
-            'firstname'  => 'required',
-            'lastname'   => 'required',
-            'email'      => 'required|email|unique:applicants,email',
+            'firstname' => 'required',
+            'lastname'  => 'required',
+            'email'     => 'required|email|unique:applicants,email',
         ]);
         $errors = [];
         $questions = Question::all();
