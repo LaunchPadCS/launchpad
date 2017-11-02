@@ -1,6 +1,6 @@
 ## LaunchPad
 
-LaunchPad is an open source Content Management System (CMS) built with Laravel, and is used to manage the LaunchPad community at Purdue. This application can be used and extended to build your own mentorship community! Currently, the following features are supported
+LaunchPad is an open source Content Management System built with Laravel, and is used to manage the LaunchPad community at Purdue. This application can be used and extended to build your own mentorship community! Currently, the following features are supported
 
 - User groups and permissions (administrators, mentors, mentees)
 - User management
@@ -11,8 +11,8 @@ LaunchPad is an open source Content Management System (CMS) built with Laravel, 
 
 ## Setup
 First, ensure that you have the following prerequisites installed:
-- PHP >= 5.6.4
-- MySQL
+- PHP >= 7.0.0
+- Database Server (MySQL, MariaDB, or PostgreSQL)
 - [Composer](https://getcomposer.org/)
 - OpenSSL PHP Extension
 - PDO PHP Extension
@@ -22,7 +22,7 @@ First, ensure that you have the following prerequisites installed:
 
 Download the source via `git clone` or the .zip option. Enter the directory through a command prompt, and run `composer install`.
 
-Then, copy `.env.example` to `.env`, and fill in the all the `DB_` values.
+Then, copy `.env.example` to `.env`, and fill in the all the relevant values (especially your `DB_` database configuration values).
 
 Finally, run:
 - `php artisan key:generate`
