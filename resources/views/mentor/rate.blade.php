@@ -29,7 +29,7 @@ function submitRating(value) {
     $.ajax({
         type: 'POST',
         url: '{{action('MentorController@submitRating')}}',
-        data: { "_token": "{{ csrf_token() }}", "rating": value, "app_id": '{{$data['id']}}'},
+        data: { "_token": "{{ csrf_token() }}", "rating": value, "app_id": '{{$application->id}}'},
         dataType: 'json',
         success: function(data) {
             if(data['message'] == "success") {
@@ -64,7 +64,7 @@ $('#decisionForm button').click(function() {
     $.ajax({
         type: 'POST',
         url: '{{action('AdminController@submitDecision')}}',
-        data: { "_token": "{{ csrf_token() }}", "decision": value, "app_id": '{{$data['id']}}'},
+        data: { "_token": "{{ csrf_token() }}", "decision": value, "app_id": '{{$application->id}}'},
         dataType: 'json',
         success: function(data) {
             if(data['message'] == "success") {
@@ -72,6 +72,24 @@ $('#decisionForm button').click(function() {
                 $("#reject").removeClass("active").html("Reject");
                 $("#accept").removeClass("active").html("Accept");
                 $(button).append(' <i class="fa fa-check" aria-hidden="true"></i>').addClass("active");
+                $.growl.notice({title: "Success", message: "Applicant decision updated.", size: "large"});
+            }
+        }
+    });
+});
+
+$('#delete-app').click(function() {
+    $('#deleteConfirmModal').modal('show');
+});
+$("#delete-app-confirm").click(function() {
+    $.ajax({
+        type: 'POST',
+        url: '{{action('AdminController@deleteApplication')}}',
+        data: { "_token": "{{ csrf_token() }}", "app_id": {{$application->id}}},
+        dataType: 'json',
+        success: function(data) {
+            if(data['message'] == "success") {
+                window.location.href = "{{action('MentorController@showApplications')}}";
             }
         }
     });
@@ -81,6 +99,26 @@ $('#decisionForm button').click(function() {
 @stop
 
 @section('content')
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmModalLabel">Danger Zone</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this application?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="delete-app-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="col-7">
 	@if($rating)
 	    <div class="alert alert-info"><b>Heads up!</b> You've already rated this application a <b>{{$rating['rating']}}</b>.</div>
@@ -94,7 +132,14 @@ $('#decisionForm button').click(function() {
 	</div>
 	<br/>
     <div class="card">
-        <div class="card-header">Application</div>
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div>Application</div>
+            <div>
+                <button type="button" class="btn btn-outline-danger btn-sm" id="delete-app">Delete Application</button>
+            </div>
+            </div>
+        </div>
         <div class="card-block">
         	<h2>{{$application->name}}
         		<small class="text-muted">({{$application->email}})</small>
@@ -156,7 +201,7 @@ $('#decisionForm button').click(function() {
                 <input type="hidden" name="id" value="{{$application['id']}}" />
                 <div class="form-group text-center">
                     <button id="reject" type="button" value="0" class="btn btn-danger btn-lg {{ ($application['decision'] == 0) ? ' active' : '' }}">Reject{!! ($application['decision'] == 0) ? ' <i class="fa fa-check" aria-hidden="true"></i>' : '' !!}</button>
-                    <button id="accept" type="button" value="1" class="btn btn-success btn-lg {{ ($application['decision'] == 1) ? ' active' : '' }}">Accept{!! ($application['decision'] == 1) ? ' <i class="fa fa-check" aria-hidden="true"></i>' : '' !!}</button>
+                    <button id="accept" type="button" value="1" class="btn btn-success btn-lg {{ ($application['decision'] >= 1) ? ' active' : '' }}">Accept{!! ($application['decision'] >= 1) ? ' <i class="fa fa-check" aria-hidden="true"></i>' : '' !!}</button>
                 </div>
             </form>
         </div>

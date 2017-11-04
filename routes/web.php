@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::post('question/edit/{question?}', 'AdminController@updateQuestion');
         Route::post('question/create', 'AdminController@createQuestion');
         Route::post('submitDecision', 'AdminController@submitDecision');
+        Route::post('deleteApplication', 'AdminController@deleteApplication');
     });
 
     Route::group(['prefix' => 'users'], function () {

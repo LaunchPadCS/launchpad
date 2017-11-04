@@ -66,13 +66,12 @@ class MentorController extends Controller
             if ($rating) {
                 $rating = $rating->toArray();
             }
-            $data['id'] = $id;
             $slots = InterviewSlot::orderBy('start_time', 'asc')->get();
             $interviews = Interview::where('applicant_id', $id)->get();
 
-            return view('mentor.rate', compact('application', 'data', 'rating', 'slots', 'interviews'));
+            return view('mentor.rate', compact('application', 'rating', 'slots', 'interviews'));
         } catch (\Exception $e) {
-            return redirect('/')->with('message', 'Could not find application.');
+            return redirect()->action('MentorController@showApplications')->with('message', 'Could not find application.');
         }
     }
 

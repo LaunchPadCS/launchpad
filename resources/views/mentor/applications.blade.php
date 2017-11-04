@@ -56,6 +56,9 @@ $(function() {
 
 @section('content')
 <div class="col">
+    @if(Session::has('message'))
+        <p class="alert alert-info">{{ Session::get('message') }}</p>
+    @endif
     <div class="card">
         <div class="card-header">Applications</div>
         <div class="card-block">

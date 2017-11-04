@@ -192,6 +192,22 @@ class AdminController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+    public function deleteApplication(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'app_id'   => 'required|exists:applicants,id',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+
+        $application = Applicant::findOrFail($request->app_id);
+        $application->delete();
+
+        return response()->json(['message' => 'success']);
+    }
+
     public function showCreateInterview()
     {
         return view('admin.interviews.create');
