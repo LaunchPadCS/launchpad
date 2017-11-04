@@ -194,6 +194,9 @@ a.label:focus {
 
 @section('content')
 <div class="col">
+    @if(Session::has('message'))
+        <p class="alert alert-info">{{ Session::get('message') }}</p>
+    @endif
     <div class="card">
         <div class="card-header">Assign Interviews</div>
         <div class="card-block">
@@ -201,6 +204,7 @@ a.label:focus {
             <thead>
               <tr>
                 <th class="hidden-xs hidden-sm hidden-md">#</th>
+                <th></th>
                 <th>Day</th>
                 <th>Duration</th>
                 <th>Students</th>
@@ -212,6 +216,13 @@ a.label:focus {
 				    @foreach($interviews as $interview)
 				      <tr {{ $interview->pastDate ? 'class=table-dark' :''}}>
                 <td scope="row" class="hidden-xs hidden-sm hidden-md">{{$interview->id}}</td>
+                <td>
+                  @if($interview->applicationsCount == 0)
+                    <a class="btn btn-outline-danger btn-sm" href="{{action('AdminController@deleteInterview')}}/{{$interview->id}}">Delete</a>
+                  @else
+                    <button class="btn btn-outline-danger btn-sm" title="Interview has candidates selected, cannot be deleted" disabled>Delete</button>
+                  @endif
+                </td>
                 <td>{{$interview->formattedDay}}</td>
                 <td>{{$interview->formattedStartTime}} - {{$interview->formattedEndTime}}</td>
                 <td>

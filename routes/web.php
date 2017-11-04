@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
     Route::group(['prefix' => 'interview'], function () {
         Route::get('create', 'AdminController@showCreateInterview');
+        Route::get('delete/{interviewslot?}', 'AdminController@deleteInterview');
         Route::get('prompt', 'AdminController@showManagePrompt');
         Route::post('prompt', 'AdminController@submitPrompt');
         Route::get('assign', 'AdminController@showAssignInterview');

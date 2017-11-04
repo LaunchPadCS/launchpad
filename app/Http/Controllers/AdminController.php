@@ -304,6 +304,11 @@ class AdminController extends Controller
         return ['message' => 'success'];
     }
 
+    public function deleteInterview(Request $request, InterviewSlot $interviewslot) {
+        $interviewslot->delete();
+        return redirect()->action('AdminController@showAssignInterview')->with('message', 'Interview slot deleted.');
+    }
+
     public function showManagePrompt()
     {
         return view('admin.interviews.prompt', ['prompt' => InterviewPrompt::first()]);
