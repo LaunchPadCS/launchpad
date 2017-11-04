@@ -87,11 +87,13 @@ Special classes
         {{$user->about}}
       </p>
     </div>
-       @if($user->snapchat)
-     	<div class="mad-list-icon-secondary">
-     		<img src="{{asset('storage/snap/' . $user->snapchat)}}" class="snap">
-     	</div>
-        @endif       
+      @if (env('SNAPCHATCODE') == true)
+        @if($user->snapchat)
+     	    <div class="mad-list-icon-secondary">
+     		   <img src="{{asset('storage/snap/' . $user->snapchat)}}" class="snap">
+     	    </div>
+        @endif
+      @endif
   </li>
 @endforeach
 </ul>

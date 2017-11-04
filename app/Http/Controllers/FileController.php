@@ -73,12 +73,14 @@ class FileController extends Controller
                 $q->where('name', $request->group);
             }
         )->get(['name', 'tagline', 'image', 'fb', 'website', 'github', 'about', 'instagram', 'snapchat']);
-        $client = new \GuzzleHttp\Client();
-        foreach ($data as $user) {
-            if ($user->snapchat) {
-                if (!file_exists(storage_path('app/public').'/snap/'.$user->snapchat)) {
-                    $resource = fopen(storage_path('app/public').'/snap/'.$user->snapchat, 'w+');
-                    $client->request('GET', 'https://feelinsonice.appspot.com/web/deeplink/snapcode?username='.$user->snapchat.'&size=500&type=PNG', ['sink' => $resource]);
+        if (env('SNAPCHATCODE') == true) {
+            $client = new \GuzzleHttp\Client();
+            foreach ($data as $user) {
+                if ($user->snapchat) {
+                    if (!file_exists(storage_path('app/public').'/snap/'.$user->snapchat)) {
+                        $resource = fopen(storage_path('app/public').'/snap/'.$user->snapchat, 'w+');
+                        $client->request('GET', 'https://feelinsonice.appspot.com/web/deeplink/snapcode?username='.$user->snapchat  .'&size=500&type=PNG', ['sink' => $resource]);
+                    }
                 }
             }
         }
