@@ -195,7 +195,7 @@ class AdminController extends Controller
     public function deleteApplication(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'app_id'   => 'required|exists:applicants,id',
+            'app_id' => 'required|exists:applicants,id',
         ]);
 
         if ($validator->fails()) {
@@ -304,8 +304,10 @@ class AdminController extends Controller
         return ['message' => 'success'];
     }
 
-    public function deleteInterview(Request $request, InterviewSlot $interviewslot) {
+    public function deleteInterview(Request $request, InterviewSlot $interviewslot)
+    {
         $interviewslot->delete();
+
         return redirect()->action('AdminController@showAssignInterview')->with('message', 'Interview slot deleted.');
     }
 

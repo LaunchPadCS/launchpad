@@ -79,7 +79,7 @@ class FileController extends Controller
                 if ($user->snapchat) {
                     if (!file_exists(storage_path('app/public').'/snap/'.$user->snapchat)) {
                         $resource = fopen(storage_path('app/public').'/snap/'.$user->snapchat, 'w+');
-                        $client->request('GET', 'https://feelinsonice.appspot.com/web/deeplink/snapcode?username='.$user->snapchat  .'&size=500&type=PNG', ['sink' => $resource]);
+                        $client->request('GET', 'https://feelinsonice.appspot.com/web/deeplink/snapcode?username='.$user->snapchat.'&size=500&type=PNG', ['sink' => $resource]);
                     }
                 }
             }
