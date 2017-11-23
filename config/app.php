@@ -184,6 +184,7 @@ return [
         Vinkla\Hashids\HashidsServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
     ],
 
     /*
@@ -238,6 +239,7 @@ return [
         'Hashids'      => Vinkla\Hashids\Facades\Hashids::class,
         'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
+        'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
     ],
 
 ];
