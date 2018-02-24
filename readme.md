@@ -11,7 +11,7 @@ LaunchPad is an open source Content Management System built with Laravel, and is
 
 ## Setup
 First, ensure that you have the following prerequisites installed:
-- PHP >= 7.0.0
+- PHP >= 7.1.3
 - Database Server (MySQL, MariaDB, or PostgreSQL)
 - [Composer](https://getcomposer.org/)
 - OpenSSL PHP Extension
@@ -19,6 +19,8 @@ First, ensure that you have the following prerequisites installed:
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 - XML PHP Extension
+- Ctype PHP Extension
+- JSON PHP Extension
 
 Download the source via `git clone` or the .zip option. Enter the directory through a command prompt, and run `composer install`.
 
@@ -26,6 +28,7 @@ Then, copy `.env.example` to `.env`, and fill in the all the relevant values (es
 
 Finally, run:
 - `php artisan key:generate`
+- `php artisan hashid:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
 - `php artisan storage:link`

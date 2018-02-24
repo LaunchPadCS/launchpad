@@ -40,7 +40,7 @@ return [
     'connections' => [
 
         'main' => [
-            'salt'   => 'n5caQO5Rkw',
+            'salt'   => env('HASHID_SALT'),
             'length' => '10',
         ],
     ],
