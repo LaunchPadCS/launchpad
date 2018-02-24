@@ -21,7 +21,7 @@ $(function() {
             { data: 'starttime', name: 'starttime',searchable: false},
             { data: 'interview_avg', name: 'interview_avg',searchable: false},
             @role('admin')
-            { data: 'hashid', name: 'hashid', searchable: false},
+            { data: 'hashid', name: 'hashid', orderable: false, searchable: false},
             { data: 'avg', name: 'avg',searchable: false},
             { data: 'total_avg', name: 'total_avg',searchable: false},
             @endrole

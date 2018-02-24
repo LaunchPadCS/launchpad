@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Indal\Markdown\MarkdownServiceProvider::class,
         Vinkla\Hashids\HashidsServiceProvider::class,
@@ -240,6 +240,7 @@ return [
         'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
+        'DataTables'   => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

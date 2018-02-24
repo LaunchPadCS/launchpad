@@ -10,7 +10,7 @@ use App\Models\InterviewSlot;
 use App\Models\User;
 use Auth;
 use Carbon\Carbon;
-use Datatables;
+use DataTables;
 use DB;
 use Illuminate\Http\Request;
 
@@ -112,7 +112,7 @@ class MentorController extends Controller
         ->leftJoin('interview_notes', 'interview_notes.applicant_id', '=', 'applicants.id')
         ->groupBy('applicants.id');
 
-        return Datatables::of($applications)->make(true);
+        return DataTables::of($applications)->make(true);
     }
 
     public function showInterview($id = null)
