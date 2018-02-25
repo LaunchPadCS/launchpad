@@ -74,6 +74,9 @@
           <div class="container">
               <div class="row">
                   <div class="col-md-8 offset-md-2">
+                      @if(session('message'))
+                        <div class="alert alert-danger">{{ session('message') }}</div>
+                      @endif
                       <img src="img/logo.png" class="img-fluid logo">
                       <h1 class="brand-heading">{{ env('APP_NAME') }}</h1>
                       @if (env('APPLICATIONS_OPEN') == false)

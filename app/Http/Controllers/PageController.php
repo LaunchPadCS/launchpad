@@ -275,24 +275,20 @@ class PageController extends Controller
 
     public function showInviteForm(Request $request)
     {
-        if ($request->hashid == null) {
-            return 'invalid - 1';
-        } else {
-            $id = Hashids::decode($request->hashid);
-            if (empty($id)) {
-                return 'invalid - 2';
-            }
-            $applicant = Applicant::find($id[0]);
-            if ($applicant->decision == 2) {
-                return 'link expired - account already created';
-            }
-
-            if ($applicant->decision != 1) {
-                return 'invalid - 3';
-            }
-
-            return view('invite', ['applicant' => $applicant]);
+        $id = Hashids::decode($request->hashid);
+        if (empty($id)) {
+            return redirect()->action('PageController@index')->with('message', 'Invalid link');
         }
+        $applicant = Applicant::find($id[0]);
+        if ($applicant->decision == 2) {
+            return redirect()->action('PageController@index')->with('message', 'Expired link');
+        }
+
+        if ($applicant->decision != 1) {
+            return redirect()->action('PageController@index')->with('message', 'Invalid link');
+        }
+
+        return view('invite', ['applicant' => $applicant]);
     }
 
     public function submitInviteForm(Request $request)
