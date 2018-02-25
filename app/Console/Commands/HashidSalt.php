@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Console\Commands;
-use Illuminate\Support\Str;
+
 use Illuminate\Console\Command;
+
 class HashidSalt extends Command
 {
     /**
@@ -16,6 +18,7 @@ class HashidSalt extends Command
      * @var string
      */
     protected $description = 'Set the hashid salt in .env';
+
     /**
      * Execute the console command.
      *
@@ -28,10 +31,12 @@ class HashidSalt extends Command
         $this->laravel['config']['hashids.connections.main.salt'] = $key;
         $this->info("JWT key [$key] set successfully.");
     }
+
     /**
      * Set the application key in the environment file.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return void
      */
     protected function setKeyInEnvironmentFile($key)
@@ -42,6 +47,7 @@ class HashidSalt extends Command
             file_get_contents($this->laravel->environmentFilePath())
         ));
     }
+
     /**
      * Generate a random key for the application.
      *
