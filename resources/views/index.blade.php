@@ -53,7 +53,7 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#mission">Mission</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" style="display:none">
                       <a class="nav-link" href="#sponsors">Sponsors</a>
                   </li>
                   <li class="nav-item">
@@ -108,7 +108,7 @@
         </div>
     </section>
   </div>
-  <div class="sponsors_wrap">
+  <div class="sponsors_wrap" style="display:none">
     <section id="sponsors" class="container content-section-less-pad text-center">
       <div class="row">
         <div class="col-md-12">
