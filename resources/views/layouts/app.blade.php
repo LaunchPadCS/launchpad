@@ -51,8 +51,8 @@
 		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showApplications') }}">Applications</a></li>
 		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showInterviewSchedule') }}">Interview Schedule</a></li>
 		   				@endrole
-		   			@elseif(env('APP_PHASE') == 2)
 		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@showCommunity') }}">Community</a></li>
+		   			@elseif(env('APP_PHASE') == 2)
 		   			@endif
 		   			@role('admin')
 		   				@include('layouts.admin_nav')
