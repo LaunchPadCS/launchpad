@@ -60,6 +60,9 @@
                       <a class="nav-link" href="#goals">Goals</a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="#organizers">Organizers</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="#mentors">Mentors</a>
                   </li>
                   <li class="nav-item">
@@ -157,9 +160,9 @@
       </div>
     </section>
   </div>
-    <section id="mentors" class="content-section">
+    <section class="content-section">
       <div class="album text-muted">
-        <div class="container">
+        <div id="organizers" class="container">
         <h1 class="text-center">Organizers</h1>
           <div class="row">
           @foreach($admins as $admin)
@@ -205,6 +208,7 @@
           @endforeach
           </div>
         </div>
+        <div id="mentors" class="container">
         <h1 class="text-center">Mentors</h1>
           <div class="row">
           @foreach($mentors as $mentor)
