@@ -74,13 +74,17 @@ class PageController extends Controller
 
     public function submitSettings(Request $request)
     {
+        $messages = [
+            'website.url' => 'Website URL must begin with http:// or https://',
+            'linkedin.url' => 'LinkedIn URL must begin with http:// or https://',
+        ];
         $validator = \Validator::make($request->all(), [
             'name'     => 'required',
             'tagline'  => 'required',
             'about'    => 'required',
             'website'  => 'sometimes|nullable|url',
             'linkedin' => 'sometimes|nullable|url',
-        ]);
+        ], $messages);
         if ($validator->fails()) {
             return $validator->errors()->all();
         }
