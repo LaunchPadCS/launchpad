@@ -75,9 +75,11 @@ class PageController extends Controller
     public function submitSettings(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'name'    => 'required',
-            'tagline' => 'required',
-            'about'   => 'required',
+            'name'     => 'required',
+            'tagline'  => 'required',
+            'about'    => 'required',
+            'website'  => 'sometimes|nullable|url',
+            'linkedin' => 'sometimes|nullable|url',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->all();
