@@ -53,17 +53,23 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#mission">Mission</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" style="display:none">
                       <a class="nav-link" href="#sponsors">Sponsors</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#goals">Goals</a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="#organizers">Organizers</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="#mentors">Mentors</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ action('PageController@showApplicationForm') }}">Apply</a>
+                  </li>                
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ action('PageController@showCommunity') }}">Community</a>
                   </li>                
               </ul>
           </div>
@@ -105,29 +111,11 @@
         </div>
     </section>
   </div>
-  <div class="sponsors_wrap">
+  <div class="sponsors_wrap" style="display:none">
     <section id="sponsors" class="container content-section-less-pad text-center">
       <div class="row">
         <div class="col-md-12">
           <h1>SPONSORS</h1>
-          <div class="row">
-          	<div class="col-md-6">
-              <a href="https://careers.google.com/students/" target="_blank"><img src="{{asset('img/google.svg')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
-            </div>
-          	<div class="col-md-6">
-              <a href="https://www.capitalonecareers.com/search-jobs" target="_blank"><img src="{{asset('img/capitalone.png')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
-            </div>
-            <br/><br/>
-            <div class="col-md-6" style="margin-top: 40px;">
-              <a href="https://www.bloomberg.com/" target="_blank"><img src="{{asset('img/bloomberg-logo.png')}}" class="s-logo img-fluid" style="max-height: 60px"></a>
-            </div>
-            <div class="col-md-6" style="margin-top: 40px;">
-              <a href="http://techpoint.org/techpoint-x/" target="_blank"><img src="{{asset('img/techpoint.png')}}" class="s-logo img-fluid"></a>
-            </div>
-            <div class="col-md-12" style="margin-top:50px">
-              <a href="https://mimirhq.com/" target="_blank"><img src="{{asset('img/mimir.svg')}}" style="max-height:90px;"></a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -172,10 +160,10 @@
       </div>
     </section>
   </div>
-    <section id="mentors" class="content-section">
+    <section class="content-section">
       <div class="album text-muted">
-        <div class="container">
-        <h1 class="text-center">Mentors</h1>
+        <div id="organizers" class="container">
+        <h1 class="text-center">Organizers</h1>
           <div class="row">
           @foreach($admins as $admin)
             <div class="card">
@@ -218,6 +206,11 @@
               </div>
             </div>
           @endforeach
+          </div>
+        </div>
+        <div id="mentors" class="container">
+        <h1 class="text-center">Mentors</h1>
+          <div class="row">
           @foreach($mentors as $mentor)
             <div class="card">
               <img src="{{asset('storage/uploads/' . $mentor->image)}}" alt="Card image cap">

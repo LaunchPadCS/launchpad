@@ -93,4 +93,4 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'role:admin|mentor'
 });
 
 // Misc Routes
-Route::get('community', 'PageController@showCommunity')->middleware('auth', 'phase:2');
+Route::get('community', 'PageController@showCommunity')->middleware('auth', 'phase:1');
