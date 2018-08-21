@@ -261,9 +261,14 @@
     <div class="container">
       <div class="row">
         <div class="col-6 text-right offset-6">
+          <b>Contact Us!</b>
+        </div>
+        <div class="col-6 text-right offset-6">
           <a href="https://www.facebook.com/launchpadcs/" class="footer_link"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
           &nbsp;
           <a href="#" class="footer_link"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+          &nbsp;
+          <a href="mailto:launchpadpurdue@gmail.com" class="footer_link"><i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
