@@ -66,6 +66,9 @@
                       <a class="nav-link" href="#mentors">Mentors</a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="#contact">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="{{ action('PageController@showApplicationForm') }}">Apply</a>
                   </li>                
                   <li class="nav-item">
@@ -258,7 +261,7 @@
     </section>
 
   <footer>
-    <div class="container">
+    <div id="contact" class="container">
       <div class="row">
         <div class="col-6 text-right offset-6">
           <b>Contact Us!</b>
@@ -266,7 +269,7 @@
         <div class="col-6 text-right offset-6">
           <a href="https://www.facebook.com/launchpadcs/" class="footer_link"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
           &nbsp;
-          <a href="#" class="footer_link"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+          <a href="https://www.instagram.com/launchpadpurdue/" class="footer_link"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
           &nbsp;
           <a href="mailto:launchpadpurdue@gmail.com" class="footer_link"><i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i></a>
         </div>
