@@ -72,7 +72,7 @@
                       <a class="nav-link" href="{{ action('PageController@showApplicationForm') }}">Apply</a>
                   </li>                
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ action('PageController@showCommunity') }}">Community</a>
+                      <a class="nav-link" href="{{ action('PageController@showCommunity') }}">Login</a>
                   </li>                
               </ul>
           </div>
@@ -221,7 +221,7 @@
                   <h5 class="mentor-heading">{{$mentor->name}} <small class="text-muted">{{$mentor->tagline}}</small></h5>
                   <div class="row">
                       <div class="col-6">
-                      <a href="#" class="btn btn-secondary btn-sm profile-btn" data-toggle="modal" data-target="#exampleModal" data-name="{{$mentor->name}}" data-tagline="{{$mentor->tagline}}" data-about="@markdown($mentor->about)" data-url="{{asset('storage/uploads/' . $mentor->image)}}">View Profile</a>
+                      <a href="#" class="btn btn-secondary btn-sm profile-btn" data-toggle="modal" data-target="#exampleModal" data-name="{{$mentor->name}}" data-tagline="{{$mentor->tagline}}" data-about="{{$mentor->about}}" data-url="{{asset('storage/uploads/' . $mentor->image)}}">View Profile</a>
                       </div>
                       <div class="col-sm-6 text-right hidden-sm-down">
                         @if($mentor['fb'])
