@@ -114,11 +114,22 @@
         </div>
     </section>
   </div>
-  <div class="sponsors_wrap" style="display:none">
+  <div class="sponsors_wrap">
     <section id="sponsors" class="container content-section-less-pad text-center">
       <div class="row">
         <div class="col-md-12">
           <h1>SPONSORS</h1>
+          <br/>
+          <div class="row">
+            <div class="col-md-12">
+              <a href="http://www.northropgrumman.com/Pages/default.aspx" target="_blank"><img src="{{asset('img/ng_logo.png')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
+            </div>
+            <br/><br/>
+            <div class="col-md-12" style="margin-top: 40px;">
+              <i class="fa fa-arrow-circle-right fa-fw fa-2x" style="vertical-align:middle;" aria-hidden="true"></i>
+              <h6 style="display:inline;">More to Come!</h6>
+            </div>
+          </div>
         </div>
       </div>
     </section>
