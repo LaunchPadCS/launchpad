@@ -51,11 +51,11 @@
 		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showApplications') }}">Applications</a></li>
 		   					<li class="nav-item"><a class="nav-link" href="{{ action('MentorController@showInterviewSchedule') }}">Interview Schedule</a></li>
 		   				@endrole
-		   				<li class="nav-item"><a class="nav-link" href="{{ action('PageController@showCommunity') }}">Community</a></li>
 		   			@endif
 		   			@role('admin')
 		   				@include('layouts.admin_nav')
 		   			@endrole
+		   		  <li class="nav-item"><a class="nav-link" href="{{ action('PageController@showCommunity') }}">Community</a></li>
 		   		</ul>
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item dropdown">

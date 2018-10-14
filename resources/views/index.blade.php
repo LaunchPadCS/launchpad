@@ -124,10 +124,14 @@
             <div class="col-md-12">
               <a href="http://www.northropgrumman.com/Pages/default.aspx" target="_blank"><img src="{{asset('img/ng_logo.png')}}" class="s-logo img-fluid" style="max-height: 80px"></a>
             </div>
-            <br/><br/>
-            <div class="col-md-12" style="margin-top: 40px;">
-              <i class="fa fa-arrow-circle-right fa-fw fa-2x" style="vertical-align:middle;" aria-hidden="true"></i>
-              <h6 style="display:inline;">More to Come!</h6>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-md-6">
+              <a href="https://careers.microsoft.com/us/en/" target="_blank"><img src="{{asset('img/microsoft_logo.png')}}" class="s-logo img-fluid" style="max-height: 110px"></a>
+            </div>
+            <div class="col-md-6">
+              <a href="https://www.delphi.com/" target="_blank"><img src="{{asset('img/delphi_logo.png')}}" class="s-logo img-fluid" style="max-height: 100px"></a>
             </div>
           </div>
         </div>
